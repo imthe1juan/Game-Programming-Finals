@@ -4,10 +4,12 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System;
+using Unity.VisualScripting;
 
 public class BattleManager : MonoBehaviour
 {
     public static BattleManager Instance;
+    [SerializeField] private List<Character> characters;
     [SerializeField] private List<Character> allies;
     [SerializeField] private List<Character> enemies;
     public List<Button> movesetButtonList;
@@ -15,19 +17,25 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private Transform pickTarget;
     [SerializeField] private TMP_Text playerName;
     [SerializeField] private TMP_Text characterAction;
-    [SerializeField] private Button playerMoveset;
     [SerializeField] private Transform movesetParent;
 
     public Character characterTurn;
     public bool isActionActive = false;
     public bool isAllyTurn;
     public bool preselectedMove = false;
-
+    private int tookAction = 0;
     [SerializeField] private Character targetCharacter;
 
     private void Awake()
     {
         Instance = this;
+        characters.AddRange(allies);
+        characters.AddRange(enemies);
+    }
+
+    private void Start()
+    {
+        NextTurn();
     }
 
     public void EnemyTurn(string name)
@@ -36,11 +44,11 @@ public class BattleManager : MonoBehaviour
 
         characterAction.text = name;
         playerName.gameObject.SetActive(false);
-        playerMoveset.gameObject.SetActive(false);
     }
 
     public void PlayerTurn(string name, string moveset)
     {
+        DisableEnemyColliders();
         preselectedMove = false;
         isAllyTurn = true;
         targetCharacter = enemies[0];
@@ -50,8 +58,6 @@ public class BattleManager : MonoBehaviour
         movesetParent.gameObject.SetActive(true);
         playerName.gameObject.SetActive(true);
         playerName.text = name;
-        playerMoveset.gameObject.SetActive(true);
-        playerMoveset.GetComponentInChildren<TMP_Text>().text = moveset;
 
         characterAction.text = moveset;
     }
@@ -68,6 +74,27 @@ public class BattleManager : MonoBehaviour
         pickTarget.gameObject.SetActive(false);
     }
 
+    public void NextTurn()
+    {
+        if (tookAction >= characters.Count)
+        {
+            tookAction = 0;
+            foreach (var item in characters)
+            {
+                item.tookAction = false;
+            }
+        }
+        for (int i = 0; i < characters.Count; i++)
+        {
+            if (characters[i].tookAction == false)
+            {
+                tookAction++;
+                characters[i].ThisTurn();
+                break;
+            }
+        }
+    }
+
     public void ShowCharacterAction()
     {
     }
@@ -75,9 +102,10 @@ public class BattleManager : MonoBehaviour
     public void PickTarget(Character character)
     {
         if (!isAllyTurn) return;
+
         targetCharacter = character;
         print("Set target is " + targetCharacter.characterName);
-        characterTurn.ExecutePlayerMove();
+        characterTurn.ExecuteMove();
     }
 
     public Character GetTarget()
@@ -89,6 +117,12 @@ public class BattleManager : MonoBehaviour
     {
         int randomNum = UnityEngine.Random.Range(0, allies.Count);
         return allies[randomNum];
+    }
+
+    public Character PickRandomEnemy()
+    {
+        int randomNum = UnityEngine.Random.Range(0, allies.Count);
+        return enemies[randomNum];
     }
 
     public void PreselectedMove()
@@ -120,6 +154,14 @@ public class BattleManager : MonoBehaviour
             {
                 item.DisableCharacter();
             }
+        }
+    }
+
+    private void DisableEnemyColliders()
+    {
+        foreach (var item in enemies)
+        {
+            item.DisableColliders();
         }
     }
 

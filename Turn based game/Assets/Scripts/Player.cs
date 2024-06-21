@@ -22,15 +22,13 @@ public class Player : Character
         BattleManager.Instance.PickTarget(this);
     }
 
-    public override void EnableCharacter()
+    public override void ExecuteMove()
     {
-        sr.color = new Color32(155, 89, 182, 255);
-        c2D.enabled = true;
-    }
+        base.ExecuteMove();
+        Character target = BattleManager.Instance.GetTarget();
+        transform.position = target.transform.position - new Vector3(1.5f, 0, 0);
 
-    public override void DisableCharacter()
-    {
-        sr.color = new Color32(155, 89, 182, 100);
-        c2D.enabled = false;
+        preselectedMove.Execute(this, target);
+        BattleManager.Instance.DisableMoveset();
     }
 }

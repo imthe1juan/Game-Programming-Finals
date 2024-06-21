@@ -2,41 +2,39 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 {
+    public HealthbarManager healthbarManager;
     public Transform target;
     public string characterName;
     public float speed;
     public float currentSpeed;
 
-    public int health;
+    public int maxHealth;
     public int currentHealth;
     public bool isEnemy;
 
     public List<Move> moves;
-    private Move preselectedMove;
+    public Move preselectedMove;
     public Collider2D c2D;
     public SpriteRenderer sr;
+    public bool tookAction = false;
+    public Vector3 originalPos;
 
     public virtual void Awake()
     {
+        originalPos = transform.position;
         currentSpeed = speed;
+        currentHealth = maxHealth;
+        healthbarManager.SetHealth(currentHealth);
     }
 
     private void Update()
     {
-        //If someone is attacking, stop the cooldown
-        if (!BattleManager.Instance.isActionActive)
-        {
-            currentSpeed -= Time.deltaTime;
-        }
-        if (currentSpeed < 0)
-        {
-            ThisTurn();
-        }
     }
 
     public virtual void ThisTurn()
@@ -44,6 +42,7 @@ public class Character : MonoBehaviour
         BattleManager.Instance.characterTurn = this;
         currentSpeed = speed;
         BattleManager.Instance.isActionActive = true;
+        tookAction = true;
     }
 
     private void PreselectMove(Move move)
@@ -60,35 +59,51 @@ public class Character : MonoBehaviour
         }
     }
 
-    public void ExecutePlayerMove()
+    public virtual void ExecuteMove()
     {
-        Character target = BattleManager.Instance.GetTarget();
-        preselectedMove.Execute(this, target);
-        BattleManager.Instance.DisableMoveset();
+        Invoke(nameof(RevertPosition), .5f);
     }
 
     public virtual void ExecuteMove(Move move)
     {
-        Character target = BattleManager.Instance.GetTarget();
+        /*Character target = BattleManager.Instance.GetTarget();
         move.Execute(this, target);
         BattleManager.Instance.DisableMoveset();
+        Invoke(nameof(RevertPosition), .5f);*/
+    }
+
+    public void RevertPosition()
+    {
+        transform.position = originalPos;
     }
 
     public void Damage(int damage)
     {
-        Debug.Log(characterName + " received " + damage);
-        Invoke(nameof(NextTurn), 1);
+        currentHealth -= damage;
+        if (currentHealth < 0)
+        {
+            currentHealth = 0;
+        }
+        healthbarManager.UpdateHealth(currentHealth);
+
+        Invoke(nameof(NextTurn), .5f);
     }
 
     public void Heal(int heal)
     {
-        Debug.Log(characterName + " received " + heal + " health");
-        Invoke(nameof(NextTurn), 1);
+        currentHealth += heal;
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+        healthbarManager.UpdateHealth(currentHealth);
+        Invoke(nameof(NextTurn), .5f);
     }
 
     private void NextTurn()
     {
         BattleManager.Instance.isActionActive = false;
+        BattleManager.Instance.NextTurn();
     }
 
     public virtual void OnMouseDown()
@@ -101,6 +116,7 @@ public class Character : MonoBehaviour
         {
             int index = i;
             BattleManager.Instance.movesetButtonList[index].onClick.AddListener(() => PreselectMove(moves[index]));
+            BattleManager.Instance.movesetButtonList[index].GetComponentInChildren<TMP_Text>().text = moves[i].moveName;
         }
         for (int i = BattleManager.Instance.movesetButtonList.Count - 1; i > moves.Count - 1; i--)
         {
@@ -110,15 +126,18 @@ public class Character : MonoBehaviour
 
     public virtual void EnableCharacter()
     {
-        sr.color = new Color32(155, 89, 182, 255);
-        //sr.color = new Color32(255, 255, 255, 255); Original
+        sr.color = new Color32(255, 255, 255, 255);
         c2D.enabled = true;
     }
 
     public virtual void DisableCharacter()
     {
-        sr.color = new Color32(231, 76, 60, 100);
-        //sr.color = new Color32(255, 255, 255, 100); Original
+        sr.color = new Color32(255, 255, 255, 100);
+        c2D.enabled = false;
+    }
+
+    public virtual void DisableColliders()
+    {
         c2D.enabled = false;
     }
 }

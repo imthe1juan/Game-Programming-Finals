@@ -8,35 +8,39 @@ public class Enemy : Character
     {
         base.ThisTurn();
         BattleManager.Instance.EnemyTurn(characterName + "'s Turn");
-        Invoke(nameof(MoveInvoked), 1);
+        Invoke(nameof(MoveInvoked), .5f);
     }
 
     private void MoveInvoked()
     {
         int randomMove = Random.Range(0, moves.Count);
-        ExecuteMove(moves[randomMove]);
+        preselectedMove = moves[randomMove];
+        BattleManager.Instance.EnemyTurn(characterName + " uses " + preselectedMove.moveName);
+
+        ExecuteMove(preselectedMove);
     }
 
     public override void ExecuteMove(Move move)
     {
-        move.Execute(this, BattleManager.Instance.PickRandomAlly());
+        Character character;
+        if (move.isTargetAlly)
+        {
+            character = BattleManager.Instance.PickRandomEnemy();
+            transform.position = character.gameObject.transform.position + new Vector3(1.5f, 0, 0);
+        }
+        else
+        {
+            character = BattleManager.Instance.PickRandomAlly();
+            transform.position = character.gameObject.transform.position + new Vector3(1.5f, 0, 0);
+        }
+
+        move.Execute(this, character);
         BattleManager.Instance.DisableMoveset();
+        Invoke(nameof(RevertPosition), .5f);
     }
 
     public override void OnMouseDown()
     {
         BattleManager.Instance.PickTarget(this);
-    }
-
-    public override void EnableCharacter()
-    {
-        sr.color = new Color32(231, 76, 60, 255);
-        c2D.enabled = true;
-    }
-
-    public override void DisableCharacter()
-    {
-        sr.color = new Color32(231, 76, 60, 100);
-        c2D.enabled = false;
     }
 }
