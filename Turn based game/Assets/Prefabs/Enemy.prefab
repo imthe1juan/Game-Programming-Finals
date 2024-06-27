@@ -137,7 +137,7 @@ Transform:
   m_GameObject: {fileID: 3606067156659856623}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.28, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -181,10 +181,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1727978481
+  m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1151131887, guid: df31f9bb4cd8ddb4cae5300aec57a094, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ece2d488b00bc144fadd0864d2c47ddb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -243,14 +243,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2db47650aa950143889f430527ce1f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterSO: {fileID: 0}
   healthbarManager: {fileID: 7708020990688959995}
   target: {fileID: 0}
   characterName: Jimmy
-  speed: 2
-  currentSpeed: 0
+  isEnemy: 1
   maxHealth: 100
   currentHealth: 0
-  isEnemy: 1
+  dead: 0
   moves:
   - {fileID: 11400000, guid: 90414e5c24f883e40bbaa573a98ebde1, type: 2}
   - {fileID: 11400000, guid: 01b41f50ce7062146b732b87fccb20d5, type: 2}
@@ -387,7 +387,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 5772257815180808938}
   m_FillRect: {fileID: 6794768038971014848}
   m_HandleRect: {fileID: 188929976283386947}

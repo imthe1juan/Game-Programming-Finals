@@ -14,21 +14,23 @@ public class Player : Character
     {
         base.ThisTurn();
         SetMoveset();
-        BattleManager.Instance.PlayerTurn(characterName, "Attack");
+        battleManager.PlayerTurn(characterName);
     }
 
     public override void OnMouseDown()
     {
-        BattleManager.Instance.PickTarget(this);
+        battleManager.PickTarget(this);
     }
 
     public override void ExecuteMove()
     {
         base.ExecuteMove();
-        Character target = BattleManager.Instance.GetTarget();
+        Character target = battleManager.GetTarget();
+        battleManager.AnnounceAction(characterName + " uses " + preselectedMove.moveName + " to " + battleManager.GetTarget().characterName);
+        preselectedMove.Execute(this, target);
+
         transform.position = target.transform.position - new Vector3(1.5f, 0, 0);
 
-        preselectedMove.Execute(this, target);
-        BattleManager.Instance.DisableMoveset();
+        battleManager.DisableMoveset();
     }
 }

@@ -9,6 +9,9 @@ using Unity.VisualScripting;
 public class BattleManager : MonoBehaviour
 {
     public static BattleManager Instance;
+
+    private RoundsManager roundsManager;
+
     [SerializeField] private List<Character> characters;
     [SerializeField] private List<Character> allies;
     [SerializeField] private List<Character> enemies;
@@ -20,37 +23,48 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private Transform movesetParent;
 
     public Character characterTurn;
-    public bool isActionActive = false;
-    public bool isAllyTurn;
-    public bool preselectedMove = false;
-    private int tookAction = 0;
     [SerializeField] private Character targetCharacter;
+    public bool isActionActive = false;
+    public bool preselectedMove = false;
+    private bool roundOver = false;
+    [SerializeField] private int tookAction = 0;
+    private int enemiesDead = 0;
+    private int alliesDead = 0;
 
     private void Awake()
     {
         Instance = this;
-        characters.AddRange(allies);
-        characters.AddRange(enemies);
+        roundsManager = FindObjectOfType<RoundsManager>();
     }
 
     private void Start()
     {
+        //NextTurn();
+    }
+
+    public void StartBattle()
+    {
+        characters.Clear();
+        characters.AddRange(allies);
+        characters.AddRange(enemies);
         NextTurn();
     }
 
     public void EnemyTurn(string name)
     {
+        DisableColliders();
+        if (roundOver) { return; }
         characterAction.gameObject.SetActive(false);
 
         characterAction.text = name;
         playerName.gameObject.SetActive(false);
     }
 
-    public void PlayerTurn(string name, string moveset)
+    public void PlayerTurn(string name)
     {
-        DisableEnemyColliders();
+        if (roundOver) { return; }
+        DisableColliders();
         preselectedMove = false;
-        isAllyTurn = true;
         targetCharacter = enemies[0];
 
         characterAction.gameObject.SetActive(false);
@@ -58,8 +72,11 @@ public class BattleManager : MonoBehaviour
         movesetParent.gameObject.SetActive(true);
         playerName.gameObject.SetActive(true);
         playerName.text = name;
+    }
 
-        characterAction.text = moveset;
+    public void AnnounceAction(string action)
+    {
+        characterAction.text = action;
     }
 
     public void DisableMoveset()
@@ -76,6 +93,7 @@ public class BattleManager : MonoBehaviour
 
     public void NextTurn()
     {
+        if (roundOver) { return; }
         if (tookAction >= characters.Count)
         {
             tookAction = 0;
@@ -84,25 +102,33 @@ public class BattleManager : MonoBehaviour
                 item.tookAction = false;
             }
         }
+
         for (int i = 0; i < characters.Count; i++)
         {
-            if (characters[i].tookAction == false)
+            if (characters[i].dead == false && characters[i].tookAction == false)
             {
-                tookAction++;
                 characters[i].ThisTurn();
+                tookAction++;
                 break;
+            }
+            else
+            {
+                continue;
             }
         }
     }
 
-    public void ShowCharacterAction()
+    public void InitializeEnemies()
     {
+        roundOver = false;
+        foreach (var item in enemies)
+        {
+            item.SetCharacter();
+        }
     }
 
     public void PickTarget(Character character)
     {
-        if (!isAllyTurn) return;
-
         targetCharacter = character;
         print("Set target is " + targetCharacter.characterName);
         characterTurn.ExecuteMove();
@@ -116,13 +142,25 @@ public class BattleManager : MonoBehaviour
     public Character PickRandomAlly()
     {
         int randomNum = UnityEngine.Random.Range(0, allies.Count);
-        return allies[randomNum];
+        Character character = allies[randomNum];
+        while (!character.gameObject.activeInHierarchy)
+        {
+            randomNum = UnityEngine.Random.Range(0, allies.Count);
+            character = allies[randomNum];
+        }
+        return character;
     }
 
     public Character PickRandomEnemy()
     {
-        int randomNum = UnityEngine.Random.Range(0, allies.Count);
-        return enemies[randomNum];
+        int randomNum = UnityEngine.Random.Range(0, enemies.Count);
+        Character character = enemies[randomNum];
+        while (!character.gameObject.activeInHierarchy)
+        {
+            randomNum = UnityEngine.Random.Range(0, enemies.Count);
+            character = enemies[randomNum];
+        }
+        return character;
     }
 
     public void PreselectedMove()
@@ -157,13 +195,57 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    private void DisableEnemyColliders()
+    private void DisableColliders()
     {
-        foreach (var item in enemies)
+        foreach (var item in characters)
         {
             item.DisableColliders();
         }
     }
 
-    //0 = Disable enemy collider, 1 = Disable ally collider, 2 = enable all
+    public void CheckGameState()
+    {
+        enemiesDead = 0;
+        alliesDead = 0;
+
+        foreach (var item in enemies)
+        {
+            if (item.dead)
+            {
+                enemiesDead++;
+            }
+        }
+        if (enemiesDead >= enemies.Count)
+        {
+            //All enemies are dead
+            tookAction = 0;
+            roundOver = true;
+            foreach (var item in characters)
+            {
+                item.tookAction = false;
+            }
+
+            if (roundsManager.Round == 3)
+            {
+                roundsManager.LastRound();
+            }
+            else
+            {
+                roundsManager.NextRound();
+            }
+        }
+
+        foreach (var item in allies)
+        {
+            if (item.dead)
+            {
+                alliesDead++;
+            }
+        }
+        if (alliesDead >= allies.Count)
+        {
+            roundOver = true;
+            GameStateManager.Instance.IsPlayerWon(false);
+        }
+    }
 }

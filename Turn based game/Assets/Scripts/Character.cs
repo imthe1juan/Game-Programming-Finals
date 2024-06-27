@@ -8,18 +8,19 @@ using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 {
+    public CharacterSO characterSO;
+    protected BattleManager battleManager;
     public HealthbarManager healthbarManager;
     public Transform target;
     public string characterName;
-    public float speed;
-    public float currentSpeed;
+    public bool isEnemy = false;
 
     public int maxHealth;
     public int currentHealth;
-    public bool isEnemy;
-
+    public bool dead;
     public List<Move> moves;
     public Move preselectedMove;
+
     public Collider2D c2D;
     public SpriteRenderer sr;
     public bool tookAction = false;
@@ -27,41 +28,47 @@ public class Character : MonoBehaviour
 
     public virtual void Awake()
     {
+        battleManager = FindObjectOfType<BattleManager>();
+        SetCharacter();
+    }
+
+    public void SetCharacter()
+    {
+        gameObject.SetActive(true);
+        dead = false;
         originalPos = transform.position;
-        currentSpeed = speed;
+        maxHealth = characterSO.maxHealth;
+        characterName = characterSO.characterName;
+        sr.sprite = characterSO.characterSprite;
+        moves = characterSO.moves;
+
         currentHealth = maxHealth;
         healthbarManager.SetHealth(currentHealth);
     }
 
-    private void Update()
-    {
-    }
-
     public virtual void ThisTurn()
     {
-        BattleManager.Instance.characterTurn = this;
-        currentSpeed = speed;
-        BattleManager.Instance.isActionActive = true;
+        battleManager.characterTurn = this;
+        battleManager.isActionActive = true;
         tookAction = true;
     }
 
     private void PreselectMove(Move move)
     {
-        BattleManager.Instance.PreselectedMove();
+        battleManager.PreselectedMove();
         preselectedMove = move;
         if (move.isTargetAlly)
         {
-            BattleManager.Instance.SetTargets(1);
+            battleManager.SetTargets(1);
         }
         else
         {
-            BattleManager.Instance.SetTargets(0);
+            battleManager.SetTargets(0);
         }
     }
 
     public virtual void ExecuteMove()
     {
-        Invoke(nameof(RevertPosition), .5f);
     }
 
     public virtual void ExecuteMove(Move move)
@@ -80,13 +87,15 @@ public class Character : MonoBehaviour
     public void Damage(int damage)
     {
         currentHealth -= damage;
-        if (currentHealth < 0)
+        if (currentHealth <= 0)
         {
+            dead = true;
             currentHealth = 0;
+            gameObject.SetActive(false);
+            //battleManager.RemoveCharacter(this);
+            battleManager.CheckGameState();
         }
         healthbarManager.UpdateHealth(currentHealth);
-
-        Invoke(nameof(NextTurn), .5f);
     }
 
     public void Heal(int heal)
@@ -97,13 +106,15 @@ public class Character : MonoBehaviour
             currentHealth = maxHealth;
         }
         healthbarManager.UpdateHealth(currentHealth);
+        if (!isEnemy) return;
         Invoke(nameof(NextTurn), .5f);
     }
 
-    private void NextTurn()
+    public void NextTurn()
     {
-        BattleManager.Instance.isActionActive = false;
-        BattleManager.Instance.NextTurn();
+        RevertPosition();
+        battleManager.isActionActive = false;
+        battleManager.NextTurn();
     }
 
     public virtual void OnMouseDown()
@@ -115,12 +126,12 @@ public class Character : MonoBehaviour
         for (int i = 0; i < moves.Count; i++)
         {
             int index = i;
-            BattleManager.Instance.movesetButtonList[index].onClick.AddListener(() => PreselectMove(moves[index]));
-            BattleManager.Instance.movesetButtonList[index].GetComponentInChildren<TMP_Text>().text = moves[i].moveName;
+            battleManager.movesetButtonList[index].onClick.AddListener(() => PreselectMove(moves[index]));
+            battleManager.movesetButtonList[index].GetComponentInChildren<TMP_Text>().text = moves[i].moveName;
         }
-        for (int i = BattleManager.Instance.movesetButtonList.Count - 1; i > moves.Count - 1; i--)
+        for (int i = battleManager.movesetButtonList.Count - 1; i > moves.Count - 1; i--)
         {
-            BattleManager.Instance.movesetButtonList[i].gameObject.SetActive(false);
+            battleManager.movesetButtonList[i].gameObject.SetActive(false);
         }
     }
 
