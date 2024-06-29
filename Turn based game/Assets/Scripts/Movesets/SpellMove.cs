@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "New Move", menuName = "Move/Spell")]
 public class SpellMove : Move
 {
     private MoveScaling moveScaling;
@@ -11,6 +12,6 @@ public class SpellMove : Move
         Debug.Log($"{user.characterName} uses {moveName} on {target.characterName}!");
         moveScaling = FindObjectOfType<MoveScaling>();
 
-        moveScaling.ScaleMove(this, user, target, power);
+        moveScaling.ScaleSpellMove(this, user, target, power);
     }
 }

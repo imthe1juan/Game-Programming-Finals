@@ -6,7 +6,7 @@ using UnityEngine;
 public class RoundsManager : MonoBehaviour
 {
     private DialogueManager dialogueManager;
-    [SerializeField] private GameObject roundObject;
+    [SerializeField] private GameObject roundOutputObject;
     [SerializeField] private TMP_Text roundText;
     private int round = 1;
 
@@ -18,36 +18,29 @@ public class RoundsManager : MonoBehaviour
         dialogueManager = FindObjectOfType<DialogueManager>();
     }
 
-    private void Start()
+    public void FirstRound()
     {
-        roundObject.SetActive(true);
+        roundOutputObject.SetActive(true);
         roundText.text = $"Round\n{round}/3";
-        Invoke(nameof(InitializeDialogue), 1);
+        Invoke(nameof(StartBattle), 1);
     }
 
     public void NextRound()
     {
         round++;
-        roundObject.SetActive(true);
+        roundOutputObject.SetActive(true);
         roundText.text = $"Round\n{round}/3";
-        Invoke(nameof(InitializeDialogue), 2);
+        Invoke(nameof(StartBattle), 2);
     }
 
     public void LastRound()
     {
-        dialogueManager.InitalizeDialogue(true);
+        dialogueManager.InitalizeEndDialogue(true);
     }
 
-    public void InitializeDialogue()
+    public void StartBattle()
     {
-        roundObject.SetActive(false);
-        if (round == 1)
-        {
-            dialogueManager.InitalizeDialogue(false);
-        }
-        else
-        {
-            dialogueManager.InitalizeDialogue(false);
-        }
+        roundOutputObject.SetActive(false);
+        BattleManager.Instance.StartBattle();
     }
 }

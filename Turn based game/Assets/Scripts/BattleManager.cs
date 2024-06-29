@@ -93,7 +93,10 @@ public class BattleManager : MonoBehaviour
 
     public void NextTurn()
     {
+        Debug.Log("Test 1");
         if (roundOver) { return; }
+        Debug.Log("Test 2");
+
         if (tookAction >= characters.Count)
         {
             tookAction = 0;
@@ -105,8 +108,12 @@ public class BattleManager : MonoBehaviour
 
         for (int i = 0; i < characters.Count; i++)
         {
+            Debug.Log("Test 3");
+
             if (characters[i].dead == false && characters[i].tookAction == false)
             {
+                Debug.Log("Test 4");
+
                 characters[i].ThisTurn();
                 tookAction++;
                 break;
@@ -132,6 +139,7 @@ public class BattleManager : MonoBehaviour
         targetCharacter = character;
         print("Set target is " + targetCharacter.characterName);
         characterTurn.ExecuteMove();
+        DisableColliders();
     }
 
     public Character GetTarget()

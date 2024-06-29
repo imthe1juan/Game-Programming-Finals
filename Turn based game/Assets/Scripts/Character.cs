@@ -11,7 +11,7 @@ public class Character : MonoBehaviour
     public CharacterSO characterSO;
     protected BattleManager battleManager;
     public HealthbarManager healthbarManager;
-    public Transform target;
+    public Character target;
     public string characterName;
     public bool isEnemy = false;
 
@@ -24,6 +24,7 @@ public class Character : MonoBehaviour
     public Collider2D c2D;
     public SpriteRenderer sr;
     public bool tookAction = false;
+    public bool thisTurn = false;
     public Vector3 originalPos;
 
     public virtual void Awake()
@@ -51,6 +52,7 @@ public class Character : MonoBehaviour
         battleManager.characterTurn = this;
         battleManager.isActionActive = true;
         tookAction = true;
+        thisTurn = true;
     }
 
     private void PreselectMove(Move move)
@@ -92,13 +94,12 @@ public class Character : MonoBehaviour
             dead = true;
             currentHealth = 0;
             gameObject.SetActive(false);
-            //battleManager.RemoveCharacter(this);
             battleManager.CheckGameState();
         }
         healthbarManager.UpdateHealth(currentHealth);
     }
 
-    public void Heal(int heal)
+    public virtual void Heal(int heal)
     {
         currentHealth += heal;
         if (currentHealth > maxHealth)
@@ -106,13 +107,13 @@ public class Character : MonoBehaviour
             currentHealth = maxHealth;
         }
         healthbarManager.UpdateHealth(currentHealth);
-        if (!isEnemy) return;
-        Invoke(nameof(NextTurn), .5f);
     }
 
     public void NextTurn()
     {
         RevertPosition();
+        tookAction = false;
+        thisTurn = false;
         battleManager.isActionActive = false;
         battleManager.NextTurn();
     }

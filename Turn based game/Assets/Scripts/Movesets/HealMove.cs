@@ -14,7 +14,14 @@ public class HealMove : Move
 
         if (user.isEnemy)
         {
-            user.Heal(power);
+            if (user == target)
+            {
+                user.Heal(power);
+            }
+            else
+            {
+                target.Heal(power);
+            }
         }
         else
         {

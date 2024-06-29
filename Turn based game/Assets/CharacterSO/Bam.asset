@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: Bam
   characterSprite: {fileID: 21300000, guid: 749f3294f45ba0a43a0333931c3cd6a4, type: 3}
-  maxHealth: 500
+  maxHealth: 200
   moves:
+  - {fileID: 11400000, guid: 90414e5c24f883e40bbaa573a98ebde1, type: 2}
   - {fileID: 11400000, guid: 01b41f50ce7062146b732b87fccb20d5, type: 2}

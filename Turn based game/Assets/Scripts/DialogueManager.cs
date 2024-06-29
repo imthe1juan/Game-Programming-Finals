@@ -22,7 +22,15 @@ public class DialogueManager : MonoBehaviour
         roundsManager = FindObjectOfType<RoundsManager>();
     }
 
-    public void InitalizeDialogue(bool hasDialogue)
+    private void Start()
+    {
+        if (roundsManager.Round == 1)
+        {
+            InitalizeDialogue(true);
+        }
+    }
+
+    public virtual void InitalizeDialogue(bool hasDialogue)
     {
         if (hasDialogue)
         {
@@ -36,11 +44,28 @@ public class DialogueManager : MonoBehaviour
         else
         {
             BattleManager.Instance.InitializeEnemies();
-            StartBattle();
+            roundsManager.FirstRound();
         }
     }
 
-    public void NextDialogue()
+    public void InitalizeEndDialogue(bool hasDialogue)
+    {
+        if (hasDialogue)
+        {
+            dialogueObject.SetActive(true);
+            ShowDialogue();
+            characterImage[0].sprite = conversations[currentConversation].characterSprite[0];
+            characterImage[1].sprite = conversations[currentConversation].characterSprite[1];
+            characterNameText[0].text = conversations[currentConversation].characterName[0];
+            characterNameText[1].text = conversations[currentConversation].characterName[1];
+        }
+        else
+        {
+            //NextMap
+        }
+    }
+
+    public virtual void NextDialogue()
     {
         currentDialogue++;
         if (currentDialogue > conversations[currentConversation].dialogue.Length - 1)
@@ -48,7 +73,8 @@ public class DialogueManager : MonoBehaviour
             currentDialogue = 0;
             if (roundsManager.Round == 1)
             {
-                StartBattle();
+                dialogueObject.SetActive(false);
+                roundsManager.FirstRound();
             }
             else
             {
@@ -59,7 +85,7 @@ public class DialogueManager : MonoBehaviour
         ShowDialogue();
     }
 
-    public void ShowDialogue()
+    public virtual void ShowDialogue()
     {
         ConversationSO currentDialogueSceneSO = conversations[currentConversation];
         dialogueText.text = currentDialogueSceneSO.dialogue[currentDialogue].dialogueString;
@@ -78,11 +104,5 @@ public class DialogueManager : MonoBehaviour
             characterImage[0].color = new Color32(150, 150, 150, 255);
             characterImage[0].transform.localScale = Vector3.one;
         }
-    }
-
-    public void StartBattle()
-    {
-        dialogueObject.SetActive(false);
-        BattleManager.Instance.StartBattle();
     }
 }
