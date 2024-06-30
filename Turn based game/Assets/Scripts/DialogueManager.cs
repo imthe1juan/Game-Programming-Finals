@@ -43,7 +43,6 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            BattleManager.Instance.InitializeEnemies();
             roundsManager.FirstRound();
         }
     }

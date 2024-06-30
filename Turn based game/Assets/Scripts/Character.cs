@@ -10,13 +10,19 @@ public class Character : MonoBehaviour
 {
     public CharacterSO characterSO;
     protected BattleManager battleManager;
-    public HealthbarManager healthbarManager;
+    private HealthbarManager healthbarManager;
+    private ManabarManager manabarManager;
+
     public Character target;
     public string characterName;
     public bool isEnemy = false;
 
     public int maxHealth;
     public int currentHealth;
+
+    public int maxMana;
+    public int currentMana;
+
     public bool dead;
     public List<Move> moves;
     public Move preselectedMove;
@@ -30,6 +36,8 @@ public class Character : MonoBehaviour
     public virtual void Awake()
     {
         battleManager = FindObjectOfType<BattleManager>();
+        healthbarManager = GetComponent<HealthbarManager>();
+        manabarManager = GetComponent<ManabarManager>();
         SetCharacter();
     }
 
@@ -38,17 +46,23 @@ public class Character : MonoBehaviour
         gameObject.SetActive(true);
         dead = false;
         originalPos = transform.position;
+        maxMana = characterSO.maxMana;
         maxHealth = characterSO.maxHealth;
+
         characterName = characterSO.characterName;
         sr.sprite = characterSO.characterSprite;
         moves = characterSO.moves;
 
         currentHealth = maxHealth;
+        currentMana = maxMana;
+
         healthbarManager.SetHealth(currentHealth);
+        manabarManager.SetMana(currentMana);
     }
 
     public virtual void ThisTurn()
     {
+        RegenMana();
         battleManager.characterTurn = this;
         battleManager.isActionActive = true;
         tookAction = true;
@@ -109,10 +123,29 @@ public class Character : MonoBehaviour
         healthbarManager.UpdateHealth(currentHealth);
     }
 
+    public virtual void UpdateMana(int value)
+    {
+        currentMana += value;
+        if (currentMana > maxMana)
+        {
+            currentMana = maxMana;
+        }
+        manabarManager.UpdateMana(currentMana);
+    }
+
+    public virtual void RegenMana()
+    {
+        currentMana += 20;
+        if (currentMana > maxMana)
+        {
+            currentMana = maxMana;
+        }
+        manabarManager.UpdateMana(currentMana);
+    }
+
     public void NextTurn()
     {
         RevertPosition();
-        tookAction = false;
         thisTurn = false;
         battleManager.isActionActive = false;
         battleManager.NextTurn();
@@ -127,8 +160,17 @@ public class Character : MonoBehaviour
         for (int i = 0; i < moves.Count; i++)
         {
             int index = i;
+
             battleManager.movesetButtonList[index].onClick.AddListener(() => PreselectMove(moves[index]));
             battleManager.movesetButtonList[index].GetComponentInChildren<TMP_Text>().text = moves[i].moveName;
+            if (moves[index].manaCost > currentMana)
+            {
+                battleManager.movesetButtonList[index].interactable = false;
+            }
+            else
+            {
+                battleManager.movesetButtonList[index].interactable = true;
+            }
         }
         for (int i = battleManager.movesetButtonList.Count - 1; i > moves.Count - 1; i--)
         {
@@ -136,20 +178,33 @@ public class Character : MonoBehaviour
         }
     }
 
-    public virtual void EnableCharacter()
+    public void ColorCharacter()
     {
         sr.color = new Color32(255, 255, 255, 255);
+    }
+
+    public void FadeCharacter()
+    {
+        sr.color = new Color32(255, 255, 255, 100);
+    }
+
+    public void DisableCollider()
+    {
+        c2D.enabled = false;
+    }
+
+    public void EnableCollider()
+    {
         c2D.enabled = true;
     }
 
-    public virtual void DisableCharacter()
+    public void EnableSprite()
     {
-        sr.color = new Color32(255, 255, 255, 100);
-        c2D.enabled = false;
+        sr.gameObject.SetActive(true);
     }
 
-    public virtual void DisableColliders()
+    public void DisableSprite()
     {
-        c2D.enabled = false;
+        sr.gameObject.SetActive(false);
     }
 }

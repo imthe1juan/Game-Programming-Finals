@@ -9,7 +9,7 @@ public class Enemy : Character
     {
         base.ThisTurn();
         battleManager.EnemyTurn(characterName + "'s Turn");
-        Invoke(nameof(MoveInvoked), .5f);
+        Invoke(nameof(MoveInvoked), 1f);
     }
 
     private void MoveInvoked()
@@ -28,16 +28,18 @@ public class Enemy : Character
             target = battleManager.PickRandomAlly(); // Attacks you/your ally
             transform.position = target.gameObject.transform.position + new Vector3(1.5f, 0, 0);
         }
+
         this.target = target;
         battleManager.EnemyTurn(characterName + " uses " + preselectedMove.moveName + " to " + battleManager.GetTarget().characterName);
 
+        battleManager.FocusMove(this, target);
+        CameraManager.Instance.TargetTakingAction(target.transform, isEnemy);
         ExecuteMove(preselectedMove);
     }
 
     public override void ExecuteMove(Move move)
     {
         StartCoroutine(ExecuteAfterDelay(move, this.target));
-        battleManager.DisableMoveset();
     }
 
     public override void Heal(int heal)

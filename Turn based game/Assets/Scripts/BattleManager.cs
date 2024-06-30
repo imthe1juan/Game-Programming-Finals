@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System;
-using Unity.VisualScripting;
+using static UnityEditor.Progress;
 
 public class BattleManager : MonoBehaviour
 {
@@ -17,6 +17,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private List<Character> enemies;
     public List<Button> movesetButtonList;
 
+    [SerializeField] private Image background;
     [SerializeField] private Transform pickTarget;
     [SerializeField] private TMP_Text playerName;
     [SerializeField] private TMP_Text characterAction;
@@ -45,6 +46,7 @@ public class BattleManager : MonoBehaviour
     public void StartBattle()
     {
         characters.Clear();
+        InitializeEnemies();
         characters.AddRange(allies);
         characters.AddRange(enemies);
         NextTurn();
@@ -52,9 +54,8 @@ public class BattleManager : MonoBehaviour
 
     public void EnemyTurn(string name)
     {
-        DisableColliders();
         if (roundOver) { return; }
-        characterAction.gameObject.SetActive(false);
+        DisableMoveset();
 
         characterAction.text = name;
         playerName.gameObject.SetActive(false);
@@ -63,7 +64,6 @@ public class BattleManager : MonoBehaviour
     public void PlayerTurn(string name)
     {
         if (roundOver) { return; }
-        DisableColliders();
         preselectedMove = false;
         targetCharacter = enemies[0];
 
@@ -85,7 +85,7 @@ public class BattleManager : MonoBehaviour
         {
             movesetButtonList[i].onClick.RemoveAllListeners();
         }
-        SetTargets(2);
+
         movesetParent.gameObject.SetActive(false);
         characterAction.gameObject.SetActive(true);
         pickTarget.gameObject.SetActive(false);
@@ -93,11 +93,21 @@ public class BattleManager : MonoBehaviour
 
     public void NextTurn()
     {
-        Debug.Log("Test 1");
-        if (roundOver) { return; }
-        Debug.Log("Test 2");
+        RevertFocus();
+        CameraManager.Instance.DefaultCameraPos();
 
-        if (tookAction >= characters.Count)
+        if (roundOver) { return; }
+        int aliveCharacters = 0;
+
+        foreach (var item in characters)
+        {
+            if (!item.dead)
+            {
+                aliveCharacters++;
+            }
+        }
+
+        if (tookAction >= aliveCharacters)
         {
             tookAction = 0;
             foreach (var item in characters)
@@ -108,12 +118,8 @@ public class BattleManager : MonoBehaviour
 
         for (int i = 0; i < characters.Count; i++)
         {
-            Debug.Log("Test 3");
-
             if (characters[i].dead == false && characters[i].tookAction == false)
             {
-                Debug.Log("Test 4");
-
                 characters[i].ThisTurn();
                 tookAction++;
                 break;
@@ -139,7 +145,8 @@ public class BattleManager : MonoBehaviour
         targetCharacter = character;
         print("Set target is " + targetCharacter.characterName);
         characterTurn.ExecuteMove();
-        DisableColliders();
+
+        InitiateMove();
     }
 
     public Character GetTarget()
@@ -177,37 +184,81 @@ public class BattleManager : MonoBehaviour
         pickTarget.gameObject.SetActive(true);
     }
 
+    //If player selects a skill, it determines the selectable targets
     public void SetTargets(int number)
     {
+        //Makes everyone tagetable first (reset)
         foreach (var item in allies)
         {
-            item.EnableCharacter();
+            item.ColorCharacter();
+            item.EnableCollider();
         }
         foreach (var item in enemies)
         {
-            item.EnableCharacter();
+            item.ColorCharacter();
+            item.EnableCollider();
         }
+
+        // 0 if enemies are targetable, this disables the allies
         if (number == 0)
         {
             foreach (var item in allies)
             {
-                item.DisableCharacter();
+                item.FadeCharacter();
+                item.DisableCollider();
             }
-        }
+        }// 1 if allies are targetable, disables enemies
         else if (number == 1)
         {
             foreach (var item in enemies)
             {
-                item.DisableCharacter();
+                item.FadeCharacter();
+                item.DisableCollider();
             }
         }
     }
 
-    private void DisableColliders()
+    public void FocusMove(Character user, Character target)
+    {
+        background.color = new Color32(150, 150, 150, 255);
+        for (int i = 0; i < characters.Count; i++)
+        {
+            if (characters[i].characterName != user.characterName && characters[i].characterName != target.characterName)
+            {
+                characters[i].DisableSprite();
+            }
+        }
+    }
+
+    private void InitiateMove()
+    {
+        DisableCharacterColliders();
+        ShowCharacters();
+    }
+
+    private void RevertFocus()
+    {
+        background.color = new Color32(255, 255, 255, 255);
+        for (int i = 0; i < characters.Count; i++)
+        {
+            characters[i].EnableSprite();
+        }
+    }
+
+    //Disable Colliders so player can't pick a target
+    private void DisableCharacterColliders()
     {
         foreach (var item in characters)
         {
-            item.DisableColliders();
+            item.DisableCollider();
+        }
+    }
+
+    private void ShowCharacters()
+    {
+        foreach (var item in characters)
+        {
+            item.ColorCharacter();
         }
     }
 

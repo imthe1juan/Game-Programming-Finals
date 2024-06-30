@@ -80,6 +80,7 @@ public class MoveScaling : MonoBehaviour
     {
         circle.transform.localPosition = initialPos + new Vector3(Random.Range(-.5f, .5f), Random.Range(-.5f, .5f));
         initialPos = circle.transform.position;
+
         TMP_Text damageTextClone = Instantiate(popupText, transform.position, Quaternion.identity);
         damageTextClone.transform.localPosition = circle.transform.position + new Vector3(0, 1, 0);
         Destroy(damageTextClone.gameObject, 1);

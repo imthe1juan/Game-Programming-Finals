@@ -8,6 +8,7 @@ public class CharacterSO : ScriptableObject
     public string characterName;
     public Sprite characterSprite;
     public int maxHealth;
+    public int maxMana;
 
     public List<Move> moves;
 }

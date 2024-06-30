@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveName: Attack
   power: 15
-  cooldown: 3
+  manaCost: 70
+  isTargetAlly: 0

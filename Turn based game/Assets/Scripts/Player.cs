@@ -24,13 +24,22 @@ public class Player : Character
 
     public override void ExecuteMove()
     {
-        base.ExecuteMove();
-        Character target = battleManager.GetTarget();
-        battleManager.AnnounceAction(characterName + " uses " + preselectedMove.moveName + " to " + battleManager.GetTarget().characterName);
-        preselectedMove.Execute(this, target);
+        UpdateMana(-preselectedMove.manaCost);
+        target = battleManager.GetTarget();
+        battleManager.FocusMove(this, target);
 
+        CameraManager.Instance.TargetTakingAction(target.transform, isEnemy);
         transform.position = target.transform.position - new Vector3(1.5f, 0, 0);
 
         battleManager.DisableMoveset();
+
+        battleManager.AnnounceAction(characterName + " uses " + preselectedMove.moveName + " to " + battleManager.GetTarget().characterName);
+
+        Invoke(nameof(ExecuteMoveDelay), 1f);
+    }
+
+    private void ExecuteMoveDelay()
+    {
+        preselectedMove.Execute(this, target);
     }
 }
