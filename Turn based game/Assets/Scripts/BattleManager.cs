@@ -46,9 +46,9 @@ public class BattleManager : MonoBehaviour
     public void StartBattle()
     {
         characters.Clear();
-        InitializeEnemies();
         characters.AddRange(allies);
         characters.AddRange(enemies);
+        InitializeEnemies();
         NextTurn();
     }
 
@@ -260,6 +260,11 @@ public class BattleManager : MonoBehaviour
         {
             item.ColorCharacter();
         }
+    }
+
+    public List<Character> ReturnEnemies()
+    {
+        return enemies;
     }
 
     public void CheckGameState()

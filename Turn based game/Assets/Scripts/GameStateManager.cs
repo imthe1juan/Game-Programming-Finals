@@ -26,4 +26,9 @@ public class GameStateManager : MonoBehaviour
             stateText.text = "You Lose!";
         }
     }
+
+    public void DisableGameStateObject()
+    {
+        gameStateObject.SetActive(false);
+    }
 }

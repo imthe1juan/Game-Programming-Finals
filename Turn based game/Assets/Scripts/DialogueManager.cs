@@ -24,10 +24,13 @@ public class DialogueManager : MonoBehaviour
 
     private void Start()
     {
-        if (roundsManager.Round == 1)
-        {
-            InitalizeDialogue(true);
-        }
+    }
+
+    public void InitializeFirstRound()
+    {
+        roundsManager.ResetRound();
+        AreaManager.Instance.SetArea();
+        InitalizeDialogue(true);
     }
 
     public virtual void InitalizeDialogue(bool hasDialogue)
@@ -60,6 +63,7 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
+            AreaManager.Instance.NextArea();
             //NextMap
         }
     }
@@ -70,12 +74,13 @@ public class DialogueManager : MonoBehaviour
         if (currentDialogue > conversations[currentConversation].dialogue.Length - 1)
         {
             currentDialogue = 0;
-            if (roundsManager.Round == 1)
+            currentConversation++;
+            if (roundsManager.Round == 2)
             {
                 dialogueObject.SetActive(false);
                 roundsManager.FirstRound();
             }
-            else
+            else if (roundsManager.Round == 3)// Last Round
             {
                 dialogueObject.SetActive(false);
                 GameStateManager.Instance.IsPlayerWon(true);
@@ -92,16 +97,18 @@ public class DialogueManager : MonoBehaviour
         if (currentSpeaker == 0)
         {
             characterImage[0].color = new Color32(255, 255, 255, 255);
-            characterImage[0].transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
+            characterImage[0].transform.localScale = new Vector3(1.7f, 1.7f, 1.7f);
+
             characterImage[1].color = new Color32(150, 150, 150, 255);
-            characterImage[1].transform.localScale = Vector3.one;
+            characterImage[1].transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
         }
         else
         {
             characterImage[1].color = new Color32(255, 255, 255, 255);
-            characterImage[1].transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
+            characterImage[1].transform.localScale = new Vector3(1.7f, 1.7f, 1.7f);
+
             characterImage[0].color = new Color32(150, 150, 150, 255);
-            characterImage[0].transform.localScale = Vector3.one;
+            characterImage[0].transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
         }
     }
 }

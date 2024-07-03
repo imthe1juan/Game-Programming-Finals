@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 
 public class RoundsManager : MonoBehaviour
@@ -8,7 +9,7 @@ public class RoundsManager : MonoBehaviour
     private DialogueManager dialogueManager;
     [SerializeField] private GameObject roundOutputObject;
     [SerializeField] private TMP_Text roundText;
-    private int round = 1;
+    private int round = 2;
 
     public int Round
     { get { return round; } }
@@ -42,5 +43,10 @@ public class RoundsManager : MonoBehaviour
     {
         roundOutputObject.SetActive(false);
         BattleManager.Instance.StartBattle();
+    }
+
+    public void ResetRound()
+    {
+        round = 2;
     }
 }

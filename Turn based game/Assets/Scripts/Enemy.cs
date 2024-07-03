@@ -30,7 +30,7 @@ public class Enemy : Character
         }
 
         this.target = target;
-        battleManager.EnemyTurn(characterName + " uses " + preselectedMove.moveName + " to " + battleManager.GetTarget().characterName);
+        battleManager.EnemyTurn(characterName + " uses " + preselectedMove.moveName + " to " + target.characterName);
 
         battleManager.FocusMove(this, target);
         CameraManager.Instance.TargetTakingAction(target.transform, isEnemy);

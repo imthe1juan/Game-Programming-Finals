@@ -6,6 +6,7 @@ using UnityEngine;
 public class MoveScaling : MonoBehaviour
 {
     [SerializeField] private TMP_Text totalDamageText;
+    private TMP_Text damageTextClone;
     [SerializeField] private SpellHandler spellHandler;
     [SerializeField] private TMP_Text popupText;
     [SerializeField] private Circle circle;
@@ -47,32 +48,35 @@ public class MoveScaling : MonoBehaviour
     {
         circle.transform.localPosition = initialPos + new Vector3(Random.Range(-.5f, .5f), Random.Range(-.5f, .5f));
         initialPos = circle.transform.position;
-        TMP_Text damageTextClone = Instantiate(popupText, transform.position, Quaternion.identity);
-        damageTextClone.transform.localPosition = circle.transform.position + new Vector3(0, 1, 0);
-        Destroy(damageTextClone.gameObject, 1);
+
         repetition++;
         int totalDamage = 0;
+
         if (multiplier == 0)
         {
             //Missed
-            print("Missed");
+            //SFX
             totalDamage = 0;
         }
         else if (multiplier == 1)
         {
-            print("Hit");
             totalDamage = power;
         }
         else if (multiplier == 2)
         {
-            print("POWER!");
             totalDamage = power * 2;
         }
-        target.Damage(totalDamage);
         SetTotalDamage(totalDamage);
-        damageTextClone.text = $"-{totalDamage}";
 
         if (repetition < 3) return;
+
+        TMP_Text damageTextClone = Instantiate(popupText, transform.position, Quaternion.identity);
+        damageTextClone.transform.localPosition = target.transform.position + new Vector3(0, 1, 0);
+        Destroy(damageTextClone.gameObject, 1);
+
+        target.Damage(this.totalDamage);
+
+        damageTextClone.text = $"-{this.totalDamage}";
         ScalingOver();
     }
 
@@ -81,35 +85,36 @@ public class MoveScaling : MonoBehaviour
         circle.transform.localPosition = initialPos + new Vector3(Random.Range(-.5f, .5f), Random.Range(-.5f, .5f));
         initialPos = circle.transform.position;
 
-        TMP_Text damageTextClone = Instantiate(popupText, transform.position, Quaternion.identity);
-        damageTextClone.transform.localPosition = circle.transform.position + new Vector3(0, 1, 0);
-        Destroy(damageTextClone.gameObject, 1);
-
         repetition++;
-        int totalDamage = 0;
 
+        int totalDamage = 0;
         if (divider == 0)
         {
             //Missed
-            print("OUCH");
+            //SFX
             totalDamage = power * 2;
         }
         else if (divider == 1)
         {
-            print("Hit");
             totalDamage = power;
         }
         else if (divider == 2)
         {
-            print("DEFEND!");
             totalDamage = (int)(power / 1.5f);
         }
-        target.Damage(totalDamage);
+
         SetTotalDamage(totalDamage);
 
-        damageTextClone.text = $"-{totalDamage}";
-
         if (repetition < 3) return;
+
+        TMP_Text damageTextClone = Instantiate(popupText, transform.position, Quaternion.identity);
+        damageTextClone.transform.localPosition = target.transform.position + new Vector3(0, 1, 0);
+        Destroy(damageTextClone.gameObject, 1);
+
+        target.Damage(this.totalDamage);
+
+        damageTextClone.text = $"-{this.totalDamage}";
+
         ScalingOver();
     }
 
@@ -127,7 +132,7 @@ public class MoveScaling : MonoBehaviour
         if (divider == 0)
         {
             //Missed
-            print("Failed");
+            //SFX
             totalHeal = power / 2;
         }
         else if (divider == 1)

@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Conversation_1
   m_EditorClassIdentifier: 
   characterName:
-  - Lebron
-  - Jimmy
+  - Mordred
+  - Talindra
   characterSprite:
-  - {fileID: 21300000, guid: 657a6f6061fd0a5458583ebbe7bc6f10, type: 3}
-  - {fileID: 21300000, guid: 9f449090edfb1df47a7209f037a770fc, type: 3}
+  - {fileID: 21300000, guid: 6fad8f73b971a9c4fb9877629c95dd4c, type: 3}
+  - {fileID: 21300000, guid: 8f55f09a977964348a635bb215d1ac8b, type: 3}
   dialogue:
   - dialogueString: Who are you?!
     speaker: 1

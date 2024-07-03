@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveName: Attack
   power: 15
-  manaCost: 70
+  manaCost: 10
   isTargetAlly: 0
