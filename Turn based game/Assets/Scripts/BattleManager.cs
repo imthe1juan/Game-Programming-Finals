@@ -43,12 +43,16 @@ public class BattleManager : MonoBehaviour
         //NextTurn();
     }
 
-    public void StartBattle()
+    public void NextBattle()
     {
+        roundOver = false;
         characters.Clear();
         characters.AddRange(allies);
         characters.AddRange(enemies);
-        InitializeEnemies();
+        foreach (var item in enemies)
+        {
+            item.SetCharacter();
+        }
         NextTurn();
     }
 
@@ -131,13 +135,12 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    public void InitializeEnemies()
+    public void InitializeFirstBattle()
     {
         roundOver = false;
-        foreach (var item in enemies)
-        {
-            item.SetCharacter();
-        }
+        characters.Clear();
+        characters.AddRange(allies);
+        characters.AddRange(enemies);
     }
 
     public void PickTarget(Character character)

@@ -36,6 +36,7 @@ public class SpellHandler : MonoBehaviour
         multiplierAdded++;
         multiplier += value;
         totalDamageText.text = $"Total Damage:\n{(int)(power * multiplier)}";
+        AudioManager.Instance.PlayCastingSFX();
         if (multiplierAdded >= spellCircles.Length)
         {
             ScaleMove((int)multiplier);
@@ -43,8 +44,13 @@ public class SpellHandler : MonoBehaviour
             multiplier = 0;
             multiplierAdded = 0;
 
-            gameObject.SetActive(false);
+            Invoke(nameof(DisableThis), .5f);
         }
+    }
+
+    private void DisableThis()
+    {
+        gameObject.SetActive(false);
     }
 
     private void ScaleMove(int scaler)

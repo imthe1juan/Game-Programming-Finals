@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpellCircle : MonoBehaviour
 {
+    [SerializeField] private SpriteRenderer[] sr;
     private SpellHandler spellHandler;
     [SerializeField] private GameObject ellipse;
     [SerializeField] private float scaleSpeed = 0.5f;
@@ -36,6 +37,14 @@ public class SpellCircle : MonoBehaviour
             newScale = Vector3.Max(newScale, new Vector3(0.1f, 0.1f, 0.1f));
             ellipse.transform.localScale = newScale;
         }
+
+        if (newScale.x <= .95f)
+        {
+            foreach (var item in sr)
+            {
+                item.color = new Color32(241, 196, 15, 255);
+            }
+        }
     }
 
     private void OnMouseDown()
@@ -55,6 +64,11 @@ public class SpellCircle : MonoBehaviour
 
     private void ResetCircle()
     {
-        ellipse.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
+        newScale = new Vector3(1.8f, 1.8f, 1.8f);
+        ellipse.transform.localScale = newScale;
+        foreach (var item in sr)
+        {
+            item.color = new Color32(255, 255, 255, 255);
+        }
     }
 }

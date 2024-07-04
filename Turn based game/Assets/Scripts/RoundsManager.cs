@@ -42,7 +42,7 @@ public class RoundsManager : MonoBehaviour
     public void StartBattle()
     {
         roundOutputObject.SetActive(false);
-        BattleManager.Instance.StartBattle();
+        BattleManager.Instance.NextBattle();
     }
 
     public void ResetRound()

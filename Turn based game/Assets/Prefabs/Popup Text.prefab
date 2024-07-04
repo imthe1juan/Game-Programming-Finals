@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5407686605855667020}
   - component: {fileID: 4763576052408451129}
   - component: {fileID: 1200404360215728134}
+  - component: {fileID: 7243715284493661338}
   m_Layer: 0
   m_Name: Popup Text
   m_TagString: Untagged
@@ -57,7 +58,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 6935960414777011382, guid: d25143792f5ff14449d7373c1f939161, type: 2}
+  - {fileID: -6352801031026235801, guid: f5b5556d41e333c499930716bf726dec, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -101,8 +102,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: -10
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: d25143792f5ff14449d7373c1f939161, type: 2}
-  m_sharedMaterial: {fileID: 6935960414777011382, guid: d25143792f5ff14449d7373c1f939161, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f5b5556d41e333c499930716bf726dec, type: 2}
+  m_sharedMaterial: {fileID: -6352801031026235801, guid: f5b5556d41e333c499930716bf726dec, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -126,8 +127,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 7
-  m_fontSizeBase: 7
+  m_fontSize: 0
+  m_fontSizeBase: 0
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -171,3 +172,24 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 4763576052408451129}
   m_maskType: 0
+--- !u!95 &7243715284493661338
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5260202356700093067}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e66ff9249ca5fad4d9b33a4ba2028e3e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

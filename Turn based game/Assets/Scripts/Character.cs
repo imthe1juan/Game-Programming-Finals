@@ -33,12 +33,29 @@ public class Character : MonoBehaviour
     public bool thisTurn = false;
     public Vector3 originalPos;
 
+    private Color32 targetColor = new Color32(255, 0, 0, 0);
+    private float transitionProgress = 0f;
+    private Color32 initialColor = new Color32(255, 255, 255, 255);
+
     public virtual void Awake()
     {
         battleManager = FindObjectOfType<BattleManager>();
         healthbarManager = GetComponent<HealthbarManager>();
         manabarManager = GetComponent<ManabarManager>();
         SetCharacter();
+    }
+
+    private void Update()
+    {
+        if (!dead) return;
+
+        transitionProgress += Time.deltaTime / 1;
+        sr.color = Color32.Lerp(initialColor, targetColor, transitionProgress);
+
+        if (transitionProgress >= 1f)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     public void SetCharacter()
@@ -50,7 +67,9 @@ public class Character : MonoBehaviour
         maxHealth = characterSO.maxHealth;
 
         characterName = characterSO.characterName;
-        sr.sprite = characterSO.characterSprite;
+        sr.sprite = characterSO.characterDefaultSprite;
+        sr.color = initialColor;
+        transitionProgress = 0;
         moves = characterSO.moves;
 
         currentHealth = maxHealth;
@@ -105,12 +124,18 @@ public class Character : MonoBehaviour
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
-            dead = true;
             currentHealth = 0;
-            gameObject.SetActive(false);
-            battleManager.CheckGameState();
         }
         healthbarManager.UpdateHealth(currentHealth);
+    }
+
+    public void CheckIfDead()
+    {
+        if (currentHealth <= 0)
+        {
+            dead = true;
+            battleManager.CheckGameState();
+        }
     }
 
     public virtual void Heal(int heal)
@@ -121,6 +146,7 @@ public class Character : MonoBehaviour
             currentHealth = maxHealth;
         }
         healthbarManager.UpdateHealth(currentHealth);
+        AudioManager.Instance.PlayHealSFX();
     }
 
     public virtual void UpdateMana(int value)
@@ -206,5 +232,42 @@ public class Character : MonoBehaviour
     public void DisableSprite()
     {
         sr.gameObject.SetActive(false);
+    }
+
+    private Coroutine moveCorutine;
+
+    public void AttackSprite()
+    {
+        sr.sprite = characterSO.characterAttackSprite;
+
+        if (moveCorutine != null)
+        {
+            StopCoroutine(moveCorutine);
+        }
+
+        moveCorutine = StartCoroutine(ResetSpriteAfterCooldown(0.5f));
+    }
+
+    private IEnumerator ResetSpriteAfterCooldown(float cooldown)
+    {
+        yield return new WaitForSeconds(cooldown);
+        RevertSprite();
+    }
+
+    public void DefendSprite()
+    {
+        sr.sprite = characterSO.characterDefendSprite;
+
+        if (moveCorutine != null)
+        {
+            StopCoroutine(moveCorutine);
+        }
+
+        moveCorutine = StartCoroutine(ResetSpriteAfterCooldown(0.5f));
+    }
+
+    private void RevertSprite()
+    {
+        sr.sprite = characterSO.characterDefaultSprite;
     }
 }

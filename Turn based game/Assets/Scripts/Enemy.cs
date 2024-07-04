@@ -33,8 +33,8 @@ public class Enemy : Character
         battleManager.EnemyTurn(characterName + " uses " + preselectedMove.moveName + " to " + target.characterName);
 
         battleManager.FocusMove(this, target);
-        CameraManager.Instance.TargetTakingAction(target.transform, isEnemy);
         ExecuteMove(preselectedMove);
+        CameraManager.Instance.TargetTakingAction(target.transform, isEnemy);
     }
 
     public override void ExecuteMove(Move move)

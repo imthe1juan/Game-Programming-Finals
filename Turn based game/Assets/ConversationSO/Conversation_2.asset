@@ -25,14 +25,17 @@ MonoBehaviour:
     speaker: 1
   - dialogueString: What?
     speaker: 0
-  - dialogueString: The red-eyed hero!
+  - dialogueString: The red-eyed hero! You also have the book!
     speaker: 1
   - dialogueString: The one who will save us from the damned!
     speaker: 1
   - dialogueString: You know about the prophecy?
     speaker: 0
-  - dialogueString: Yes, you must go now, to the water gem, convince her to help
-      you.
+  - dialogueString: Yes, take the earth gem, and insert it on the book.
     speaker: 1
-  - dialogueString: I will follow you, after I tend the injured here.
+  - dialogueString: It will reveal a spell that you'll learn the moment you read
+      it.
+    speaker: 1
+  - dialogueString: Now go, we don't have much time, I will follow you after I tend
+      the wounded here.
     speaker: 1

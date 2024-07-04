@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveName: Arcane Magic
   power: 50
-  manaCost: 70
+  manaCost: 50
   isTargetAlly: 0

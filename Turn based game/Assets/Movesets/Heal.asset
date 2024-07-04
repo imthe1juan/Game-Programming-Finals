@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Heal
   m_EditorClassIdentifier: 
   moveName: Heal
-  power: 50
-  cooldown: 3
+  power: 30
+  manaCost: 20
   isTargetAlly: 1

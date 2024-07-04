@@ -6,7 +6,10 @@ using UnityEngine;
 public class CharacterSO : ScriptableObject
 {
     public string characterName;
-    public Sprite characterSprite;
+    public Sprite characterDefaultSprite;
+    public Sprite characterAttackSprite;
+    public Sprite characterDefendSprite;
+
     public int maxHealth;
     public int maxMana;
 

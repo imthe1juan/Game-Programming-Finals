@@ -36,22 +36,27 @@ public class AreaManager : MonoBehaviour
             {
                 case 0:
                     item.characterSO = forestEnemies[Random.Range(0, forestEnemies.Length)];
+                    item.SetCharacter();
                     break;
 
                 case 1:
                     item.characterSO = forestEnemies[Random.Range(0, waterEnemies.Length)];
+                    item.SetCharacter();
                     break;
 
                 case 2:
                     item.characterSO = forestEnemies[Random.Range(0, earthEnemies.Length)];
+                    item.SetCharacter();
                     break;
 
                 case 3:
                     item.characterSO = forestEnemies[Random.Range(0, fireEnemies.Length)];
+                    item.SetCharacter();
                     break;
 
                 default:
                     item.characterSO = forestEnemies[Random.Range(0, forestEnemies.Length)];
+                    item.SetCharacter();
                     break;
             }
         }

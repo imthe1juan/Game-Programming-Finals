@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class MoveScaling : MonoBehaviour
 {
+    private AudioManager audioManager;
     [SerializeField] private TMP_Text totalDamageText;
-    private TMP_Text damageTextClone;
     [SerializeField] private SpellHandler spellHandler;
+
     [SerializeField] private TMP_Text popupText;
     [SerializeField] private Circle circle;
 
@@ -19,6 +20,11 @@ public class MoveScaling : MonoBehaviour
     private Vector3 initialPos;
     private bool isEnemy;
     private Move move;
+
+    private void Awake()
+    {
+        audioManager = FindObjectOfType<AudioManager>();
+    }
 
     public void ScaleSpellMove(Move move, Character user, Character target, int power)
     {
@@ -50,81 +56,101 @@ public class MoveScaling : MonoBehaviour
         initialPos = circle.transform.position;
 
         repetition++;
-        int totalDamage = 0;
+        int damage = 0;
 
         if (multiplier == 0)
         {
             //Missed
-            //SFX
-            totalDamage = 0;
+            audioManager.PlayMissSFX();
+            damage = 0;
         }
         else if (multiplier == 1)
         {
-            totalDamage = power;
+            damage = power;
+            audioManager.PlayHitSFX();
         }
         else if (multiplier == 2)
         {
-            totalDamage = power * 2;
+            damage = (int)(power * 1.5f);
+            audioManager.PlayCriticalSFX();
         }
-        SetTotalDamage(totalDamage);
+
+        user.AttackSprite();
+
+        TMP_Text popupTextClone = Instantiate(popupText, target.transform.position + new Vector3(0, 1.3f, 0), Quaternion.identity);
+        Destroy(popupTextClone.gameObject, .5f);
+        popupTextClone.text = $"-{damage}";
+        SetTotalDamage(damage);
+
+        target.Damage(damage);
 
         if (repetition < 3) return;
+        target.CheckIfDead();
 
-        TMP_Text damageTextClone = Instantiate(popupText, transform.position, Quaternion.identity);
-        damageTextClone.transform.localPosition = target.transform.position + new Vector3(0, 1, 0);
-        Destroy(damageTextClone.gameObject, 1);
+        repetition = 0;
+        circle.gameObject.SetActive(false);
 
-        target.Damage(this.totalDamage);
+        StartCoroutine(ScalingOverDelay());
+    }
 
-        damageTextClone.text = $"-{this.totalDamage}";
+    private IEnumerator ScalingOverDelay()
+    {
+        yield return new WaitForSeconds(.5f);
+
         ScalingOver();
     }
 
     public void Defend(int divider)
     {
         circle.transform.localPosition = initialPos + new Vector3(Random.Range(-.5f, .5f), Random.Range(-.5f, .5f));
+
         initialPos = circle.transform.position;
 
         repetition++;
 
-        int totalDamage = 0;
+        int damage = 0;
         if (divider == 0)
         {
-            //Missed
-            //SFX
-            totalDamage = power * 2;
+            //Block Failed
+            audioManager.PlayCriticalSFX();
+            damage = power * 2;
         }
         else if (divider == 1)
         {
-            totalDamage = power;
+            audioManager.PlayHitSFX();
+            damage = power;
         }
         else if (divider == 2)
         {
-            totalDamage = (int)(power / 1.5f);
+            audioManager.PlayBlockSFX();
+
+            damage = (int)(power / 1.5f);
         }
 
-        SetTotalDamage(totalDamage);
+        target.DefendSprite();
+
+        TMP_Text popupTextClone = Instantiate(popupText, target.transform.position + new Vector3(0, 1.3f, 0), Quaternion.identity);
+        popupTextClone.text = $"-{damage}";
+        Destroy(popupTextClone.gameObject, .5f);
+
+        SetTotalDamage(damage);
+        target.Damage(damage);
 
         if (repetition < 3) return;
+        target.CheckIfDead();
 
-        TMP_Text damageTextClone = Instantiate(popupText, transform.position, Quaternion.identity);
-        damageTextClone.transform.localPosition = target.transform.position + new Vector3(0, 1, 0);
-        Destroy(damageTextClone.gameObject, 1);
+        repetition = 0;
+        circle.gameObject.SetActive(false);
 
-        target.Damage(this.totalDamage);
-
-        damageTextClone.text = $"-{this.totalDamage}";
-
-        ScalingOver();
+        StartCoroutine(ScalingOverDelay());
     }
 
     public void Heal(int divider)
     {
         circle.transform.localPosition = initialPos + new Vector3(Random.Range(-.5f, .5f), Random.Range(-.5f, .5f));
+        TMP_Text popUpTextClone = Instantiate(popupText, transform.position + new Vector3(0, 1.3f, 0), Quaternion.identity);
+        Destroy(popUpTextClone.gameObject, .5f);
         initialPos = circle.transform.position;
-        TMP_Text damageTextClone = Instantiate(popupText, transform.position, Quaternion.identity);
-        damageTextClone.transform.localPosition = circle.transform.position + new Vector3(0, 1, 0);
-        Destroy(damageTextClone.gameObject, 1);
 
         repetition++;
         int totalHeal = 0;
@@ -132,21 +158,19 @@ public class MoveScaling : MonoBehaviour
         if (divider == 0)
         {
             //Missed
-            //SFX
+
             totalHeal = power / 2;
         }
         else if (divider == 1)
         {
-            print("Heal!");
             totalHeal = power;
         }
         else if (divider == 2)
         {
-            print("RISE!");
             totalHeal = power * 2;
         }
         target.Heal(totalHeal);
-        damageTextClone.text = $"+{totalHeal}";
+        popUpTextClone.text = $"+{totalHeal}";
 
         if (repetition < 1) return;
         ScalingOver();
@@ -154,15 +178,26 @@ public class MoveScaling : MonoBehaviour
 
     public void Spell(int multiplier)
     {
-        TMP_Text damageTextClone = Instantiate(popupText, transform.position, Quaternion.identity);
-        damageTextClone.transform.localPosition = circle.transform.position + new Vector3(0, 1, 0);
-        Destroy(damageTextClone.gameObject, 1);
+        totalDamage = power * multiplier;
 
-        int totalDamage = power * multiplier;
+        StartCoroutine(SpellDelay());
+    }
+
+    private IEnumerator SpellDelay()
+    {
+        yield return new WaitForSeconds(1f);
+        TMP_Text popupTextClone = Instantiate(popupText, target.transform.position + new Vector3(0, 1.3f, 0), Quaternion.identity);
+        Destroy(popupTextClone.gameObject, 1);
+
+        popupTextClone.text = $"-{totalDamage}";
+
+        user.AttackSprite();
+
+        audioManager.PlayEarthSpellSFX();
         target.Damage(totalDamage);
+        target.CheckIfDead();
 
-        damageTextClone.text = $"-{totalDamage}";
-        ScalingOver();
+        StartCoroutine(ScalingOverDelay());
     }
 
     public void ScaleMove(int scaler)
@@ -199,7 +234,6 @@ public class MoveScaling : MonoBehaviour
     public void ScalingOver()
     {
         circle.gameObject.SetActive(false);
-        repetition = 0;
         user.RevertPosition();
         user.NextTurn();
 
