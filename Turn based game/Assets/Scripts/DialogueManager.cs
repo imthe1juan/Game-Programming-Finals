@@ -14,8 +14,8 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private TMP_Text[] characterNameText;
     [SerializeField] private TMP_Text dialogueText;
 
-    private int currentConversation = 0;
-    private int currentDialogue = 0;
+    [SerializeField] private int currentConversation = 0;
+    [SerializeField] private int currentDialogue = 0;
 
     private void Awake()
     {
@@ -29,7 +29,7 @@ public class DialogueManager : MonoBehaviour
     public void InitializeFirstRound()
     {
         roundsManager.ResetRound();
-        BattleManager.Instance.InitializeFirstBattle();
+        BattleManager.Instance.InitializeBattle();
         AreaManager.Instance.SetArea();
         InitalizeDialogue(true);
     }
@@ -86,6 +86,7 @@ public class DialogueManager : MonoBehaviour
                 dialogueObject.SetActive(false);
                 GameStateManager.Instance.IsPlayerWon(true);
             }
+            return;
         }
         ShowDialogue();
     }
@@ -97,19 +98,29 @@ public class DialogueManager : MonoBehaviour
         int currentSpeaker = currentDialogueSceneSO.dialogue[currentDialogue].speaker;
         if (currentSpeaker == 0)
         {
+            characterImage[0].sprite = conversations[currentConversation].characterSprite[currentSpeaker];
             characterImage[0].color = new Color32(255, 255, 255, 255);
             characterImage[0].transform.localScale = new Vector3(1.7f, 1.7f, 1.7f);
 
             characterImage[1].color = new Color32(150, 150, 150, 255);
             characterImage[1].transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
         }
-        else
+        else if (currentSpeaker == 1)
         {
             characterImage[1].color = new Color32(255, 255, 255, 255);
             characterImage[1].transform.localScale = new Vector3(1.7f, 1.7f, 1.7f);
 
             characterImage[0].color = new Color32(150, 150, 150, 255);
             characterImage[0].transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+        }
+        else if (currentSpeaker == 2)
+        {
+            characterImage[0].sprite = conversations[currentConversation].characterSprite[currentSpeaker];
+            characterImage[0].color = new Color32(255, 255, 255, 255);
+            characterImage[0].transform.localScale = new Vector3(1.7f, 1.7f, 1.7f);
+
+            characterImage[1].color = new Color32(150, 150, 150, 255);
+            characterImage[1].transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
         }
     }
 }

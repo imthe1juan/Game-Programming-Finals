@@ -25,6 +25,7 @@ public class Character : MonoBehaviour
 
     public bool dead;
     public List<Move> moves;
+
     public Move preselectedMove;
 
     public Collider2D c2D;
@@ -33,8 +34,8 @@ public class Character : MonoBehaviour
     public bool thisTurn = false;
     public Vector3 originalPos;
 
-    private Color32 targetColor = new Color32(255, 0, 0, 0);
     private float transitionProgress = 0f;
+    private Color32 targetColor = new Color32(255, 0, 0, 0);
     private Color32 initialColor = new Color32(255, 255, 255, 255);
 
     public virtual void Awake()
@@ -183,7 +184,7 @@ public class Character : MonoBehaviour
 
     public void SetMoveset()
     {
-        for (int i = 0; i < moves.Count; i++)
+        for (int i = 0; i < AreaManager.Instance.AccessedMoves; i++)
         {
             int index = i;
 

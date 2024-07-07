@@ -992,6 +992,7 @@ MonoBehaviour:
   blackOverlay: {fileID: 1338098543}
   conversations:
   - {fileID: 11400000, guid: c5a7ad185730c6940870a1801b28d498, type: 2}
+  - {fileID: 11400000, guid: c5a7ad185730c6940870a1801b28d498, type: 2}
   characterImage:
   - {fileID: 1266691423}
   - {fileID: 1638419063}

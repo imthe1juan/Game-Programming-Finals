@@ -8,7 +8,7 @@ public class Enemy : Character
     public override void ThisTurn()
     {
         base.ThisTurn();
-        battleManager.EnemyTurn(characterName + "'s Turn");
+        battleManager.AITurn(characterName + "'s Turn");
         Invoke(nameof(MoveInvoked), 1f);
     }
 
@@ -30,7 +30,7 @@ public class Enemy : Character
         }
 
         this.target = target;
-        battleManager.EnemyTurn(characterName + " uses " + preselectedMove.moveName + " to " + target.characterName);
+        battleManager.AITurn(characterName + " uses " + preselectedMove.moveName + " to " + target.characterName);
 
         battleManager.FocusMove(this, target);
         ExecuteMove(preselectedMove);

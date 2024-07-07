@@ -72,14 +72,22 @@ public class MoveScaling : MonoBehaviour
         else if (multiplier == 2)
         {
             damage = (int)(power * 1.5f);
+            audioManager.PlayHitSFX();
             audioManager.PlayCriticalSFX();
         }
-
-        user.AttackSprite();
-
         TMP_Text popupTextClone = Instantiate(popupText, target.transform.position + new Vector3(0, 1.3f, 0), Quaternion.identity);
         Destroy(popupTextClone.gameObject, .5f);
-        popupTextClone.text = $"-{damage}";
+
+        if (multiplier > 0)
+        {
+            popupTextClone.text = $"-{damage}";
+        }
+        else
+        {
+            popupTextClone.text = $"Miss!";
+        }
+        user.AttackSprite();
+
         SetTotalDamage(damage);
 
         target.Damage(damage);
@@ -87,7 +95,6 @@ public class MoveScaling : MonoBehaviour
         if (repetition < 3) return;
         target.CheckIfDead();
 
-        repetition = 0;
         circle.gameObject.SetActive(false);
 
         StartCoroutine(ScalingOverDelay());
@@ -112,7 +119,7 @@ public class MoveScaling : MonoBehaviour
         if (divider == 0)
         {
             //Block Failed
-            audioManager.PlayCriticalSFX();
+            audioManager.PlayHitSFX();
             damage = power * 2;
         }
         else if (divider == 1)
@@ -123,6 +130,7 @@ public class MoveScaling : MonoBehaviour
         else if (divider == 2)
         {
             audioManager.PlayBlockSFX();
+            audioManager.PlayCriticalSFX();
 
             damage = (int)(power / 1.5f);
         }
@@ -139,7 +147,6 @@ public class MoveScaling : MonoBehaviour
         if (repetition < 3) return;
         target.CheckIfDead();
 
-        repetition = 0;
         circle.gameObject.SetActive(false);
 
         StartCoroutine(ScalingOverDelay());
@@ -233,6 +240,7 @@ public class MoveScaling : MonoBehaviour
 
     public void ScalingOver()
     {
+        repetition = 0;
         circle.gameObject.SetActive(false);
         user.RevertPosition();
         user.NextTurn();

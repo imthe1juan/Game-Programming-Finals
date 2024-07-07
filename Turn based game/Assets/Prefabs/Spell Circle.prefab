@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d012080a5c355104fb3ecf6db6f27395, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  errorVFX: {fileID: 4390574553514180258, guid: 675901fcc37d35f45a8a99e30947912a, type: 3}
   sr:
   - {fileID: 7202928601391208150}
   - {fileID: 1522802000258888353}
@@ -115,8 +116,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7003083956923431771}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

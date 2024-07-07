@@ -4,7 +4,6 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System;
-using static UnityEditor.Progress;
 
 public class BattleManager : MonoBehaviour
 {
@@ -14,6 +13,8 @@ public class BattleManager : MonoBehaviour
 
     [SerializeField] private List<Character> characters;
     [SerializeField] private List<Character> allies;
+    [SerializeField] private List<Character> finalAllies;
+
     [SerializeField] private List<Character> enemies;
     public List<Button> movesetButtonList;
 
@@ -45,18 +46,11 @@ public class BattleManager : MonoBehaviour
 
     public void NextBattle()
     {
-        roundOver = false;
-        characters.Clear();
-        characters.AddRange(allies);
-        characters.AddRange(enemies);
-        foreach (var item in enemies)
-        {
-            item.SetCharacter();
-        }
+        InitializeBattle();
         NextTurn();
     }
 
-    public void EnemyTurn(string name)
+    public void AITurn(string name)
     {
         if (roundOver) { return; }
         DisableMoveset();
@@ -135,12 +129,26 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    public void InitializeFirstBattle()
+    public void InitializeBattle()
     {
         roundOver = false;
+        roundOver = false;
         characters.Clear();
+        if (AreaManager.Instance.CurrentArea >= 4)
+        {
+            allies.AddRange(finalAllies);
+            foreach (var item in finalAllies)
+            {
+                item.gameObject.SetActive(true);
+            }
+        }
         characters.AddRange(allies);
         characters.AddRange(enemies);
+
+        foreach (var item in enemies)
+        {
+            item.SetCharacter();
+        }
     }
 
     public void PickTarget(Character character)

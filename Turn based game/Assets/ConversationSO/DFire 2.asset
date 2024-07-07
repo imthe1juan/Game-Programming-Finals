@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d3a609b408fd3446865f344adb08eba, type: 3}
-  m_Name: Conversation_2
+  m_Name: DFire 2
   m_EditorClassIdentifier: 
   characterName:
   - Mordred
@@ -19,23 +19,13 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 6fad8f73b971a9c4fb9877629c95dd4c, type: 3}
   - {fileID: 21300000, guid: 8f55f09a977964348a635bb215d1ac8b, type: 3}
   dialogue:
-  - dialogueString: You....
+  - dialogueString: Fine...
     speaker: 1
-  - dialogueString: You're from the prophecy!
+  - dialogueString: You earned it...
     speaker: 1
-  - dialogueString: What?
-    speaker: 0
-  - dialogueString: The red-eyed hero! You also have the book!
+  - dialogueString: I'll stop fighting you...
     speaker: 1
-  - dialogueString: The one who will save us from the damned!
+  - dialogueString: But if there's anything that happens...
     speaker: 1
-  - dialogueString: You know about the prophecy?
-    speaker: 0
-  - dialogueString: Yes, take the earth gem, and insert it on the book.
-    speaker: 1
-  - dialogueString: It will reveal a spell that you'll learn the moment you read
-      it.
-    speaker: 1
-  - dialogueString: Now go, we don't have much time, I will follow you after I tend
-      the wounded here.
+  - dialogueString: I promise I will kill you...
     speaker: 1

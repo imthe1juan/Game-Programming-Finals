@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d3a609b408fd3446865f344adb08eba, type: 3}
+  m_Name: EFinal 1
+  m_EditorClassIdentifier: 
+  characterName:
+  - Mordred
+  - Talindra
+  - Zarek
+  characterSprite:
+  - {fileID: 21300000, guid: 6fad8f73b971a9c4fb9877629c95dd4c, type: 3}
+  - {fileID: 21300000, guid: 8f55f09a977964348a635bb215d1ac8b, type: 3}
+  - {fileID: 21300000, guid: 52c8ac2b1e121c14eab23e8ff838fc2b, type: 3}
+  dialogue:
+  - dialogueString: YOU FOOL!
+    speaker: 1
+  - dialogueString: Thanks for bringing me all the gems!
+    speaker: 1
+  - dialogueString: I can finally unleash my true powers!
+    speaker: 1
+  - dialogueString: Y-you tricked me!
+    speaker: 0
+  - dialogueString: You're just fucking stupid!
+    speaker: 1
+  - dialogueString: How can you believe in to a creature you just met?!
+    speaker: 1
+  - dialogueString: 'I fucking told you Mordred! '
+    speaker: 2
+  - dialogueString: I know! I'll fix this, I promise!
+    speaker: 0
+  - dialogueString: Let's see you try!
+    speaker: 1

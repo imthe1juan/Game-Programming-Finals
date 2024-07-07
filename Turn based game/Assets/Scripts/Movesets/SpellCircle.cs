@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpellCircle : MonoBehaviour
 {
+    [SerializeField] private GameObject errorVFX;
     [SerializeField] private SpriteRenderer[] sr;
     private SpellHandler spellHandler;
     [SerializeField] private GameObject ellipse;
@@ -11,6 +12,7 @@ public class SpellCircle : MonoBehaviour
 
     public bool isEnemy;
     private Vector3 newScale;
+    private bool sfxPlayed = false;
 
     private void Awake()
     {
@@ -29,6 +31,9 @@ public class SpellCircle : MonoBehaviour
         if (newScale.x < 0.7f)
         {
             //Resets the Circle, should miss
+            GameObject errorVFXClone = Instantiate(errorVFX, transform.position, Quaternion.identity);
+            Destroy(errorVFXClone, 1);
+
             spellHandler.AddMultiplier(0);
             gameObject.SetActive(false);
         }
@@ -44,6 +49,9 @@ public class SpellCircle : MonoBehaviour
             {
                 item.color = new Color32(241, 196, 15, 255);
             }
+
+            if (sfxPlayed) return;
+            sfxPlayed = true;
         }
     }
 
@@ -57,13 +65,13 @@ public class SpellCircle : MonoBehaviour
         else
         {
             spellHandler.AddMultiplier(.5f);
-
             gameObject.SetActive(false);
         }
     }
 
     private void ResetCircle()
     {
+        sfxPlayed = false;
         newScale = new Vector3(1.8f, 1.8f, 1.8f);
         ellipse.transform.localScale = newScale;
         foreach (var item in sr)

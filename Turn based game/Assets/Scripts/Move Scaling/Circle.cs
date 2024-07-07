@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class Circle : MonoBehaviour
 {
+    [SerializeField] private GameObject errorVFX;
     [SerializeField] private SpriteRenderer[] sr;
     [SerializeField] private MoveScaling moveScaling;
     [SerializeField] private GameObject ellipse;
@@ -13,6 +15,7 @@ public class Circle : MonoBehaviour
 
     public bool isEnemy;
     private Vector3 newScale;
+    private bool sfxPlayed = false;
 
     private void Update()
     {
@@ -21,8 +24,10 @@ public class Circle : MonoBehaviour
         if (newScale.x < 0.7f)
         {
             //Resets the Circle, should miss
-            ScaleMove(0);
+            GameObject errorVFXClone = Instantiate(errorVFX, transform.position, Quaternion.identity);
+            Destroy(errorVFXClone, 1);
 
+            ScaleMove(0);
             ResetCircle();
         }
         else
@@ -38,6 +43,9 @@ public class Circle : MonoBehaviour
             {
                 item.color = new Color32(241, 196, 15, 255);
             }
+
+            if (sfxPlayed) return;
+            sfxPlayed = true;
         }
     }
 
@@ -57,6 +65,7 @@ public class Circle : MonoBehaviour
 
     private void ResetCircle()
     {
+        sfxPlayed = false;
         newScale = new Vector3(1.8f, 1.8f, 1.8f);
         ellipse.transform.localScale = newScale;
         foreach (var item in sr)

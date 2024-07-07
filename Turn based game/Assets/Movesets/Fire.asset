@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26f94d15d2a8c5c41ae8a7628271dd12, type: 3}
-  m_Name: Arcane
+  m_Name: Fire
   m_EditorClassIdentifier: 
-  moveName: Arcane Magic
+  moveName: Fire
   power: 50
   manaCost: 50
   isTargetAlly: 0

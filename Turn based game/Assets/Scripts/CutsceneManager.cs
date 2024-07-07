@@ -9,6 +9,8 @@ using UnityEngine.UI;
 
 public class CutsceneManager : MonoBehaviour
 {
+    [SerializeField] private bool isBossBattle;
+
     [SerializeField] private GameObject cutsceneObject;
     [SerializeField] private Image blackOverlay;
     [SerializeField] private ConversationSO[] conversations;
@@ -18,6 +20,7 @@ public class CutsceneManager : MonoBehaviour
     [SerializeField] private TMP_Text dialogueText;
     [SerializeField] private TMP_Text dialogueText2;
     [SerializeField] private Button nextButton;
+
     private int currentConversation = 0;
     private int currentDialogue = 0;
     private float alpha = 255;
@@ -57,7 +60,6 @@ public class CutsceneManager : MonoBehaviour
     {
         cutsceneObject.SetActive(true);
         ShowDialogue();
-        characterImage[0].sprite = conversations[currentConversation].characterSprite[0];
         characterImage[1].sprite = conversations[currentConversation].characterSprite[1];
         characterNameText[0].text = conversations[currentConversation].characterName[0];
         characterNameText[1].text = conversations[currentConversation].characterName[1];
@@ -100,16 +102,18 @@ public class CutsceneManager : MonoBehaviour
         if (currentSpeaker == 0)
         {
             characterImage[0].color = new Color32(255, 255, 255, 255);
-            characterImage[0].transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
+            characterImage[0].transform.localScale = new Vector3(1.7f, 1.7f, 1.7f);
+
             characterImage[1].color = new Color32(150, 150, 150, 255);
-            characterImage[1].transform.localScale = Vector3.one;
+            characterImage[1].transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
         }
-        else
+        else if (currentSpeaker == 1)
         {
             characterImage[1].color = new Color32(255, 255, 255, 255);
-            characterImage[1].transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
+            characterImage[1].transform.localScale = new Vector3(1.7f, 1.7f, 1.7f);
+
             characterImage[0].color = new Color32(150, 150, 150, 255);
-            characterImage[0].transform.localScale = Vector3.one;
+            characterImage[0].transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
         }
     }
 }
