@@ -184,7 +184,8 @@ public class Character : MonoBehaviour
 
     public void SetMoveset()
     {
-        for (int i = 0; i < AreaManager.Instance.AccessedMoves; i++)
+        int accessedMoves = AreaManager.Instance.AccessedMoves;
+        for (int i = 0; i < accessedMoves; i++)
         {
             int index = i;
 
@@ -199,7 +200,7 @@ public class Character : MonoBehaviour
                 battleManager.movesetButtonList[index].interactable = true;
             }
         }
-        for (int i = battleManager.movesetButtonList.Count - 1; i > moves.Count - 1; i--)
+        for (int i = battleManager.movesetButtonList.Count - 1; i > accessedMoves - 1; i--)
         {
             battleManager.movesetButtonList[i].gameObject.SetActive(false);
         }

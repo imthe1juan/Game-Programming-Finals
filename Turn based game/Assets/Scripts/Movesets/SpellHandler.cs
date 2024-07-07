@@ -5,14 +5,18 @@ using UnityEngine;
 
 public class SpellHandler : MonoBehaviour
 {
-    [SerializeField] private TMP_Text totalDamageText;
     [SerializeField] private MoveScaling moveScaling;
+    [SerializeField] private TMP_Text totalDamageText;
     [SerializeField] private SpellCircle[] spellCircles;
     [SerializeField, Range(0, 1)] private float offset = 0.5f; // Offset value to keep circles away from edges (0 = no offset, 1 = max offset)
+    private int totalDamage = 0;
     private int enabledCircle = 0;
     private float multiplier = 0;
     private int multiplierAdded = 0;
     private int power;
+
+    private List<Vector2> usedPositions = new List<Vector2>(); // Store used positions
+    public float minDistance = 1.0f; // Minimum distance between circles
 
     private void OnEnable()
     {
@@ -27,6 +31,7 @@ public class SpellHandler : MonoBehaviour
         Vector2 randomPosition = GetRandomPositionWithOffset();
         spellCircles[enabledCircle].transform.position = randomPosition;
         spellCircles[enabledCircle].gameObject.SetActive(true);
+        usedPositions.Add(randomPosition); // Add the new position to the list
         enabledCircle++;
         if (enabledCircle < spellCircles.Length) StartCoroutine(EnableSpellCircles());
     }
@@ -35,14 +40,17 @@ public class SpellHandler : MonoBehaviour
     {
         multiplierAdded++;
         multiplier += value;
-        totalDamageText.text = $"Total Damage:\n{(int)(power * multiplier)}";
+        totalDamage = Mathf.RoundToInt(power * multiplier);
+        totalDamageText.text = $"Total Damage:\n{totalDamage}";
         AudioManager.Instance.PlayCastingSFX();
         if (multiplierAdded >= spellCircles.Length)
         {
-            ScaleMove((int)multiplier);
+            moveScaling.Spell(totalDamage);
+
             enabledCircle = 0;
             multiplier = 0;
             multiplierAdded = 0;
+            usedPositions.Clear();
 
             Invoke(nameof(DisableThis), .5f);
         }
@@ -51,11 +59,6 @@ public class SpellHandler : MonoBehaviour
     private void DisableThis()
     {
         gameObject.SetActive(false);
-    }
-
-    private void ScaleMove(int scaler)
-    {
-        moveScaling.ScaleMove(scaler);
     }
 
     private Vector2 GetRandomPositionWithOffset()
@@ -68,20 +71,37 @@ public class SpellHandler : MonoBehaviour
         float actualOffsetX = offset * screenWidth / 2;
         float actualOffsetY = offset * screenHeight / 2;
 
-        // Generate random position within bounds and apply offset
-        float xPosition = Random.Range(actualOffsetX, screenWidth - actualOffsetX);
-        float yPosition = Random.Range(actualOffsetY, screenHeight - actualOffsetY);
+        Vector2 worldPosition;
+        bool positionIsValid;
 
-        // If offset is at its maximum, position circles in the middle of the screen
-        if (offset == 1)
+        do
         {
-            xPosition = screenWidth / 2;
-            yPosition = screenHeight / 2;
-        }
+            // Generate random position within bounds and apply offset
+            float xPosition = Random.Range(actualOffsetX, screenWidth - actualOffsetX);
+            float yPosition = Random.Range(actualOffsetY, screenHeight - actualOffsetY);
 
-        // Convert screen position to world position
-        Vector2 screenPosition = new Vector2(xPosition, yPosition);
-        Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
+            // If offset is at its maximum, position circles in the middle of the screen
+            if (offset == 1)
+            {
+                xPosition = screenWidth / 2;
+                yPosition = screenHeight / 2;
+            }
+
+            // Convert screen position to world position
+            Vector2 screenPosition = new Vector2(xPosition, yPosition);
+            worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
+
+            // Check if the position is valid (not too close to existing positions)
+            positionIsValid = true;
+            foreach (Vector2 usedPosition in usedPositions)
+            {
+                if (Vector2.Distance(worldPosition, usedPosition) < minDistance)
+                {
+                    positionIsValid = false;
+                    break;
+                }
+            }
+        } while (!positionIsValid);
 
         return worldPosition;
     }

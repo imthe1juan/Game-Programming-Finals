@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class SpellCircle : MonoBehaviour
 {
+    private SpellHandler spellHandler;
+    [SerializeField] private GameObject circleVFX;
     [SerializeField] private GameObject errorVFX;
     [SerializeField] private SpriteRenderer[] sr;
-    private SpellHandler spellHandler;
     [SerializeField] private GameObject ellipse;
     [SerializeField] private float scaleSpeed = 0.5f;
 
     public bool isEnemy;
     private Vector3 newScale;
-    private bool sfxPlayed = false;
 
     private void Awake()
     {
@@ -47,11 +47,8 @@ public class SpellCircle : MonoBehaviour
         {
             foreach (var item in sr)
             {
-                item.color = new Color32(241, 196, 15, 255);
+                item.color = new Color32(241, 196, 15, 200);
             }
-
-            if (sfxPlayed) return;
-            sfxPlayed = true;
         }
     }
 
@@ -59,6 +56,7 @@ public class SpellCircle : MonoBehaviour
     {
         if (newScale.x <= .95f)
         {
+            AudioManager.Instance.PlayCriticalSFX();
             spellHandler.AddMultiplier(1);
             gameObject.SetActive(false);
         }
@@ -67,16 +65,17 @@ public class SpellCircle : MonoBehaviour
             spellHandler.AddMultiplier(.5f);
             gameObject.SetActive(false);
         }
+        GameObject circleVFXClone = Instantiate(circleVFX, transform.position, Quaternion.identity);
+        Destroy(circleVFXClone, .5f);
     }
 
     private void ResetCircle()
     {
-        sfxPlayed = false;
         newScale = new Vector3(1.8f, 1.8f, 1.8f);
         ellipse.transform.localScale = newScale;
         foreach (var item in sr)
         {
-            item.color = new Color32(255, 255, 255, 255);
+            item.color = new Color32(255, 255, 255, 200);
         }
     }
 }

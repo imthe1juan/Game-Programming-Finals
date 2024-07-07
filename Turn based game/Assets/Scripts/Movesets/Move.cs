@@ -3,6 +3,7 @@ using UnityEngine;
 
 public abstract class Move : ScriptableObject
 {
+    public GameObject vfx;
     public string moveName;
     public int power;
     public int manaCost;

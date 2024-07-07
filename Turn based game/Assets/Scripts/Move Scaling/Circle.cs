@@ -15,7 +15,6 @@ public class Circle : MonoBehaviour
 
     public bool isEnemy;
     private Vector3 newScale;
-    private bool sfxPlayed = false;
 
     private void Update()
     {
@@ -41,11 +40,8 @@ public class Circle : MonoBehaviour
         {
             foreach (var item in sr)
             {
-                item.color = new Color32(241, 196, 15, 255);
+                item.color = new Color32(241, 196, 15, 200);
             }
-
-            if (sfxPlayed) return;
-            sfxPlayed = true;
         }
     }
 
@@ -65,17 +61,21 @@ public class Circle : MonoBehaviour
 
     private void ResetCircle()
     {
-        sfxPlayed = false;
         newScale = new Vector3(1.8f, 1.8f, 1.8f);
         ellipse.transform.localScale = newScale;
         foreach (var item in sr)
         {
-            item.color = new Color32(255, 255, 255, 255);
+            item.color = new Color32(255, 255, 255, 200);
         }
     }
 
     public virtual void ScaleMove(int scaler)
     {
+        if (scaler > 0)
+        {
+            GameObject vfxClone = Instantiate(moveScaling.vfx, transform.position, Quaternion.identity);
+            Destroy(vfxClone.gameObject, .5f);
+        }
         moveScaling.ScaleMove(scaler);
     }
 }

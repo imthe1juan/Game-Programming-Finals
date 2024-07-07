@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7296b2dd10133e940a51f0d90d348c5e, type: 3}
   m_Name: Attack
   m_EditorClassIdentifier: 
+  vfx: {fileID: 8346672114386963239, guid: 077cdb024f8a2614d997b5c93bcd4344, type: 3}
   moveName: Attack
   power: 15
   manaCost: 10

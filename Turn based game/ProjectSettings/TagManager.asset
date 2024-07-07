@@ -50,6 +50,9 @@ TagManager:
   - name: Target
     uniqueID: 4141276871
     locked: 0
+  - name: VFX
+    uniqueID: 2867814163
+    locked: 0
   - name: UI
     uniqueID: 2222648991
     locked: 0

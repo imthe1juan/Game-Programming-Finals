@@ -20,6 +20,7 @@ public class MoveScaling : MonoBehaviour
     private Vector3 initialPos;
     private bool isEnemy;
     private Move move;
+    public GameObject vfx;
 
     private void Awake()
     {
@@ -32,6 +33,7 @@ public class MoveScaling : MonoBehaviour
         this.user = user;
         this.target = target;
         this.power = power;
+        vfx = move.vfx;
         initialPos = target.transform.position;
         isEnemy = user.isEnemy;
         spellHandler.gameObject.SetActive(true);
@@ -44,15 +46,16 @@ public class MoveScaling : MonoBehaviour
         this.user = user;
         this.target = target;
         this.power = power;
+        vfx = move.vfx;
         initialPos = target.transform.position;
         isEnemy = user.isEnemy;
         circle.gameObject.SetActive(true);
-        circle.transform.localPosition = initialPos + new Vector3(Random.Range(-.5f, .5f), Random.Range(-.5f, .5f));
+        circle.transform.localPosition = initialPos + new Vector3(Random.Range(-.25f, .25f), Random.Range(-.25f, .25f));
     }
 
     public void Attack(int multiplier)
     {
-        circle.transform.localPosition = initialPos + new Vector3(Random.Range(-.5f, .5f), Random.Range(-.5f, .5f));
+        circle.transform.localPosition = initialPos + new Vector3(Random.Range(-.25f, .25f), Random.Range(-.25f, .25f));
         initialPos = circle.transform.position;
 
         repetition++;
@@ -109,7 +112,7 @@ public class MoveScaling : MonoBehaviour
 
     public void Defend(int divider)
     {
-        circle.transform.localPosition = initialPos + new Vector3(Random.Range(-.5f, .5f), Random.Range(-.5f, .5f));
+        circle.transform.localPosition = initialPos + new Vector3(Random.Range(-.25f, .25f), Random.Range(-.25f, .25f));
 
         initialPos = circle.transform.position;
 
@@ -154,7 +157,7 @@ public class MoveScaling : MonoBehaviour
 
     public void Heal(int divider)
     {
-        circle.transform.localPosition = initialPos + new Vector3(Random.Range(-.5f, .5f), Random.Range(-.5f, .5f));
+        circle.transform.localPosition = initialPos + new Vector3(Random.Range(-.25f, .25f), Random.Range(-.25f, .25f));
         TMP_Text popUpTextClone = Instantiate(popupText, transform.position + new Vector3(0, 1.3f, 0), Quaternion.identity);
         Destroy(popUpTextClone.gameObject, .5f);
         initialPos = circle.transform.position;
@@ -183,9 +186,9 @@ public class MoveScaling : MonoBehaviour
         ScalingOver();
     }
 
-    public void Spell(int multiplier)
+    public void Spell(int totalDamage)
     {
-        totalDamage = power * multiplier;
+        this.totalDamage = totalDamage;
 
         StartCoroutine(SpellDelay());
     }
@@ -199,8 +202,9 @@ public class MoveScaling : MonoBehaviour
         popupTextClone.text = $"-{totalDamage}";
 
         user.AttackSprite();
+        GameObject vfxClone = Instantiate(vfx, target.transform.position, Quaternion.identity);
+        Destroy(vfxClone.gameObject, .5f);
 
-        audioManager.PlayEarthSpellSFX();
         target.Damage(totalDamage);
         target.CheckIfDead();
 
@@ -226,12 +230,6 @@ public class MoveScaling : MonoBehaviour
             case HealMove:
                 {
                     Heal(scaler);
-
-                    return;
-                }
-            case SpellMove:
-                {
-                    Spell(scaler);
 
                     return;
                 }

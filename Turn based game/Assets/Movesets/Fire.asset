@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26f94d15d2a8c5c41ae8a7628271dd12, type: 3}
   m_Name: Fire
   m_EditorClassIdentifier: 
+  vfx: {fileID: 8346672114386963239, guid: 077cdb024f8a2614d997b5c93bcd4344, type: 3}
   moveName: Fire
   power: 50
   manaCost: 50

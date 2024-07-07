@@ -20,8 +20,8 @@ public class AreaManager : MonoBehaviour
     [SerializeField] private CharacterSO[] finalEnemies;
 
     [SerializeField] private int currentArea;
-    private int accessedMoves;
     public int AccessedMoves { get; private set; }
+    private bool setArea = false;
 
     public int CurrentArea
     {
@@ -49,61 +49,51 @@ public class AreaManager : MonoBehaviour
     public void SetArea()
     {
         //Set Enemies
-        foreach (var item in BattleManager.Instance.ReturnEnemies())
-        {
-            switch (currentArea)
-            {
-                case 0:
-                    item.characterSO = forestEnemies[Random.Range(0, forestEnemies.Length)];
-                    item.SetCharacter();
-                    break;
-
-                case 1:
-                    item.characterSO = waterEnemies[Random.Range(0, waterEnemies.Length)];
-                    item.SetCharacter();
-                    break;
-
-                case 2:
-                    item.characterSO = earthEnemies[Random.Range(0, earthEnemies.Length)];
-                    item.SetCharacter();
-                    break;
-
-                case 3:
-                    item.characterSO = fireEnemies[Random.Range(0, fireEnemies.Length)];
-                    item.SetCharacter();
-                    break;
-
-                case 4:
-                    item.characterSO = finalEnemies[Random.Range(0, finalEnemies.Length)];
-                    item.SetCharacter();
-                    break;
-
-                default:
-                    item.characterSO = forestEnemies[Random.Range(0, forestEnemies.Length)];
-                    item.SetCharacter();
-                    break;
-            }
-        }
+        List<CharacterSO> availableEnemies;
+        backgroundImage.sprite = backgrounds[currentArea];
 
         switch (currentArea)
         {
             case 0:
                 AccessedMoves = 1;
+                availableEnemies = new List<CharacterSO>(forestEnemies);
                 break;
 
             case 1:
                 AccessedMoves = 2;
+                availableEnemies = new List<CharacterSO>(waterEnemies);
+                break;
 
+            case 2:
+                AccessedMoves = 2;
+                availableEnemies = new List<CharacterSO>(earthEnemies);
+                break;
+
+            case 3:
+                AccessedMoves = 2;
+                availableEnemies = new List<CharacterSO>(fireEnemies);
                 break;
 
             case 4:
                 AccessedMoves = 3;
-
+                availableEnemies = new List<CharacterSO>(finalEnemies);
                 break;
 
             default:
-
+                AccessedMoves = 1;
+                availableEnemies = new List<CharacterSO>(forestEnemies);
                 break;
+        }
+
+        foreach (var item in BattleManager.Instance.ReturnEnemies())
+        {
+            if (availableEnemies.Count > 0)
+            {
+                int randomIndex = Random.Range(0, availableEnemies.Count);
+                item.characterSO = availableEnemies[randomIndex];
+                item.SetCharacter();
+                availableEnemies.RemoveAt(randomIndex); // Remove the assigned enemy
+            }
         }
     }
 
