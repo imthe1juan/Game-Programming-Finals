@@ -15,6 +15,8 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private List<Character> allies;
     [SerializeField] private List<Character> finalAllies;
 
+    [SerializeField] private List<Character> currentEnemies;
+    private int currentEnemiesCount;
     [SerializeField] private List<Character> enemies;
     public List<Button> movesetButtonList;
 
@@ -63,7 +65,7 @@ public class BattleManager : MonoBehaviour
     {
         if (roundOver) { return; }
         preselectedMove = false;
-        targetCharacter = enemies[0];
+        targetCharacter = currentEnemies[0];
 
         characterAction.gameObject.SetActive(false);
 
@@ -104,9 +106,10 @@ public class BattleManager : MonoBehaviour
                 aliveCharacters++;
             }
         }
-
+        print(aliveCharacters);
         if (tookAction >= aliveCharacters)
         {
+            print(tookAction);
             tookAction = 0;
             foreach (var item in characters)
             {
@@ -118,6 +121,8 @@ public class BattleManager : MonoBehaviour
         {
             if (characters[i].dead == false && characters[i].tookAction == false)
             {
+                print(characters[i]);
+                characters[i].tookAction = true;
                 characters[i].ThisTurn();
                 tookAction++;
                 break;
@@ -143,9 +148,24 @@ public class BattleManager : MonoBehaviour
             }
         }
         characters.AddRange(allies);
-        characters.AddRange(enemies);
+        currentEnemies.Clear();
+        if (roundsManager.Round == 3)
+        {
+            currentEnemiesCount = 3;
+        }
+        else
+        {
+            currentEnemiesCount = 2;
+        }
 
-        foreach (var item in enemies)
+        for (int i = 0; i < currentEnemiesCount; i++)
+        {
+            enemies[i].gameObject.SetActive(true);
+            currentEnemies.Add(enemies[i]);
+        }
+        characters.AddRange(currentEnemies);
+
+        foreach (var item in currentEnemies)
         {
             item.SetCharacter();
         }
@@ -179,12 +199,12 @@ public class BattleManager : MonoBehaviour
 
     public Character PickRandomEnemy()
     {
-        int randomNum = UnityEngine.Random.Range(0, enemies.Count);
-        Character character = enemies[randomNum];
+        int randomNum = UnityEngine.Random.Range(0, currentEnemies.Count);
+        Character character = currentEnemies[randomNum];
         while (!character.gameObject.activeInHierarchy)
         {
-            randomNum = UnityEngine.Random.Range(0, enemies.Count);
-            character = enemies[randomNum];
+            randomNum = UnityEngine.Random.Range(0, currentEnemies.Count);
+            character = currentEnemies[randomNum];
         }
         return character;
     }
@@ -204,7 +224,7 @@ public class BattleManager : MonoBehaviour
             item.ColorCharacter();
             item.EnableCollider();
         }
-        foreach (var item in enemies)
+        foreach (var item in currentEnemies)
         {
             item.ColorCharacter();
             item.EnableCollider();
@@ -221,7 +241,7 @@ public class BattleManager : MonoBehaviour
         }// 1 if allies are targetable, disables enemies
         else if (number == 1)
         {
-            foreach (var item in enemies)
+            foreach (var item in currentEnemies)
             {
                 item.FadeCharacter();
                 item.DisableCollider();
@@ -283,14 +303,14 @@ public class BattleManager : MonoBehaviour
         enemiesDead = 0;
         alliesDead = 0;
 
-        foreach (var item in enemies)
+        foreach (var item in currentEnemies)
         {
             if (item.dead)
             {
                 enemiesDead++;
             }
         }
-        if (enemiesDead >= enemies.Count)
+        if (enemiesDead >= currentEnemies.Count)
         {
             //All enemies are dead
             tookAction = 0;

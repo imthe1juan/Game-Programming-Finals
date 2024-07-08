@@ -29,7 +29,6 @@ public class DialogueManager : MonoBehaviour
     public void InitializeFirstRound()
     {
         roundsManager.ResetRound();
-        BattleManager.Instance.InitializeBattle();
         AreaManager.Instance.SetArea();
         InitalizeDialogue(true);
     }
