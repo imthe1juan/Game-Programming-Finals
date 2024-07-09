@@ -60,6 +60,7 @@ public class CutsceneManager : MonoBehaviour
     {
         cutsceneObject.SetActive(true);
         ShowDialogue();
+        characterImage[0].sprite = conversations[currentConversation].characterSprite[0];
         characterImage[1].sprite = conversations[currentConversation].characterSprite[1];
         characterNameText[0].text = conversations[currentConversation].characterName[0];
         characterNameText[1].text = conversations[currentConversation].characterName[1];

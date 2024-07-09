@@ -243,7 +243,7 @@ public class MoveScaling : MonoBehaviour
         user.RevertPosition();
         user.NextTurn();
 
-        Invoke(nameof(ResetTotalDamage), 1f);
+        Invoke(nameof(ResetTotalDamage), .5f);
     }
 
     public void SetTotalDamage(int addedDamage)

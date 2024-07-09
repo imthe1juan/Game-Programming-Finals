@@ -1,10 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 {
@@ -15,6 +13,7 @@ public class Character : MonoBehaviour
 
     public Character target;
     public string characterName;
+    public bool isMC;
     public bool isEnemy = false;
 
     public int maxHealth;
@@ -184,7 +183,13 @@ public class Character : MonoBehaviour
 
     public void SetMoveset()
     {
-        int accessedMoves = AreaManager.Instance.AccessedMoves;
+        int accessedMoves = moves.Count;
+        if (isMC)
+        {
+            accessedMoves = AreaManager.Instance.AccessedMoves;
+            Debug.Log(accessedMoves);
+        }
+
         for (int i = 0; i < accessedMoves; i++)
         {
             int index = i;
@@ -199,6 +204,10 @@ public class Character : MonoBehaviour
             {
                 battleManager.movesetButtonList[index].interactable = true;
             }
+        }
+        for (int i = 0; i < battleManager.movesetButtonList.Count; i++)
+        {
+            battleManager.movesetButtonList[i].gameObject.SetActive(true);
         }
         for (int i = battleManager.movesetButtonList.Count - 1; i > accessedMoves - 1; i--)
         {

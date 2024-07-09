@@ -52,6 +52,7 @@ public class AreaManager : MonoBehaviour
     public void SetArea()
     {
         //Set Enemies
+        AudioManager.Instance.PlayBattleMusic(currentArea);
         backgroundImage.sprite = backgrounds[currentArea];
         List<CharacterSO> availableEnemies;
         switch (currentArea)
@@ -126,8 +127,16 @@ public class AreaManager : MonoBehaviour
 
     public void NextArea()
     {
-        currentArea++;
-        GameStateManager.Instance.DisableGameStateObject();
-        dialogueManager.InitializeFirstRound();
+        if (currentArea < 4)
+        {
+            currentArea++;
+            GameStateManager.Instance.DisableGameStateObject();
+            dialogueManager.InitializeFirstRound();
+        }
+        else
+        {
+            AudioManager.Instance.PlayEndMusic();
+            SceneManager.LoadScene("EndScene");
+        }
     }
 }

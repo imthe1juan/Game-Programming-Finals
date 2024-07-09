@@ -5,10 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
+    private void Start()
+    {
+        AudioManager.Instance.PlayMenuMusic();
+    }
+
     public void StartGame()
     {
         SceneManager.LoadScene(1);
+        AudioManager.Instance.PlayCutsceneMusic();
     }
+
     public void QuitGame()
     {
         Application.Quit();

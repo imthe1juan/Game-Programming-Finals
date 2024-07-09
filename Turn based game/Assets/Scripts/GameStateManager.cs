@@ -6,6 +6,9 @@ using UnityEngine;
 public class GameStateManager : MonoBehaviour
 {
     public static GameStateManager Instance;
+    [SerializeField] private Animator gemBookAnim;
+
+    [SerializeField] private GameObject gemBookObject;
     [SerializeField] private GameObject gameStateObject;
     [SerializeField] private TMP_Text stateText;
 
@@ -16,13 +19,21 @@ public class GameStateManager : MonoBehaviour
 
     public void IsPlayerWon(bool won)
     {
-        gameStateObject.SetActive(true);
         if (won)
         {
-            stateText.text = "You Won!";
+            if (AreaManager.Instance.CurrentArea == 4)
+            {
+                PlayerWonScreen();
+            }
+            else
+            {
+                gemBookObject.SetActive(true);
+                gemBookAnim.SetInteger("CurrentArea", AreaManager.Instance.CurrentArea);
+            }
         }
         else
         {
+            gameStateObject.SetActive(true);
             stateText.text = "You Lose!";
         }
     }
@@ -30,5 +41,12 @@ public class GameStateManager : MonoBehaviour
     public void DisableGameStateObject()
     {
         gameStateObject.SetActive(false);
+    }
+
+    public void PlayerWonScreen()
+    {
+        gemBookObject.SetActive(false);
+        gameStateObject.SetActive(true);
+        stateText.text = "You Won!";
     }
 }

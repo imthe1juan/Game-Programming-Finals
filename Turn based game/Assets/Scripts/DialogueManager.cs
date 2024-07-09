@@ -75,7 +75,8 @@ public class DialogueManager : MonoBehaviour
         {
             currentDialogue = 0;
             currentConversation++;
-            if (roundsManager.Round == 2)
+
+            if (roundsManager.Round == 1)
             {
                 dialogueObject.SetActive(false);
                 roundsManager.FirstRound();

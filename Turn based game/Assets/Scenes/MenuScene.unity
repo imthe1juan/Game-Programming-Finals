@@ -151,7 +151,7 @@ RectTransform:
   m_GameObject: {fileID: 213080233}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1001995486}
@@ -512,8 +512,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Start
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 00747261a22cd6e4b8b61a0f5fe8535a, type: 2}
+  m_sharedMaterial: {fileID: 684845380898822598, guid: 00747261a22cd6e4b8b61a0f5fe8535a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -646,8 +646,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Quit
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 00747261a22cd6e4b8b61a0f5fe8535a, type: 2}
+  m_sharedMaterial: {fileID: 684845380898822598, guid: 00747261a22cd6e4b8b61a0f5fe8535a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1012,10 +1012,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63ccb54de9a82054781287ba8b5a2d44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clips:
-  - {fileID: 8300000, guid: 3a73f7c86b4d26847b2ff2c8dd043a17, type: 3}
   musicAudioSource: {fileID: 1663122800}
   sfxAudioSource: {fileID: 1663122799}
+  menuMusic: {fileID: 8300000, guid: a4b26ba7d9772ab4fa156881805d4da7, type: 3}
+  cutsceneMusic: {fileID: 8300000, guid: 6c3d569c8f9da5b41bb9c1bb975e69c8, type: 3}
+  battleMusics:
+  - {fileID: 8300000, guid: b0620e280e3803c448706cf1021288e9, type: 3}
+  - {fileID: 8300000, guid: 840608892649fc747bd0625d9241398d, type: 3}
+  - {fileID: 8300000, guid: 0803df7f7cefbff4b8102ce641874375, type: 3}
+  - {fileID: 8300000, guid: 3372b734d5b1d8f449beb25dbb9db753, type: 3}
+  - {fileID: 8300000, guid: 0d0db5e87b3f76a4bbb262b8ecd16bef, type: 3}
+  endMusic: {fileID: 8300000, guid: 144afa7c55297c94aab06b739d65d125, type: 3}
+  hitClip: {fileID: 8300000, guid: d928aa6af07f88d498c152b7b0bca426, type: 3}
+  criticalClip: {fileID: 8300000, guid: 250e1810b2ec99646b9097055826ee4e, type: 3}
+  blockClip: {fileID: 8300000, guid: 388b1a8580534164eb968fe06e18c5a1, type: 3}
+  missClip: {fileID: 8300000, guid: f1673d6eb6e2f88418c2f5eee27db61b, type: 3}
+  castingClip: {fileID: 8300000, guid: 388b1a8580534164eb968fe06e18c5a1, type: 3}
+  healClip: {fileID: 8300000, guid: 5fcc0c88d12aa054ab70e4ef20b3875b, type: 3}
+  earthSpellClip: {fileID: 8300000, guid: 59cb1580e0a858443b750037d5dbce6e, type: 3}
 --- !u!4 &1663122802
 Transform:
   m_ObjectHideFlags: 0
@@ -1065,7 +1079,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -180}
+  m_AnchoredPosition: {x: 0, y: -220}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1757354755
@@ -1090,8 +1104,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Adventure of \nLebron James"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 00747261a22cd6e4b8b61a0f5fe8535a, type: 2}
+  m_sharedMaterial: {fileID: 684845380898822598, guid: 00747261a22cd6e4b8b61a0f5fe8535a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1115,8 +1129,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 110
-  m_fontSizeBase: 110
+  m_fontSize: 70
+  m_fontSizeBase: 70
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1193,7 +1207,7 @@ RectTransform:
   m_GameObject: {fileID: 1864160429}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 721229483}
@@ -1399,7 +1413,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 16230514014f16a4089377a16ac2e18b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2f842db1d32a9f649af0c46036491807, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

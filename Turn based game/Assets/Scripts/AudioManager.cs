@@ -10,9 +10,17 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource musicAudioSource;
 
     [SerializeField] private AudioSource sfxAudioSource;
-    [SerializeField] private AudioClip[] musicClips;
 
     [Space]
+    [Header("Music")]
+    [SerializeField] private AudioClip menuMusic;
+
+    [SerializeField] private AudioClip cutsceneMusic;
+    [SerializeField] private AudioClip[] battleMusics;
+    [SerializeField] private AudioClip endMusic;
+
+    [Space]
+    [Header("SFX")]
     [SerializeField] private AudioClip hitClip;
 
     [SerializeField] private AudioClip criticalClip;
@@ -40,15 +48,29 @@ public class AudioManager : MonoBehaviour
 
     private void Update()
     {
-        if (!musicAudioSource.isPlaying)
-        {
-            PlayMusic();
-        }
     }
 
-    private void PlayMusic()
+    public void PlayMenuMusic()
     {
-        musicAudioSource.clip = musicClips[0];
+        musicAudioSource.clip = menuMusic;
+        musicAudioSource.Play();
+    }
+
+    public void PlayCutsceneMusic()
+    {
+        musicAudioSource.clip = cutsceneMusic;
+        musicAudioSource.Play();
+    }
+
+    public void PlayBattleMusic(int number)
+    {
+        musicAudioSource.clip = battleMusics[number];
+        musicAudioSource.Play();
+    }
+
+    public void PlayEndMusic()
+    {
+        musicAudioSource.clip = endMusic;
         musicAudioSource.Play();
     }
 

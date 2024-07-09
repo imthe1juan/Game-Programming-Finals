@@ -106,10 +106,9 @@ public class BattleManager : MonoBehaviour
                 aliveCharacters++;
             }
         }
-        print(aliveCharacters);
+
         if (tookAction >= aliveCharacters)
         {
-            print(tookAction);
             tookAction = 0;
             foreach (var item in characters)
             {
@@ -121,7 +120,6 @@ public class BattleManager : MonoBehaviour
         {
             if (characters[i].dead == false && characters[i].tookAction == false)
             {
-                print(characters[i]);
                 characters[i].tookAction = true;
                 characters[i].ThisTurn();
                 tookAction++;
@@ -137,16 +135,19 @@ public class BattleManager : MonoBehaviour
     public void InitializeBattle()
     {
         roundOver = false;
-        roundOver = false;
         characters.Clear();
+
         if (AreaManager.Instance.CurrentArea >= 4)
         {
+            allies.Clear();
             allies.AddRange(finalAllies);
             foreach (var item in finalAllies)
             {
                 item.gameObject.SetActive(true);
+                item.SetCharacter();
             }
         }
+
         characters.AddRange(allies);
         currentEnemies.Clear();
         if (roundsManager.Round == 3)
@@ -337,6 +338,7 @@ public class BattleManager : MonoBehaviour
                 alliesDead++;
             }
         }
+
         if (alliesDead >= allies.Count)
         {
             roundOver = true;

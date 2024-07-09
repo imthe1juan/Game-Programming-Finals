@@ -9,7 +9,7 @@ public class RoundsManager : MonoBehaviour
     private DialogueManager dialogueManager;
     [SerializeField] private GameObject roundOutputObject;
     [SerializeField] private TMP_Text roundText;
-    private int round = 2;
+    private int round = 1;
 
     public int Round
     { get { return round; } }
@@ -47,6 +47,6 @@ public class RoundsManager : MonoBehaviour
 
     public void ResetRound()
     {
-        round = 2;
+        round = 1;
     }
 }
