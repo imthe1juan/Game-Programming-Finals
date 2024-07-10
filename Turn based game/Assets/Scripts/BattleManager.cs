@@ -166,10 +166,7 @@ public class BattleManager : MonoBehaviour
         }
         characters.AddRange(currentEnemies);
 
-        foreach (var item in currentEnemies)
-        {
-            item.SetCharacter();
-        }
+        AreaManager.Instance.SetEnemy();
     }
 
     public void PickTarget(Character character)

@@ -16,4 +16,5 @@ MonoBehaviour:
   moveName: Supreme Thrust
   power: 20
   manaCost: 30
+  moveRepeat: 1
   isTargetAlly: 0

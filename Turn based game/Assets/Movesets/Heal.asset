@@ -16,4 +16,5 @@ MonoBehaviour:
   moveName: Heal
   power: 30
   manaCost: 20
+  moveRepeat: 1
   isTargetAlly: 1

@@ -12,13 +12,12 @@ public class Circle : MonoBehaviour
     [SerializeField] private MoveScaling moveScaling;
     [SerializeField] private GameObject ellipse;
     [SerializeField] private float scaleSpeed = 0.5f;
-
     public bool isEnemy;
     private Vector3 newScale;
 
     private void Update()
     {
-        newScale = ellipse.transform.localScale - new Vector3(scaleSpeed, scaleSpeed, scaleSpeed) * Time.deltaTime * 1.5f;
+        newScale = ellipse.transform.localScale - new Vector3(scaleSpeed, scaleSpeed, scaleSpeed) * Time.deltaTime * 2f;
 
         if (newScale.x < 0.7f)
         {
@@ -71,11 +70,22 @@ public class Circle : MonoBehaviour
 
     public virtual void ScaleMove(int scaler)
     {
+        if (scaler == 0 && isEnemy)
+        {
+            GameObject vfxClone = Instantiate(moveScaling.vfx, transform.position, Quaternion.identity);
+            Destroy(vfxClone.gameObject, .25f);
+            vfxClone.gameObject.transform.localScale = new Vector3(2, 2, 2);
+        }
         if (scaler > 0)
         {
             GameObject vfxClone = Instantiate(moveScaling.vfx, transform.position, Quaternion.identity);
-            Destroy(vfxClone.gameObject, .5f);
+            Destroy(vfxClone.gameObject, .25f);
+            if (scaler == 2 && !isEnemy)
+            {
+                vfxClone.gameObject.transform.localScale = new Vector3(2, 2, 2);
+            }
         }
+
         moveScaling.ScaleMove(scaler);
     }
 }

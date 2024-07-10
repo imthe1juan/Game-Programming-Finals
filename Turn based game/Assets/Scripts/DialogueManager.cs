@@ -17,19 +17,19 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private int currentConversation = 0;
     [SerializeField] private int currentDialogue = 0;
 
+    public int CurrentConversation
+    { get { return currentConversation; } set { currentConversation = value; } }
+
     private void Awake()
     {
         roundsManager = FindObjectOfType<RoundsManager>();
-    }
-
-    private void Start()
-    {
     }
 
     public void InitializeFirstRound()
     {
         roundsManager.ResetRound();
         AreaManager.Instance.SetArea();
+        AreaManager.Instance.SetEnemy();
         InitalizeDialogue(true);
     }
 
@@ -43,6 +43,7 @@ public class DialogueManager : MonoBehaviour
             characterImage[1].sprite = conversations[currentConversation].characterSprite[1];
             characterNameText[0].text = conversations[currentConversation].characterName[0];
             characterNameText[1].text = conversations[currentConversation].characterName[1];
+            characterImage[1].SetNativeSize();
         }
         else
         {
@@ -60,6 +61,7 @@ public class DialogueManager : MonoBehaviour
             characterImage[1].sprite = conversations[currentConversation].characterSprite[1];
             characterNameText[0].text = conversations[currentConversation].characterName[0];
             characterNameText[1].text = conversations[currentConversation].characterName[1];
+            characterImage[1].SetNativeSize();
         }
         else
         {

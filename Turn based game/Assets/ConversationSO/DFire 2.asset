@@ -14,18 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName:
   - Mordred
-  - Talindra
+  - Veronna
   characterSprite:
   - {fileID: 21300000, guid: 6fad8f73b971a9c4fb9877629c95dd4c, type: 3}
-  - {fileID: 21300000, guid: 8f55f09a977964348a635bb215d1ac8b, type: 3}
+  - {fileID: 21300000, guid: e38fadf042117b1469a98e29e62f319e, type: 3}
   dialogue:
-  - dialogueString: Fine...
+  - dialogueString: Don't do it!
     speaker: 1
-  - dialogueString: You earned it...
+  - dialogueString: You will unleash chaos!
     speaker: 1
-  - dialogueString: I'll stop fighting you...
-    speaker: 1
-  - dialogueString: But if there's anything that happens...
-    speaker: 1
-  - dialogueString: I promise I will kill you...
+  - dialogueString: Noooo!!!
     speaker: 1

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: SeleneBoss
   m_EditorClassIdentifier: 
   characterName: Selene
-  characterDefaultSprite: {fileID: 21300000, guid: 8f55f09a977964348a635bb215d1ac8b, type: 3}
-  characterAttackSprite: {fileID: 0}
-  characterDefendSprite: {fileID: 0}
+  characterDefaultSprite: {fileID: 21300000, guid: 1484718ac744ea84784d9466b23cd322, type: 3}
+  characterAttackSprite: {fileID: 21300000, guid: 1484718ac744ea84784d9466b23cd322, type: 3}
+  characterDefendSprite: {fileID: 21300000, guid: 1484718ac744ea84784d9466b23cd322, type: 3}
   maxHealth: 50
   maxMana: 100
   moves:

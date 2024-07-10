@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfx: {fileID: 8346672114386963239, guid: 077cdb024f8a2614d997b5c93bcd4344, type: 3}
   moveName: Strike
-  power: 15
+  power: 20
   manaCost: 20
+  moveRepeat: 2
   isTargetAlly: 0

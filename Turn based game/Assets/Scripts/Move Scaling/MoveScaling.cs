@@ -14,6 +14,7 @@ public class MoveScaling : MonoBehaviour
 
     private int totalDamage;
     private int repetition;
+    private int moveRepeat;
     private Character target;
     private Character user;
     private int power;
@@ -33,9 +34,11 @@ public class MoveScaling : MonoBehaviour
         this.user = user;
         this.target = target;
         this.power = power;
+        moveRepeat = move.moveRepeat;
         vfx = move.vfx;
         initialPos = target.transform.position;
         isEnemy = user.isEnemy;
+        circle.isEnemy = isEnemy;
         spellHandler.gameObject.SetActive(true);
         spellHandler.SetPower(power);
     }
@@ -46,9 +49,11 @@ public class MoveScaling : MonoBehaviour
         this.user = user;
         this.target = target;
         this.power = power;
+        moveRepeat = move.moveRepeat;
         vfx = move.vfx;
         initialPos = target.transform.position;
         isEnemy = user.isEnemy;
+        circle.isEnemy = isEnemy;
         circle.gameObject.SetActive(true);
         circle.transform.localPosition = initialPos + new Vector3(Random.Range(-.25f, .25f), Random.Range(-.25f, .25f));
     }
@@ -59,6 +64,7 @@ public class MoveScaling : MonoBehaviour
         initialPos = circle.transform.position;
 
         repetition++;
+
         int damage = 0;
 
         if (multiplier == 0)
@@ -95,7 +101,8 @@ public class MoveScaling : MonoBehaviour
 
         target.Damage(damage);
 
-        if (repetition < 3) return;
+        Debug.Log(moveRepeat);
+        if (repetition < moveRepeat) return;
         target.CheckIfDead();
 
         circle.gameObject.SetActive(false);
@@ -113,7 +120,6 @@ public class MoveScaling : MonoBehaviour
     public void Defend(int divider)
     {
         circle.transform.localPosition = initialPos + new Vector3(Random.Range(-.25f, .25f), Random.Range(-.25f, .25f));
-
         initialPos = circle.transform.position;
 
         repetition++;
@@ -147,7 +153,7 @@ public class MoveScaling : MonoBehaviour
         SetTotalDamage(damage);
         target.Damage(damage);
 
-        if (repetition < 3) return;
+        if (repetition < moveRepeat) return;
         target.CheckIfDead();
 
         circle.gameObject.SetActive(false);
@@ -158,8 +164,9 @@ public class MoveScaling : MonoBehaviour
     public void Heal(int divider)
     {
         circle.transform.localPosition = initialPos + new Vector3(Random.Range(-.25f, .25f), Random.Range(-.25f, .25f));
-        TMP_Text popUpTextClone = Instantiate(popupText, transform.position + new Vector3(0, 1.3f, 0), Quaternion.identity);
-        Destroy(popUpTextClone.gameObject, .5f);
+        TMP_Text popupTextClone = Instantiate(popupText, transform.position + new Vector3(0, 1.3f, 0), Quaternion.identity);
+        Destroy(popupTextClone.gameObject, .25f);
+
         initialPos = circle.transform.position;
 
         repetition++;
@@ -180,9 +187,9 @@ public class MoveScaling : MonoBehaviour
             totalHeal = power * 2;
         }
         target.Heal(totalHeal);
-        popUpTextClone.text = $"+{totalHeal}";
+        popupTextClone.text = $"+{totalHeal}";
 
-        if (repetition < 1) return;
+        if (repetition < moveRepeat) return;
         ScalingOver();
     }
 

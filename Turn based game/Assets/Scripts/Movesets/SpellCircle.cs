@@ -26,7 +26,7 @@ public class SpellCircle : MonoBehaviour
 
     private void Update()
     {
-        newScale = ellipse.transform.localScale - new Vector3(scaleSpeed, scaleSpeed, scaleSpeed) * Time.deltaTime * 1.5f;
+        newScale = ellipse.transform.localScale - new Vector3(scaleSpeed, scaleSpeed, scaleSpeed) * Time.deltaTime * 2f;
 
         if (newScale.x < 0.7f)
         {

@@ -14,7 +14,8 @@ public class AreaManager : MonoBehaviour
     [SerializeField] private Image backgroundImage;
     [SerializeField] private Sprite[] backgrounds;
 
-    public int currentEnemies;
+    private List<CharacterSO> availableEnemies = new List<CharacterSO>();
+    private List<CharacterSO> availableEnemiesClone = new List<CharacterSO>();
     [SerializeField] private CharacterSO[] bossEnemies;
     [SerializeField] private CharacterSO[] forestEnemies;
     [SerializeField] private CharacterSO[] waterEnemies;
@@ -52,19 +53,15 @@ public class AreaManager : MonoBehaviour
     public void SetArea()
     {
         //Set Enemies
+        availableEnemies.Clear();
         AudioManager.Instance.PlayBattleMusic(currentArea);
         backgroundImage.sprite = backgrounds[currentArea];
-        List<CharacterSO> availableEnemies;
         switch (currentArea)
         {
             case 0:
                 AccessedMoves = 1;
                 availableEnemies = new List<CharacterSO>(forestEnemies);
-                if (roundsManager.Round == 3)
-                {
-                    availableEnemies.Add(bossEnemies[0]);
-                }
-                currentEnemies = forestEnemies.Length;
+                dialogueManager.CurrentConversation = 0;
                 break;
 
             case 1:
@@ -74,6 +71,7 @@ public class AreaManager : MonoBehaviour
                 {
                     availableEnemies.Add(bossEnemies[1]);
                 }
+                dialogueManager.CurrentConversation = 2;
                 break;
 
             case 2:
@@ -83,6 +81,7 @@ public class AreaManager : MonoBehaviour
                 {
                     availableEnemies.Add(bossEnemies[2]);
                 }
+                dialogueManager.CurrentConversation = 4;
                 break;
 
             case 3:
@@ -92,6 +91,8 @@ public class AreaManager : MonoBehaviour
                 {
                     availableEnemies.Add(bossEnemies[3]);
                 }
+                dialogueManager.CurrentConversation = 6;
+                Debug.Log("Should Test");
                 break;
 
             case 4:
@@ -101,6 +102,7 @@ public class AreaManager : MonoBehaviour
                 {
                     availableEnemies.Add(bossEnemies[4]);
                 }
+                dialogueManager.CurrentConversation = 8;
                 break;
 
             default:
@@ -110,17 +112,30 @@ public class AreaManager : MonoBehaviour
                 {
                     availableEnemies.Add(bossEnemies[0]);
                 }
+                dialogueManager.CurrentConversation = 0;
                 break;
+        }
+    }
+
+    public void SetEnemy()
+    {
+        if (roundsManager.Round == 3)
+        {
+            availableEnemies.Add(bossEnemies[currentArea]);
+        }
+        foreach (var item in availableEnemies)
+        {
+            availableEnemiesClone.Add(item);
         }
 
         foreach (var item in BattleManager.Instance.ReturnEnemies())
         {
-            if (availableEnemies.Count > 0)
+            if (availableEnemiesClone.Count > 0)
             {
-                int randomIndex = Random.Range(0, availableEnemies.Count);
-                item.characterSO = availableEnemies[randomIndex];
+                int randomIndex = Random.Range(0, availableEnemiesClone.Count);
+                item.characterSO = availableEnemiesClone[randomIndex];
                 item.SetCharacter();
-                availableEnemies.RemoveAt(randomIndex); // Remove the assigned enemy
+                availableEnemiesClone.RemoveAt(randomIndex); // Remove the assigned enemy
             }
         }
     }
