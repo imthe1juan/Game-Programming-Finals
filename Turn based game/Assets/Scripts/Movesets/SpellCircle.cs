@@ -54,19 +54,20 @@ public class SpellCircle : MonoBehaviour
 
     private void OnMouseDown()
     {
+        GameObject circleVFXClone = Instantiate(circleVFX, transform.position, Quaternion.identity);
+        Destroy(circleVFXClone, .25f);
         if (newScale.x <= .95f)
         {
+            circleVFXClone.transform.localScale = new Vector3(2, 2, 2);
             AudioManager.Instance.PlayCriticalSFX();
-            spellHandler.AddMultiplier(1);
+            spellHandler.AddMultiplier(1.5f);
             gameObject.SetActive(false);
         }
         else
         {
-            spellHandler.AddMultiplier(.5f);
+            spellHandler.AddMultiplier(1f);
             gameObject.SetActive(false);
         }
-        GameObject circleVFXClone = Instantiate(circleVFX, transform.position, Quaternion.identity);
-        Destroy(circleVFXClone, .5f);
     }
 
     private void ResetCircle()

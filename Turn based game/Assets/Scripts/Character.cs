@@ -187,7 +187,6 @@ public class Character : MonoBehaviour
         if (isMC)
         {
             accessedMoves = AreaManager.Instance.AccessedMoves;
-            Debug.Log(accessedMoves);
         }
 
         for (int i = 0; i < accessedMoves; i++)
@@ -195,7 +194,10 @@ public class Character : MonoBehaviour
             int index = i;
 
             battleManager.movesetButtonList[index].onClick.AddListener(() => PreselectMove(moves[index]));
-            battleManager.movesetButtonList[index].GetComponentInChildren<TMP_Text>().text = moves[i].moveName;
+            battleManager.movesetButtonList[index].GetComponentInChildren<TMP_Text>().text = moves[i].moveName; //Gets the move name TMP_Text
+            battleManager.movesetButtonList[index].transform.GetChild(1).GetComponentInChildren<TMP_Text>().text = $"{moves[index].moveDescription}" +
+                $"\nMana: {moves[index].manaCost}\nBase Damage: {moves[index].power * moves[index].moveRepeat}"; //Gets the description TMP_Text
+
             if (moves[index].manaCost > currentMana)
             {
                 battleManager.movesetButtonList[index].interactable = false;

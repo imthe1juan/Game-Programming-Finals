@@ -15,6 +15,7 @@ MonoBehaviour:
   vfx: {fileID: 4313013944168668702, guid: 4e2a36469bbc06d44820cef277ef5b1d, type: 3}
   moveName: Supreme Thrust
   power: 20
-  manaCost: 30
-  moveRepeat: 1
+  manaCost: 50
+  moveRepeat: 5
   isTargetAlly: 0
+  moveDescription: A spell that unleash your power to a foe

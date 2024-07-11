@@ -8,6 +8,7 @@ public class SpellHandler : MonoBehaviour
     [SerializeField] private MoveScaling moveScaling;
     [SerializeField] private TMP_Text totalDamageText;
     [SerializeField] private SpellCircle[] spellCircles;
+
     [SerializeField, Range(0, 1)] private float offset = 0.5f; // Offset value to keep circles away from edges (0 = no offset, 1 = max offset)
     private int totalDamage = 0;
     private int enabledCircle = 0;
@@ -18,6 +19,8 @@ public class SpellHandler : MonoBehaviour
     private List<Vector2> usedPositions = new List<Vector2>(); // Store used positions
     public float minDistance = 1.0f; // Minimum distance between circles
 
+    public int moveRepeat; // Maximum of 5
+
     private void OnEnable()
     {
         totalDamageText.text = $"Total Damage:\n{power}";
@@ -26,6 +29,7 @@ public class SpellHandler : MonoBehaviour
 
     private IEnumerator EnableSpellCircles()
     {
+        if (enabledCircle >= moveRepeat) yield break;
         yield return new WaitForSeconds(.5f);
 
         Vector2 randomPosition = GetRandomPositionWithOffset();
@@ -43,7 +47,7 @@ public class SpellHandler : MonoBehaviour
         totalDamage = Mathf.RoundToInt(power * multiplier);
         totalDamageText.text = $"Total Damage:\n{totalDamage}";
         AudioManager.Instance.PlayCastingSFX();
-        if (multiplierAdded >= spellCircles.Length)
+        if (multiplierAdded >= moveRepeat)
         {
             moveScaling.Spell(totalDamage);
 

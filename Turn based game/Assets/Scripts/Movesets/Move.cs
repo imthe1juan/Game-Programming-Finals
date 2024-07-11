@@ -10,5 +10,8 @@ public abstract class Move : ScriptableObject
     public int moveRepeat;
     public bool isTargetAlly;
 
+    [TextArea(2, 4)]
+    public string moveDescription;
+
     public abstract void Execute(Character user, Character target);
 }

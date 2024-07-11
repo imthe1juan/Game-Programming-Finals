@@ -39,6 +39,7 @@ public class MoveScaling : MonoBehaviour
         initialPos = target.transform.position;
         isEnemy = user.isEnemy;
         circle.isEnemy = isEnemy;
+        spellHandler.moveRepeat = move.moveRepeat;
         spellHandler.gameObject.SetActive(true);
         spellHandler.SetPower(power);
     }

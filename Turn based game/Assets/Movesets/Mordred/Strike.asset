@@ -18,3 +18,4 @@ MonoBehaviour:
   manaCost: 20
   moveRepeat: 2
   isTargetAlly: 0
+  moveDescription: 2-hit damage to a foe
