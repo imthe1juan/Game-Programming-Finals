@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using System;
 
 public class BattleManager : MonoBehaviour
 {
@@ -20,10 +19,12 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private List<Character> enemies;
     public List<Button> movesetButtonList;
 
+    [SerializeField] private TMP_Text playerName;
+    [SerializeField] private TMP_Text chosenActionText;
+
     [SerializeField] private Image background;
     [SerializeField] private Transform pickTarget;
-    [SerializeField] private TMP_Text playerName;
-    [SerializeField] private TMP_Text characterAction;
+    [SerializeField] private GameObject characterAction;
     [SerializeField] private Transform movesetParent;
 
     public Character characterTurn;
@@ -57,7 +58,7 @@ public class BattleManager : MonoBehaviour
         if (roundOver) { return; }
         DisableMoveset();
 
-        characterAction.text = name;
+        characterAction.GetComponentInChildren<TMP_Text>().text = name;
         playerName.gameObject.SetActive(false);
     }
 
@@ -76,7 +77,7 @@ public class BattleManager : MonoBehaviour
 
     public void AnnounceAction(string action)
     {
-        characterAction.text = action;
+        characterAction.GetComponentInChildren<TMP_Text>().text = action;
     }
 
     public void DisableMoveset()
@@ -89,13 +90,13 @@ public class BattleManager : MonoBehaviour
         movesetParent.gameObject.SetActive(false);
         characterAction.gameObject.SetActive(true);
         pickTarget.gameObject.SetActive(false);
+        chosenActionText.gameObject.SetActive(false);
     }
 
     public void NextTurn()
     {
         RevertFocus();
         CameraManager.Instance.DefaultCameraPos();
-
         if (roundOver) { return; }
         int aliveCharacters = 0;
 
@@ -207,10 +208,12 @@ public class BattleManager : MonoBehaviour
         return character;
     }
 
-    public void PreselectedMove()
+    public void PreselectedMove(Move move)
     {
         preselectedMove = true;
         pickTarget.gameObject.SetActive(true);
+        chosenActionText.gameObject.SetActive(true);
+        chosenActionText.text = $"Chosen Action:\n{move.moveName}";
     }
 
     //If player selects a skill, it determines the selectable targets

@@ -90,7 +90,7 @@ public class Character : MonoBehaviour
 
     private void PreselectMove(Move move)
     {
-        battleManager.PreselectedMove();
+        battleManager.PreselectedMove(move);
         preselectedMove = move;
         if (move.isTargetAlly)
         {

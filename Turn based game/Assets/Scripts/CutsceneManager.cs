@@ -103,18 +103,18 @@ public class CutsceneManager : MonoBehaviour
         if (currentSpeaker == 0)
         {
             characterImage[0].color = new Color32(255, 255, 255, 255);
-            characterImage[0].transform.localScale = new Vector3(1.7f, 1.7f, 1.7f);
+            characterImage[0].transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
 
             characterImage[1].color = new Color32(150, 150, 150, 255);
-            characterImage[1].transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+            characterImage[1].transform.localScale = Vector3.one;
         }
         else if (currentSpeaker == 1)
         {
             characterImage[1].color = new Color32(255, 255, 255, 255);
-            characterImage[1].transform.localScale = new Vector3(1.7f, 1.7f, 1.7f);
+            characterImage[1].transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
 
             characterImage[0].color = new Color32(150, 150, 150, 255);
-            characterImage[0].transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+            characterImage[0].transform.localScale = Vector3.one;
         }
     }
 }

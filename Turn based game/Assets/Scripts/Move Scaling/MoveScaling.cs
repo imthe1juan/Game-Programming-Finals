@@ -8,6 +8,7 @@ public class MoveScaling : MonoBehaviour
     private AudioManager audioManager;
     [SerializeField] private TMP_Text totalDamageText;
     [SerializeField] private SpellHandler spellHandler;
+    [SerializeField] private BlockHandler blockHandler;
 
     [SerializeField] private TMP_Text popupText;
     [SerializeField] private Circle circle;
@@ -39,9 +40,19 @@ public class MoveScaling : MonoBehaviour
         initialPos = target.transform.position;
         isEnemy = user.isEnemy;
         circle.isEnemy = isEnemy;
-        spellHandler.moveRepeat = move.moveRepeat;
-        spellHandler.gameObject.SetActive(true);
-        spellHandler.SetPower(power);
+        if (user.isEnemy)
+        {
+            blockHandler.SetPower(power);
+            blockHandler.moveRepeat = move.moveRepeat;
+            blockHandler.SetTotalDamage(power * moveRepeat);
+            blockHandler.gameObject.SetActive(true);
+        }
+        else
+        {
+            spellHandler.moveRepeat = moveRepeat;
+            spellHandler.gameObject.SetActive(true);
+            spellHandler.SetPower(power);
+        }
     }
 
     public void ScaleMove(Move move, Character user, Character target, int power)

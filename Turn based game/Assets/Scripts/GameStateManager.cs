@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameStateManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class GameStateManager : MonoBehaviour
     [SerializeField] private GameObject gemBookObject;
     [SerializeField] private GameObject gameStateObject;
     [SerializeField] private TMP_Text stateText;
+    private bool won;
 
     private void Awake()
     {
@@ -19,11 +21,12 @@ public class GameStateManager : MonoBehaviour
 
     public void IsPlayerWon(bool won)
     {
+        this.won = won;
         if (won)
         {
             if (AreaManager.Instance.CurrentArea == 4)
             {
-                PlayerWonScreen();
+                PlayerWon();
             }
             else
             {
@@ -43,10 +46,22 @@ public class GameStateManager : MonoBehaviour
         gameStateObject.SetActive(false);
     }
 
-    public void PlayerWonScreen()
+    public void PlayerWon()
     {
         gemBookObject.SetActive(false);
         gameStateObject.SetActive(true);
         stateText.text = "You Won!";
+    }
+
+    public void NextButton()
+    {
+        if (won)
+        {
+            AreaManager.Instance.NextArea();
+        }
+        else
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 }
