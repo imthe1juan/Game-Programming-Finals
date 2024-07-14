@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Theron
   m_EditorClassIdentifier: 
   characterName: Theron
+  characterPortraitSprite: {fileID: 0}
   characterDefaultSprite: {fileID: 21300000, guid: fe6fbcf2b3212b94a9adbb0c9f4773cc, type: 3}
   characterAttackSprite: {fileID: 21300000, guid: fe6fbcf2b3212b94a9adbb0c9f4773cc, type: 3}
   characterDefendSprite: {fileID: 21300000, guid: fe6fbcf2b3212b94a9adbb0c9f4773cc, type: 3}
   maxHealth: 50
   maxMana: 100
   moves:
-  - {fileID: 11400000, guid: f7ff1383ccb83ef4582525bbe75786e0, type: 2}
+  - {fileID: 11400000, guid: 01b41f50ce7062146b732b87fccb20d5, type: 2}

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 100933c7f6f96574d9591b83e7835251, type: 3}
+  m_Name: Nature's Embrace
+  m_EditorClassIdentifier: 
+  vfx: {fileID: 8346672114386963239, guid: 6b059b9521560bb448d214cb467e8aed, type: 3}
+  moveName: '''Nature''s Embrace'''
+  moveSprite: {fileID: 0}
+  power: 30
+  manaCost: 0
+  moveRepeat: 0
+  isTargetAlly: 1
+  isTargetSelf: 0
+  moveDescription: 

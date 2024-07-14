@@ -1,0 +1,22 @@
+--------------------
+Package Information
+
+Battlers folders (Original & 2X/3X) contains 18 sprites split by the following categories:
+- Earth Elemental
+- Water Elemental
+- Fire Elemental
+- Wind Elemental
+- Storm Elemental
+- Nature Elemental
+- Ice Elemental
+- Dark Elemental
+- Light Elemental
+- Prime Earth Elemental
+- Prime Water Elemental
+- Prime Fire Elemental
+- Prime Wind Elemental
+- Prime Storm Elemental
+- Prime Nature Elemental
+- Prime Ice Elemental
+- Prime Dark Elemental
+- Prime Light Elemental

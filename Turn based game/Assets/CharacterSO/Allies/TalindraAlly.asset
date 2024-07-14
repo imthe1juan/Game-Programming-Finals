@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: TalindraAlly
   m_EditorClassIdentifier: 
   characterName: Talindra
-  characterDefaultSprite: {fileID: 21300000, guid: 08a92403e7a01f442828df9b47a8db11, type: 3}
-  characterAttackSprite: {fileID: 21300000, guid: 08a92403e7a01f442828df9b47a8db11, type: 3}
-  characterDefendSprite: {fileID: 21300000, guid: 08a92403e7a01f442828df9b47a8db11, type: 3}
+  characterPortraitSprite: {fileID: 21300000, guid: fb6787f46edd01444a6133648d9fc5c8, type: 3}
+  characterDefaultSprite: {fileID: 21300000, guid: 16b4d0ab02c4d5f429ca443e1a6fe4f5, type: 3}
+  characterAttackSprite: {fileID: 21300000, guid: 16b4d0ab02c4d5f429ca443e1a6fe4f5, type: 3}
+  characterDefendSprite: {fileID: 21300000, guid: 16b4d0ab02c4d5f429ca443e1a6fe4f5, type: 3}
   maxHealth: 50
   maxMana: 100
   moves:

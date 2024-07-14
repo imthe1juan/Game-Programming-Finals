@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: Strike
   m_EditorClassIdentifier: 
   vfx: {fileID: 8346672114386963239, guid: 077cdb024f8a2614d997b5c93bcd4344, type: 3}
-  moveName: Strike
+  moveName: '''Strike'''
+  moveSprite: {fileID: 2077237304, guid: c8e8604272b55d240a7694c1cc5ac27e, type: 3}
   power: 20
   manaCost: 20
   moveRepeat: 2
   isTargetAlly: 0
+  isTargetSelf: 0
   moveDescription: 2-hit damage to a foe

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.TextCore.Text;
 
 public class BattleManager : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private List<Character> enemies;
     public List<Button> movesetButtonList;
 
+    [SerializeField] private Image characterPortrait;
     [SerializeField] private TMP_Text playerName;
     [SerializeField] private TMP_Text chosenActionText;
 
@@ -62,7 +64,7 @@ public class BattleManager : MonoBehaviour
         playerName.gameObject.SetActive(false);
     }
 
-    public void PlayerTurn(string name)
+    public void PlayerTurn(string name, Sprite portrait)
     {
         if (roundOver) { return; }
         preselectedMove = false;
@@ -73,6 +75,9 @@ public class BattleManager : MonoBehaviour
         movesetParent.gameObject.SetActive(true);
         playerName.gameObject.SetActive(true);
         playerName.text = name;
+
+        characterPortrait.sprite = portrait;
+        characterPortrait.SetNativeSize();
     }
 
     public void AnnounceAction(string action)
@@ -138,9 +143,8 @@ public class BattleManager : MonoBehaviour
         roundOver = false;
         characters.Clear();
 
-        if (AreaManager.Instance.CurrentArea >= 4)
+        if (AreaManager.Instance.CurrentArea >= 4 && roundsManager.Round == 1)
         {
-            allies.Clear();
             allies.AddRange(finalAllies);
             foreach (var item in finalAllies)
             {
@@ -213,7 +217,7 @@ public class BattleManager : MonoBehaviour
         preselectedMove = true;
         pickTarget.gameObject.SetActive(true);
         chosenActionText.gameObject.SetActive(true);
-        chosenActionText.text = $"Chosen Action:\n{move.moveName}";
+        chosenActionText.text = $"Chosen Action: {move.moveName}";
     }
 
     //If player selects a skill, it determines the selectable targets

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 {
@@ -81,7 +82,7 @@ public class Character : MonoBehaviour
 
     public virtual void ThisTurn()
     {
-        RegenMana();
+        RegenMana(10); // Base mana
         battleManager.characterTurn = this;
         battleManager.isActionActive = true;
         tookAction = true;
@@ -92,6 +93,11 @@ public class Character : MonoBehaviour
     {
         battleManager.PreselectedMove(move);
         preselectedMove = move;
+        if (move.isTargetSelf)
+        {
+            battleManager.PickTarget(this);
+            return;
+        }
         if (move.isTargetAlly)
         {
             battleManager.SetTargets(1);
@@ -159,9 +165,9 @@ public class Character : MonoBehaviour
         manabarManager.UpdateMana(currentMana);
     }
 
-    public virtual void RegenMana()
+    public virtual void RegenMana(int manaAmount)
     {
-        currentMana += 20;
+        currentMana += manaAmount;
         if (currentMana > maxMana)
         {
             currentMana = maxMana;
@@ -194,9 +200,17 @@ public class Character : MonoBehaviour
             int index = i;
 
             battleManager.movesetButtonList[index].onClick.AddListener(() => PreselectMove(moves[index]));
-            battleManager.movesetButtonList[index].GetComponentInChildren<TMP_Text>().text = moves[i].moveName; //Gets the move name TMP_Text
-            battleManager.movesetButtonList[index].transform.GetChild(1).GetComponentInChildren<TMP_Text>().text = $"{moves[index].moveDescription}" +
-                $"\nMana: {moves[index].manaCost}\nBase Damage: {moves[index].power * moves[index].moveRepeat}"; //Gets the description TMP_Text
+            battleManager.movesetButtonList[index].transform.GetChild(0).GetComponent<Image>().sprite = moves[index].moveSprite; //Gets the move name TMP_Text
+            if (moves[index].isTargetAlly)
+            {
+                battleManager.movesetButtonList[index].transform.GetChild(1).GetComponentInChildren<TMP_Text>().text = $"{moves[index].moveName}\n{moves[index].moveDescription}" +
+              $"\nMana Cost: {moves[index].manaCost}\nBase Recovery: {moves[index].power * moves[index].moveRepeat}"; //Gets the description TMP_Text
+            }
+            else
+            {
+                battleManager.movesetButtonList[index].transform.GetChild(1).GetComponentInChildren<TMP_Text>().text = $"{moves[index].moveName}\n{moves[index].moveDescription}" +
+              $"\nMana Cost: {moves[index].manaCost}\nBase Damage: {moves[index].power * moves[index].moveRepeat}"; //Gets the description TMP_Text
+            }
 
             if (moves[index].manaCost > currentMana)
             {

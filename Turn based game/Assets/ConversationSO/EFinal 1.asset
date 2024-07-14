@@ -15,11 +15,11 @@ MonoBehaviour:
   characterName:
   - Mordred
   - Talindra
-  - Zarek
+  - Veronna
   characterSprite:
   - {fileID: 21300000, guid: b59c78e1f7a56c443b9e8142583682d1, type: 3}
+  - {fileID: 21300000, guid: 2b1611250d96bf54cadbad8e5076a123, type: 3}
   - {fileID: 21300000, guid: c0869cb4eb246f2439fbd669a366a090, type: 3}
-  - {fileID: 21300000, guid: 52c8ac2b1e121c14eab23e8ff838fc2b, type: 3}
   dialogue:
   - dialogueString: YOU FOOL!
     speaker: 1

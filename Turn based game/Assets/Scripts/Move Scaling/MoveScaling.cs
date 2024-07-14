@@ -176,8 +176,8 @@ public class MoveScaling : MonoBehaviour
     public void Heal(int divider)
     {
         circle.transform.localPosition = initialPos + new Vector3(Random.Range(-.25f, .25f), Random.Range(-.25f, .25f));
-        TMP_Text popupTextClone = Instantiate(popupText, transform.position + new Vector3(0, 1.3f, 0), Quaternion.identity);
-        Destroy(popupTextClone.gameObject, .25f);
+        TMP_Text popupTextClone = Instantiate(popupText, transform.position + new Vector3(-1, 0, 0), Quaternion.identity);
+        Destroy(popupTextClone.gameObject, 1f);
 
         initialPos = circle.transform.position;
 
@@ -199,10 +199,48 @@ public class MoveScaling : MonoBehaviour
             totalHeal = power * 2;
         }
         target.Heal(totalHeal);
+        popupTextClone.color = Color.green;
         popupTextClone.text = $"+{totalHeal}";
 
         if (repetition < moveRepeat) return;
-        ScalingOver();
+        circle.gameObject.SetActive(false);
+        StartCoroutine(ScalingOverDelay());
+    }
+
+    public void Rest(int multiplier)
+    {
+        circle.transform.localPosition = initialPos + new Vector3(Random.Range(-.25f, .25f), Random.Range(-.25f, .25f));
+
+        initialPos = circle.transform.position;
+
+        repetition++;
+        int totalManaRegen = 0;
+
+        if (multiplier == 0)
+        {
+            //Missed
+
+            totalManaRegen = Mathf.RoundToInt(power / 1.5f);
+        }
+        else if (multiplier == 1)
+        {
+            totalManaRegen = power;
+        }
+        else if (multiplier == 2)
+        {
+            totalManaRegen = Mathf.RoundToInt(power * 1.5f);
+        }
+
+        TMP_Text popupTextMana = Instantiate(popupText, transform.position + new Vector3(-1, 0, 0), Quaternion.identity);
+        Destroy(popupTextMana.gameObject, 1f);
+        user.Heal(totalManaRegen);
+        user.RegenMana(totalManaRegen);
+        popupTextMana.color = Color.blue;
+        popupTextMana.text = $"<color=#ff0000ff>+{totalManaRegen}</color>\n+{totalManaRegen}";
+
+        if (repetition < moveRepeat) return;
+        circle.gameObject.SetActive(false);
+        StartCoroutine(ScalingOverDelay());
     }
 
     public void Spell(int totalDamage)
@@ -249,6 +287,12 @@ public class MoveScaling : MonoBehaviour
             case HealMove:
                 {
                     Heal(scaler);
+
+                    return;
+                }
+            case RestMove:
+                {
+                    Rest(scaler);
 
                     return;
                 }

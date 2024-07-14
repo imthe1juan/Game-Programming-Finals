@@ -6,6 +6,7 @@ using UnityEngine;
 public class CharacterSO : ScriptableObject
 {
     public string characterName;
+    public Sprite characterPortraitSprite;
     public Sprite characterDefaultSprite;
     public Sprite characterAttackSprite;
     public Sprite characterDefendSprite;

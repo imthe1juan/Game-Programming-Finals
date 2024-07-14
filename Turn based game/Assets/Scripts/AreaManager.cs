@@ -59,13 +59,13 @@ public class AreaManager : MonoBehaviour
         switch (currentArea)
         {
             case 0:
-                AccessedMoves = 1;
+                AccessedMoves = 2;
                 availableEnemies = new List<CharacterSO>(forestEnemies);
                 dialogueManager.CurrentConversation = 0;
                 break;
 
             case 1:
-                AccessedMoves = 2;
+                AccessedMoves = 3;
                 availableEnemies = new List<CharacterSO>(waterEnemies);
                 if (roundsManager.Round == 3)
                 {
@@ -75,7 +75,7 @@ public class AreaManager : MonoBehaviour
                 break;
 
             case 2:
-                AccessedMoves = 2;
+                AccessedMoves = 3;
                 availableEnemies = new List<CharacterSO>(earthEnemies);
                 if (roundsManager.Round == 3)
                 {
@@ -85,7 +85,7 @@ public class AreaManager : MonoBehaviour
                 break;
 
             case 3:
-                AccessedMoves = 2;
+                AccessedMoves = 3;
                 availableEnemies = new List<CharacterSO>(fireEnemies);
                 if (roundsManager.Round == 3)
                 {

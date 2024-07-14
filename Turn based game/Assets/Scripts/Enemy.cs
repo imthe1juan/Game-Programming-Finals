@@ -18,15 +18,22 @@ public class Enemy : Character
         preselectedMove = moves[randomMove];
 
         Character target;
-        if (preselectedMove.isTargetAlly) //Ally of the Enemy
+        if (preselectedMove.isTargetSelf)
         {
-            target = battleManager.PickRandomEnemy(); // It picks an enemy of the player (ally of the enemy)
-            transform.position = target.gameObject.transform.position + new Vector3(1.5f, 0, 0);
+            target = this;
         }
         else
         {
-            target = battleManager.PickRandomAlly(); // Attacks you/your ally
-            transform.position = target.gameObject.transform.position + new Vector3(1.5f, 0, 0);
+            if (preselectedMove.isTargetAlly) //Ally of the Enemy
+            {
+                target = battleManager.PickRandomEnemy(); // It picks an enemy of the player (ally of the enemy)
+                transform.position = target.gameObject.transform.position + new Vector3(1.5f, 0, 0);
+            }
+            else
+            {
+                target = battleManager.PickRandomAlly(); // Attacks you/your ally
+                transform.position = target.gameObject.transform.position + new Vector3(1.5f, 0, 0);
+            }
         }
 
         this.target = target;
@@ -42,17 +49,14 @@ public class Enemy : Character
         StartCoroutine(ExecuteAfterDelay(move, this.target));
     }
 
-    public override void Heal(int heal)
-    {
-        base.Heal(heal);
-    }
-
     private IEnumerator ExecuteAfterDelay(Move move, Character target)
     {
         yield return new WaitForSeconds(1);
         move.Execute(this, target);
-        if (thisTurn && move.moveName == "Heal")
+        if (thisTurn && move.isTargetAlly)
         {
+            GameObject vfxClone = Instantiate(move.vfx, transform.position, Quaternion.identity);
+            Destroy(vfxClone, .25f);
             Invoke(nameof(NextTurn), .5f);
         }
     }

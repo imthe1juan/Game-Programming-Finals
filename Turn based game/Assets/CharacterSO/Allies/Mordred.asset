@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: Mordred
   m_EditorClassIdentifier: 
   characterName: Mordred
+  characterPortraitSprite: {fileID: 21300000, guid: b59c78e1f7a56c443b9e8142583682d1, type: 3}
   characterDefaultSprite: {fileID: 21300000, guid: 6fad8f73b971a9c4fb9877629c95dd4c, type: 3}
   characterAttackSprite: {fileID: 21300000, guid: 6fad8f73b971a9c4fb9877629c95dd4c, type: 3}
   characterDefendSprite: {fileID: 21300000, guid: 6fad8f73b971a9c4fb9877629c95dd4c, type: 3}
   maxHealth: 200
   maxMana: 100
   moves:
+  - {fileID: 11400000, guid: 5b7373c8fe9fcb4499216f5f2c31fa88, type: 2}
   - {fileID: 11400000, guid: 72aa2984d7c314045bec61b413589533, type: 2}
   - {fileID: 11400000, guid: 87d3643a447d8b04a8fb56e6595ca09e, type: 2}
-  - {fileID: 11400000, guid: 01b41f50ce7062146b732b87fccb20d5, type: 2}

@@ -14,7 +14,7 @@ public class Player : Character
     {
         base.ThisTurn();
         SetMoveset();
-        battleManager.PlayerTurn(characterName);
+        battleManager.PlayerTurn(characterName, characterSO.characterPortraitSprite);
     }
 
     public override void OnMouseDown()
@@ -34,7 +34,6 @@ public class Player : Character
         battleManager.DisableMoveset();
 
         battleManager.AnnounceAction(characterName + " uses " + preselectedMove.moveName + " to " + battleManager.GetTarget().characterName);
-
         Invoke(nameof(ExecuteMoveDelay), 1f);
     }
 
