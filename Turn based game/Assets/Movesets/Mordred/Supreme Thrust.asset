@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfx: {fileID: 4313013944168668702, guid: 4e2a36469bbc06d44820cef277ef5b1d, type: 3}
   moveName: '''Supreme Thrust'''
-  moveSprite: {fileID: 2035471888, guid: c8e8604272b55d240a7694c1cc5ac27e, type: 3}
+  moveSprite: {fileID: 21300000, guid: db9326286ae72634dbeb748bceabd85f, type: 3}
   power: 20
   manaCost: 50
   moveRepeat: 5

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7296b2dd10133e940a51f0d90d348c5e, type: 3}
   m_Name: Gale Force
   m_EditorClassIdentifier: 
-  vfx: {fileID: 8346672114386963239, guid: de2c81693b2cd4b4b9bf28e6c24f5203, type: 3}
+  vfx: {fileID: 2225225185575012898, guid: a26c40f06d605e5489c7f70985b55d1e, type: 3}
   moveName: '''Gale Force'''
   moveSprite: {fileID: 0}
   power: 20

@@ -17,7 +17,7 @@ MonoBehaviour:
   - Talindra
   characterSprite:
   - {fileID: 21300000, guid: b59c78e1f7a56c443b9e8142583682d1, type: 3}
-  - {fileID: 21300000, guid: 4ee1f981fa67ee349947abb6dd87431b, type: 3}
+  - {fileID: 21300000, guid: 6daba98cc72dca048aae0a90ec7eb5f3, type: 3}
   dialogue:
   - dialogueString: Who are you?!
     speaker: 1

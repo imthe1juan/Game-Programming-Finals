@@ -31,11 +31,8 @@ MonoBehaviour:
     speaker: 1
   - dialogueString: You know about the prophecy?
     speaker: 0
-  - dialogueString: Yes, take the earth gem, and insert it on the book.
+  - dialogueString: Yes, take the earth gem.
     speaker: 1
-  - dialogueString: It will reveal a spell that you'll learn the moment you read
-      it.
-    speaker: 1
-  - dialogueString: Now go, we don't have much time, I will follow you after I tend
-      the wounded here.
+  - dialogueString: Now let's go, we don't have much time, I will help you gather
+      the gems.
     speaker: 1

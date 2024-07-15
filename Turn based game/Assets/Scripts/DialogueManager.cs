@@ -98,31 +98,27 @@ public class DialogueManager : MonoBehaviour
         ConversationSO currentDialogueSceneSO = conversations[currentConversation];
         dialogueText.text = currentDialogueSceneSO.dialogue[currentDialogue].dialogueString;
         int currentSpeaker = currentDialogueSceneSO.dialogue[currentDialogue].speaker;
-        if (currentSpeaker == 0)
+        if (currentSpeaker % 2 == 0 || currentSpeaker == 0)
         {
             characterImage[0].sprite = conversations[currentConversation].characterSprite[currentSpeaker];
             characterImage[0].color = new Color32(255, 255, 255, 255);
             characterImage[0].transform.localScale = new Vector3(1.2f, 1.2f, 1.1f);
+            characterNameText[0].text = conversations[currentConversation].characterName[currentSpeaker];
+            characterImage[0].SetNativeSize();
 
             characterImage[1].color = new Color32(150, 150, 150, 255);
             characterImage[1].transform.localScale = Vector3.one;
         }
-        else if (currentSpeaker == 1)
+        else
         {
+            characterImage[1].sprite = conversations[currentConversation].characterSprite[currentSpeaker];
             characterImage[1].color = new Color32(255, 255, 255, 255);
             characterImage[1].transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+            characterNameText[1].text = conversations[currentConversation].characterName[currentSpeaker];
+            characterImage[1].SetNativeSize();
 
             characterImage[0].color = new Color32(150, 150, 150, 255);
             characterImage[0].transform.localScale = Vector3.one;
-        }
-        else if (currentSpeaker == 2)
-        {
-            characterImage[0].sprite = conversations[currentConversation].characterSprite[currentSpeaker];
-            characterImage[0].color = new Color32(255, 255, 255, 255);
-            characterImage[0].transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
-
-            characterImage[1].color = new Color32(150, 150, 150, 255);
-            characterImage[1].transform.localScale = Vector3.one;
         }
     }
 }
