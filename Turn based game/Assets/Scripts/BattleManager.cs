@@ -143,13 +143,19 @@ public class BattleManager : MonoBehaviour
         roundOver = false;
         characters.Clear();
 
-        if (AreaManager.Instance.CurrentArea >= 4 && roundsManager.Round == 1)
+        if (AreaManager.Instance.CurrentArea >= 1 && roundsManager.Round == 3) // SET TO 3
         {
-            allies.AddRange(finalAllies);
-            foreach (var item in finalAllies)
+            if (!allies.Find((x) => x.characterName == "Talindra"))
             {
-                item.gameObject.SetActive(true);
-                item.SetCharacter();
+                allies.Add(finalAllies[0]);
+            }
+        }
+
+        if (AreaManager.Instance.CurrentArea >= 4 && roundsManager.Round == 3) // SET TO 3
+        {
+            if (!allies.Find((x) => x.characterName == "Veronna"))
+            {
+                allies.Add(finalAllies[1]);
             }
         }
 
@@ -163,15 +169,12 @@ public class BattleManager : MonoBehaviour
         {
             currentEnemiesCount = 2;
         }
-
         for (int i = 0; i < currentEnemiesCount; i++)
         {
-            enemies[i].gameObject.SetActive(true);
             currentEnemies.Add(enemies[i]);
         }
-        characters.AddRange(currentEnemies);
 
-        AreaManager.Instance.SetEnemy();
+        characters.AddRange(currentEnemies);
     }
 
     public void PickTarget(Character character)
@@ -256,6 +259,7 @@ public class BattleManager : MonoBehaviour
 
     public void FocusMove(Character user, Character target)
     {
+        targetCharacter = target;
         background.color = new Color32(150, 150, 150, 255);
         for (int i = 0; i < characters.Count; i++)
         {
@@ -320,6 +324,7 @@ public class BattleManager : MonoBehaviour
             //All enemies are dead
             tookAction = 0;
             roundOver = true;
+            characterAction.SetActive(false);
             foreach (var item in characters)
             {
                 item.tookAction = false;

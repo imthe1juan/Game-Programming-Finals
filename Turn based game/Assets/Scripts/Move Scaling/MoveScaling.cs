@@ -22,6 +22,7 @@ public class MoveScaling : MonoBehaviour
     private Vector3 initialPos;
     private bool isEnemy;
     private Move move;
+
     public GameObject vfx;
 
     private void Awake()
@@ -65,6 +66,7 @@ public class MoveScaling : MonoBehaviour
         vfx = move.vfx;
         initialPos = target.transform.position;
         isEnemy = user.isEnemy;
+
         circle.isEnemy = isEnemy;
         circle.gameObject.SetActive(true);
         circle.transform.localPosition = initialPos + new Vector3(Random.Range(-.25f, .25f), Random.Range(-.25f, .25f));
@@ -260,7 +262,7 @@ public class MoveScaling : MonoBehaviour
 
         user.AttackSprite();
         GameObject vfxClone = Instantiate(vfx, target.transform.position, Quaternion.identity);
-        Destroy(vfxClone.gameObject, .5f);
+        Destroy(vfxClone.gameObject, 1f);
 
         target.Damage(totalDamage);
         target.CheckIfDead();

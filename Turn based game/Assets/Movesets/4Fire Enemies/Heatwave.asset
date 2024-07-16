@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26f94d15d2a8c5c41ae8a7628271dd12, type: 3}
   m_Name: Heatwave
   m_EditorClassIdentifier: 
-  vfx: {fileID: 8346672114386963239, guid: 27ccd87151e668d4fb9d06d509d3fa20, type: 3}
+  vfx: {fileID: 2386562253318482384, guid: df44ae26a14a3ec4281a45bfbdfe4dc6, type: 3}
   moveName: '''Heatwave'''
   moveSprite: {fileID: 0}
   power: 25

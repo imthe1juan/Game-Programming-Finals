@@ -6,9 +6,11 @@ using UnityEngine;
 
 public class BlockHandler : MonoBehaviour
 {
+    [SerializeField] private GameObject spellShieldVFX;
     [SerializeField] private MoveScaling moveScaling;
     [SerializeField] private TMP_Text totalDamageText;
     [SerializeField] private BlockCircle[] blockCircles;
+    private Vector3 allyPosition;
 
     [SerializeField, Range(0, 1)] private float offset = 0.5f; // Offset value to keep circles away from edges (0 = no offset, 1 = max offset)
     private int totalDamage = 0;
@@ -30,6 +32,8 @@ public class BlockHandler : MonoBehaviour
 
     private IEnumerator EnableSpellCircles()
     {
+        allyPosition = BattleManager.Instance.GetTarget().transform.localPosition;
+
         if (enabledCircle >= moveRepeat) yield break;
         yield return new WaitForSeconds(.5f);
 
@@ -70,6 +74,9 @@ public class BlockHandler : MonoBehaviour
 
     private void DisableThis()
     {
+        GameObject spellShieldVFXClone = Instantiate(spellShieldVFX, allyPosition, Quaternion.identity);
+        Destroy(spellShieldVFXClone, 1f);
+
         gameObject.SetActive(false);
     }
 

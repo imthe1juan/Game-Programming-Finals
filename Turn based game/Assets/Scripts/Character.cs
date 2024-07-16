@@ -43,7 +43,6 @@ public class Character : MonoBehaviour
         battleManager = FindObjectOfType<BattleManager>();
         healthbarManager = GetComponent<HealthbarManager>();
         manabarManager = GetComponent<ManabarManager>();
-        SetCharacter();
     }
 
     private void Update()
@@ -221,6 +220,7 @@ public class Character : MonoBehaviour
                 battleManager.movesetButtonList[index].interactable = true;
             }
         }
+
         for (int i = 0; i < battleManager.movesetButtonList.Count; i++)
         {
             battleManager.movesetButtonList[i].gameObject.SetActive(true);

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6556f8d144857fa4abadbb86731315f1, type: 3}
   m_Name: Meditation
   m_EditorClassIdentifier: 
-  vfx: {fileID: 0}
+  vfx: {fileID: 4774565227906838494, guid: 7f36b347ab2888d4f8680fb4ba4e1c4c, type: 3}
   moveName: '''Meditation'''
   moveSprite: {fileID: 0}
   power: 100

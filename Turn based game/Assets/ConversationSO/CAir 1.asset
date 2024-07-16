@@ -14,16 +14,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName:
   - Mordred
+  - ???
   - Talindra
+  - Tao
   characterSprite:
   - {fileID: 21300000, guid: b59c78e1f7a56c443b9e8142583682d1, type: 3}
   - {fileID: 21300000, guid: 2b1611250d96bf54cadbad8e5076a123, type: 3}
+  - {fileID: 21300000, guid: af504dbba79a6024fb49e784d0f81742, type: 3}
+  - {fileID: 21300000, guid: 2b1611250d96bf54cadbad8e5076a123, type: 3}
   dialogue:
-  - dialogueString: Who are you?!
-    speaker: 1
-  - dialogueString: Why are you here?!
-    speaker: 1
-  - dialogueString: You don't understand...
+  - dialogueString: "This mountain\u2026 sure is tall."
     speaker: 0
-  - dialogueString: Just give me the gem!
+  - dialogueString: Hoho! It sure is!
+    speaker: 1
+  - dialogueString: Wha-!
     speaker: 0
+  - dialogueString: "You\u2019re.. The Wind Guardian!"
+    speaker: 2
+  - dialogueString: Feel free to call me Tao.
+    speaker: 3
+  - dialogueString: Hmm.. I recognize you, young elf. Are you the Forest Guardian?
+    speaker: 3
+  - dialogueString: "I am. I\u2019m with the hero, Sir Mordred."
+    speaker: 2
+  - dialogueString: "Is it perhaps.. To stop the Dark Lord\u2019s resurrection?"
+    speaker: 3
+  - dialogueString: '! Yes. How did you know?'
+    speaker: 0
+  - dialogueString: Hoho! The wind told me of your predicament, young man.
+    speaker: 3
+  - dialogueString: "Now\u2026 Before I hand it to you.."
+    speaker: 3
+  - dialogueString: How about proving your strength to me first?
+    speaker: 3

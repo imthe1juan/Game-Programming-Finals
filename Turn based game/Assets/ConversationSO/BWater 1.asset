@@ -14,16 +14,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName:
   - Mordred
+  - Water Guardian
   - Talindra
+  - Selene
   characterSprite:
   - {fileID: 21300000, guid: b59c78e1f7a56c443b9e8142583682d1, type: 3}
   - {fileID: 21300000, guid: 6daba98cc72dca048aae0a90ec7eb5f3, type: 3}
+  - {fileID: 21300000, guid: af504dbba79a6024fb49e784d0f81742, type: 3}
+  - {fileID: 21300000, guid: 6daba98cc72dca048aae0a90ec7eb5f3, type: 3}
   dialogue:
-  - dialogueString: Who are you?!
+  - dialogueString: Who enters the domain of the mermaids?
     speaker: 1
-  - dialogueString: Why are you here?!
-    speaker: 1
-  - dialogueString: You don't understand...
+  - dialogueString: Please let me have the Water Gem.
     speaker: 0
-  - dialogueString: Just give me the gem!
+  - dialogueString: "You enter our kingdom and demand the Mermaid\u2019s most guarded
+      treasure?"
+    speaker: 1
+  - dialogueString: "Princess Selene\u2026 Please.\r\n"
+    speaker: 2
+  - dialogueString: Talindra? What are you doing here?
+    speaker: 3
+  - dialogueString: 'This hero needs it for his journey.
+
+'
+    speaker: 2
+  - dialogueString: "I\u2019m sorry Talindra, but even though you\u2019re an ally,
+      I can\u2019t just give up this gem.\r\n"
+    speaker: 3
+  - dialogueString: I guess I have to take it by force.
     speaker: 0

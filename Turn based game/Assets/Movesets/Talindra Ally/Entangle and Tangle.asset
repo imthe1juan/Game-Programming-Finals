@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfx: {fileID: 8346672114386963239, guid: 31d5f3b17c3788d46a42324e54b5d19c, type: 3}
   moveName: '''Entangle and Tangle'''
-  moveSprite: {fileID: 0}
+  moveSprite: {fileID: 21300000, guid: 1572e71479fd8834faf09865265d1e9f, type: 3}
   power: 30
   manaCost: 0
   moveRepeat: 5

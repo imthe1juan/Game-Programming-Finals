@@ -8,6 +8,7 @@ public class Player : Character
     public override void Awake()
     {
         base.Awake();
+        SetCharacter();
     }
 
     public override void ThisTurn()

@@ -14,20 +14,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName:
   - Mordred
+  - Fire Guardian
+  - Talindra
   - Veronna
   characterSprite:
   - {fileID: 21300000, guid: b59c78e1f7a56c443b9e8142583682d1, type: 3}
   - {fileID: 21300000, guid: c0869cb4eb246f2439fbd669a366a090, type: 3}
+  - {fileID: 21300000, guid: af504dbba79a6024fb49e784d0f81742, type: 3}
+  - {fileID: 21300000, guid: c0869cb4eb246f2439fbd669a366a090, type: 3}
   dialogue:
-  - dialogueString: How dare you collect the gems...
-    speaker: 1
-  - dialogueString: Do you know the consequences of this?!
-    speaker: 1
-  - dialogueString: This is from the prophecy!
+  - dialogueString: "So\u2026 What\u2019s the Fire Guardian like?"
     speaker: 0
-  - dialogueString: To hell with the prophecy!
+  - dialogueString: I believe some would describe her as.. Intense.
+    speaker: 2
+  - dialogueString: "She\u2019s the strongest Guardian, so I believe we should be
+      cautious, Sir Mordred."
+    speaker: 2
+  - dialogueString: ... That actually scares me a little bit.
+    speaker: 0
+  - dialogueString: I can see her now.
+    speaker: 2
+  - dialogueString: "\u2026"
     speaker: 1
-  - dialogueString: The effects are too dangerous...
+  - dialogueString: Um.. Hello.
+    speaker: 0
+  - dialogueString: .. Mordred.
     speaker: 1
-  - dialogueString: You need to die!
+  - dialogueString: Wait, you know my name?
+    speaker: 0
+  - dialogueString: Why are you holding that grimoire?
     speaker: 1
+  - dialogueString: Do you know the consequences of your actions!?
+    speaker: 1
+  - dialogueString: We are just here to save the world from the prophecy!
+    speaker: 2
+  - dialogueString: What prophecy?!
+    speaker: 1
+  - dialogueString: "Mordred\u2026 Have you forgotten?"
+    speaker: 1
+  - dialogueString: Forgotten what?
+    speaker: 0
+  - dialogueString: "\u2026.It seems you\u2019ve slept far too long."
+    speaker: 1
+  - dialogueString: Sir Mordred, get ready!
+    speaker: 2
+  - dialogueString: "I, Veronna\u2026"
+    speaker: 3
+  - dialogueString: "\u2026 Will eliminate you to not let the tragedy happen again!!"
+    speaker: 3

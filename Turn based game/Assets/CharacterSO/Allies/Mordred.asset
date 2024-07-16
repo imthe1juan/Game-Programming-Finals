@@ -20,6 +20,6 @@ MonoBehaviour:
   maxHealth: 500
   maxMana: 100
   moves:
-  - {fileID: 11400000, guid: 5b7373c8fe9fcb4499216f5f2c31fa88, type: 2}
   - {fileID: 11400000, guid: 72aa2984d7c314045bec61b413589533, type: 2}
   - {fileID: 11400000, guid: 87d3643a447d8b04a8fb56e6595ca09e, type: 2}
+  - {fileID: 11400000, guid: 5b7373c8fe9fcb4499216f5f2c31fa88, type: 2}

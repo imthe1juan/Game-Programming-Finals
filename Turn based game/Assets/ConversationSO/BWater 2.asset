@@ -14,16 +14,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName:
   - Mordred
+  - Selene
   - Talindra
   characterSprite:
   - {fileID: 21300000, guid: b59c78e1f7a56c443b9e8142583682d1, type: 3}
-  - {fileID: 21300000, guid: d3550f804ed18e44fb9af2b639579dd7, type: 3}
+  - {fileID: 21300000, guid: 6daba98cc72dca048aae0a90ec7eb5f3, type: 3}
+  - {fileID: 21300000, guid: af504dbba79a6024fb49e784d0f81742, type: 3}
   dialogue:
-  - dialogueString: Who are you?!
+  - dialogueString: '!!!'
     speaker: 1
-  - dialogueString: Why are you here?!
+  - dialogueString: "Princess Selene, please! He is here to stop the Dark Lord\u2019s
+      resurrection!\r\n"
+    speaker: 2
+  - dialogueString: 'Resurrection..?
+
+'
     speaker: 1
-  - dialogueString: You don't understand...
+  - dialogueString: "Yes. My name is Mordred. I was woken up to save the world from
+      the Dark Lord\u2019s resurrection.\r\n"
     speaker: 0
-  - dialogueString: Just give me the gem!
+  - dialogueString: 'I have to put the gems in this artifact.
+
+'
     speaker: 0
+  - dialogueString: "\u2026 I see. If it\u2019s to save the world, I will lend you
+      the gem.\r"
+    speaker: 1
+  - dialogueString: '! Thank you, Princess Selene!'
+    speaker: 2
+  - dialogueString: You should move on to the Wind Guardian, his domain is close
+      to the sea.
+    speaker: 1
+  - dialogueString: We will. Thank you again, Princess Selene.
+    speaker: 0
+  - dialogueString: "Selene is enough. I hope you\u2019ll get to visit our kingdom
+      again once things calm down."
+    speaker: 1

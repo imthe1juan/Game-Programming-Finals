@@ -21,5 +21,4 @@ MonoBehaviour:
   maxMana: 100
   moves:
   - {fileID: 11400000, guid: 6f7dcac3b76a70648bf0548d461e3096, type: 2}
-  - {fileID: 11400000, guid: 1885531810f28e948a7c3e2ff5d41653, type: 2}
   - {fileID: 11400000, guid: 52cec8ff414eb4e44b0b5c79bce7b9cd, type: 2}

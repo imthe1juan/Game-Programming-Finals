@@ -20,4 +20,4 @@ MonoBehaviour:
   moveRepeat: 1
   isTargetAlly: 1
   isTargetSelf: 1
-  moveDescription: Recover Health & Mana
+  moveDescription: Recover 10% Health & 30% Mana

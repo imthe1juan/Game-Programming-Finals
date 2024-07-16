@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
+    [SerializeField] private Animator anim;
     private RoundsManager roundsManager;
     [SerializeField] private GameObject dialogueObject;
     [SerializeField] private ConversationSO[] conversations;
@@ -19,6 +20,8 @@ public class DialogueManager : MonoBehaviour
 
     public int CurrentConversation
     { get { return currentConversation; } set { currentConversation = value; } }
+
+    private int testing = 0;
 
     private void Awake()
     {
@@ -78,16 +81,31 @@ public class DialogueManager : MonoBehaviour
             currentDialogue = 0;
             currentConversation++;
 
-            if (roundsManager.Round == 1)
+            //FOR TESTING!!!
+            if (testing >= 1)// Last Round
+            {
+                dialogueObject.SetActive(false);
+                GameStateManager.Instance.IsPlayerWon(true);
+                testing = 0;
+            }
+            else
             {
                 dialogueObject.SetActive(false);
                 roundsManager.FirstRound();
             }
-            else if (roundsManager.Round == 3)// Last Round
-            {
-                dialogueObject.SetActive(false);
-                GameStateManager.Instance.IsPlayerWon(true);
-            }
+            testing++;
+
+            // ORIGINAL
+            /*      if (roundsManager.Round == 1)
+                  {
+                      dialogueObject.SetActive(false);
+                      roundsManager.FirstRound();
+                  }
+                  else if (roundsManager.Round == 3)// Last Round
+                  {
+                      dialogueObject.SetActive(false);
+                      GameStateManager.Instance.IsPlayerWon(true);
+                  }*/
             return;
         }
         ShowDialogue();
@@ -98,27 +116,32 @@ public class DialogueManager : MonoBehaviour
         ConversationSO currentDialogueSceneSO = conversations[currentConversation];
         dialogueText.text = currentDialogueSceneSO.dialogue[currentDialogue].dialogueString;
         int currentSpeaker = currentDialogueSceneSO.dialogue[currentDialogue].speaker;
+
         if (currentSpeaker % 2 == 0 || currentSpeaker == 0)
         {
             characterImage[0].sprite = conversations[currentConversation].characterSprite[currentSpeaker];
-            characterImage[0].color = new Color32(255, 255, 255, 255);
-            characterImage[0].transform.localScale = new Vector3(1.2f, 1.2f, 1.1f);
             characterNameText[0].text = conversations[currentConversation].characterName[currentSpeaker];
+            characterImage[0].color = new Color32(255, 255, 255, 255);
+            characterImage[0].transform.localScale = Vector3.one;
             characterImage[0].SetNativeSize();
 
             characterImage[1].color = new Color32(150, 150, 150, 255);
-            characterImage[1].transform.localScale = Vector3.one;
+            characterImage[1].transform.localScale = new Vector3(.8f, .8f, .8f);
         }
         else
         {
+            if (roundsManager.Round == 3 && testing >= 1 && currentConversation == 0)
+            {
+                anim.SetTrigger("Defeat");
+            }
             characterImage[1].sprite = conversations[currentConversation].characterSprite[currentSpeaker];
-            characterImage[1].color = new Color32(255, 255, 255, 255);
-            characterImage[1].transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
             characterNameText[1].text = conversations[currentConversation].characterName[currentSpeaker];
+            characterImage[1].color = new Color32(255, 255, 255, 255);
+            characterImage[1].transform.localScale = Vector3.one;
             characterImage[1].SetNativeSize();
 
             characterImage[0].color = new Color32(150, 150, 150, 255);
-            characterImage[0].transform.localScale = Vector3.one;
+            characterImage[0].transform.localScale = new Vector3(.8f, .8f, .8f);
         }
     }
 }

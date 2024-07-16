@@ -89,7 +89,7 @@ public class CutsceneManager : MonoBehaviour
     public virtual void ShowDialogue()
     {
         ConversationSO currentDialogueSceneSO = conversations[currentConversation];
-        if (currentDialogue >= 2)
+        if (currentDialogue >= 5)
         {
             isFadeOverlay = true;
             dialogueText2.text = currentDialogueSceneSO.dialogue[currentDialogue].dialogueString;
@@ -100,21 +100,25 @@ public class CutsceneManager : MonoBehaviour
             dialogueText.text = currentDialogueSceneSO.dialogue[currentDialogue].dialogueString;
         }
         int currentSpeaker = currentDialogueSceneSO.dialogue[currentDialogue].speaker;
-        if (currentSpeaker == 0)
+        if (currentSpeaker % 2 == 0 || currentSpeaker == 0)
         {
+            characterImage[0].sprite = conversations[currentConversation].characterSprite[currentSpeaker];
+            characterNameText[0].text = conversations[currentConversation].characterName[currentSpeaker];
             characterImage[0].color = new Color32(255, 255, 255, 255);
-            characterImage[0].transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+            characterImage[0].transform.localScale = Vector3.one;
 
             characterImage[1].color = new Color32(150, 150, 150, 255);
-            characterImage[1].transform.localScale = Vector3.one;
+            characterImage[0].transform.localScale = new Vector3(.8f, .8f, .8f);
         }
-        else if (currentSpeaker == 1)
+        else
         {
+            characterImage[1].sprite = conversations[currentConversation].characterSprite[currentSpeaker];
+            characterNameText[1].text = conversations[currentConversation].characterName[currentSpeaker];
             characterImage[1].color = new Color32(255, 255, 255, 255);
-            characterImage[1].transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+            characterImage[1].transform.localScale = Vector3.one;
 
             characterImage[0].color = new Color32(150, 150, 150, 255);
-            characterImage[0].transform.localScale = Vector3.one;
+            characterImage[0].transform.localScale = new Vector3(.8f, .8f, .8f);
         }
     }
 }

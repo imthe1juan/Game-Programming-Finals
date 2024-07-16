@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7296b2dd10133e940a51f0d90d348c5e, type: 3}
   m_Name: Twister
   m_EditorClassIdentifier: 
-  vfx: {fileID: 0}
+  vfx: {fileID: 2225225185575012898, guid: a26c40f06d605e5489c7f70985b55d1e, type: 3}
   moveName: '''Twister'''
   moveSprite: {fileID: 0}
   power: 10

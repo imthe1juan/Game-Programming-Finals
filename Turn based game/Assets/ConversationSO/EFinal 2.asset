@@ -14,12 +14,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName:
   - Mordred
-  - Pixie
+  - Pandora
+  - Talindra
+  - Pandora
+  - Veronna
   characterSprite:
   - {fileID: 21300000, guid: b59c78e1f7a56c443b9e8142583682d1, type: 3}
-  - {fileID: 21300000, guid: c0869cb4eb246f2439fbd669a366a090, type: 3}
+  - {fileID: 21300000, guid: ed9b2eb165e92b04194065dbe23b2280, type: 3}
   dialogue:
-  - dialogueString: Damn...
+  - dialogueString: Ack!
     speaker: 1
-  - dialogueString: You got me...
+  - dialogueString: "No.. This can\u2019t be! "
+    speaker: 1
+  - dialogueString: "It\u2019s time for you to leave now, Pandora!"
+    speaker: 2
+  - dialogueString: Just when I was so close to my goal..!!!
+    speaker: 1
+  - dialogueString: "\u2026My queen. Please, give up."
+    speaker: 4
+  - dialogueString: How dare you act as a knight for me now.. !! After all THESE
+      years!!!
+    speaker: 1
+  - dialogueString: Begone from this world!
+    speaker: 0
+  - dialogueString: AAAAARGH!!!!!!!!!
     speaker: 1

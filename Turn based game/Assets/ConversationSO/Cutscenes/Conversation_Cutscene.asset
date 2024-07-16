@@ -14,18 +14,70 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName:
   - Mordred
+  - ???
+  - Mordred
   - Pixie
   characterSprite:
   - {fileID: 21300000, guid: b59c78e1f7a56c443b9e8142583682d1, type: 3}
-  - {fileID: 21300000, guid: fb6787f46edd01444a6133648d9fc5c8, type: 3}
+  - {fileID: 21300000, guid: 6800d6b923efd40439944ce9480b5e5a, type: 3}
+  - {fileID: 21300000, guid: b59c78e1f7a56c443b9e8142583682d1, type: 3}
+  - {fileID: 21300000, guid: 6800d6b923efd40439944ce9480b5e5a, type: 3}
   dialogue:
-  - dialogueString: Ouch...
+  - dialogueString: "\u2026.Up!!!"
+    speaker: 1
+  - dialogueString: "Mhhm\u2026"
     speaker: 0
-  - dialogueString: "What the hell happened?\r"
+  - dialogueString: "\u2026.Hero!!"
+    speaker: 1
+  - dialogueString: H.. Huh..?
     speaker: 0
-  - dialogueString: Hello there!
+  - dialogueString: HERO!! WAKE UP!!
     speaker: 1
-  - dialogueString: I'm pixie!
+  - dialogueString: "(Why am I lying down in a casket\u2026?)"
+    speaker: 0
+  - dialogueString: Hello there, hero!
     speaker: 1
-  - dialogueString: Let's go to the earth gem guardian to save the world!
-    speaker: 1
+  - dialogueString: 'Who are you? '
+    speaker: 0
+  - dialogueString: I'm Pixie, your guide!
+    speaker: 3
+  - dialogueString: "I.. see\u2026 Why do I need a guide, exactly?\r\n"
+    speaker: 0
+  - dialogueString: 'You''ve been chosen to save the world from the resurrection
+      of the Dark Lord.
+
+'
+    speaker: 3
+  - dialogueString: Wait, what?
+    speaker: 0
+  - dialogueString: Why me?!
+    speaker: 0
+  - dialogueString: "Because you\u2019re the chosen one, duh!"
+    speaker: 3
+  - dialogueString: "(I don\u2019t even have memories of my past\u2026 Only my name..)\r"
+    speaker: 0
+  - dialogueString: (But perhaps.. Going through this journey might return it?)
+    speaker: 0
+  - dialogueString: "Okay then. As long as you\u2019re there to guide me.\r"
+    speaker: 0
+  - dialogueString: "Great! I\u2019ll explain more about your quest then."
+    speaker: 3
+  - dialogueString: You must retrieve four elemental gems hidden by powerful guardians.
+      These gems will prevent the Dark Lord's return.
+    speaker: 3
+  - dialogueString: I see. Where do I put these gems?
+    speaker: 0
+  - dialogueString: "Beside you is the artifact needed to seal the Dark Lord, we\u2019d
+      best be on our way now!"
+    speaker: 3
+  - dialogueString: Wait, where are we going?
+    speaker: 0
+  - dialogueString: "Well, we\u2019re already in the Forest of the Guardian of the
+      Earth Gem, so let\u2019s deal with him first!"
+    speaker: 3
+  - dialogueString: "Come on! Let\u2019s go Mordred!\r\n"
+    speaker: 3
+  - dialogueString: (?)
+    speaker: 0
+  - dialogueString: "(How does she know my name\u2026)"
+    speaker: 0

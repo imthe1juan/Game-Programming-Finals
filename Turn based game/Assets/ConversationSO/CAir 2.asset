@@ -14,16 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName:
   - Mordred
+  - Tao
   - Talindra
   characterSprite:
   - {fileID: 21300000, guid: b59c78e1f7a56c443b9e8142583682d1, type: 3}
   - {fileID: 21300000, guid: 2b1611250d96bf54cadbad8e5076a123, type: 3}
   dialogue:
-  - dialogueString: Who are you?!
+  - dialogueString: Excellent!
     speaker: 1
-  - dialogueString: Why are you here?!
+  - dialogueString: Here is the gem.
     speaker: 1
-  - dialogueString: You don't understand...
+  - dialogueString: Thank you so much.
     speaker: 0
-  - dialogueString: Just give me the gem!
-    speaker: 0
+  - dialogueString: "Hoho! You\u2019re welcome."
+    speaker: 1
+  - dialogueString: "This old man unfortunately can\u2019t join you on your journey,
+      but I wish you the best of luck."
+    speaker: 1
+  - dialogueString: "The last domain is the Fire Guardian\u2019s. Let\u2019s go,
+      Sir Mordred."
+    speaker: 2

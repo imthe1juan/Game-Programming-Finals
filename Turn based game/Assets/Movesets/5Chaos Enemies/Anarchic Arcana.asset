@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26f94d15d2a8c5c41ae8a7628271dd12, type: 3}
   m_Name: Anarchic Arcana
   m_EditorClassIdentifier: 
-  vfx: {fileID: 8346672114386963239, guid: 27ccd87151e668d4fb9d06d509d3fa20, type: 3}
+  vfx: {fileID: 5088822490591744180, guid: 09eb8dd3e8581544caed740350b4f6f7, type: 3}
   moveName: '''Anarchic Arcana'''
   moveSprite: {fileID: 0}
   power: 25

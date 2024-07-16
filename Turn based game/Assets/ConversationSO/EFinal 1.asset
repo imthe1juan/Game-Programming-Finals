@@ -14,28 +14,60 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName:
   - Mordred
-  - Kayos
+  - ???
+  - Talindra
+  - Pandora
   - Veronna
   characterSprite:
   - {fileID: 21300000, guid: b59c78e1f7a56c443b9e8142583682d1, type: 3}
-  - {fileID: 21300000, guid: 2b1611250d96bf54cadbad8e5076a123, type: 3}
-  - {fileID: 21300000, guid: c0869cb4eb246f2439fbd669a366a090, type: 3}
+  - {fileID: 21300000, guid: ed9b2eb165e92b04194065dbe23b2280, type: 3}
+  - {fileID: 21300000, guid: af504dbba79a6024fb49e784d0f81742, type: 3}
+  - {fileID: 21300000, guid: ed9b2eb165e92b04194065dbe23b2280, type: 3}
+  - {fileID: 21300000, guid: 9a9569b031a70ad4cab9113b4ff038f6, type: 3}
   dialogue:
-  - dialogueString: YOU FOOL!
+  - dialogueString: HAHAHAHAHA!
     speaker: 1
-  - dialogueString: Thanks for bringing me all the gems!
-    speaker: 1
-  - dialogueString: I can finally unleash my true powers!
-    speaker: 1
-  - dialogueString: Y-you tricked me!
+  - dialogueString: "Pixie is\u2026 The Dark Lord..?"
     speaker: 0
-  - dialogueString: You're just fucking stupid!
-    speaker: 1
-  - dialogueString: How can you believe in to a creature you just met?!
-    speaker: 1
-  - dialogueString: 'I fucking told you Mordred! '
+  - dialogueString: "Oh, please. Don\u2019t call me by that stupid name. I am Pandora."
+    speaker: 3
+  - dialogueString: "Thank you, hero\u2026 You have unwittingly aided in my resurrection.
+      Now, I can finally destroy this world."
+    speaker: 3
+  - dialogueString: Y-You tricked me!
+    speaker: 0
+  - dialogueString: Oh, you fool! How can you believe a creature you just met!?
+    speaker: 3
+  - dialogueString: "How does it feel to become Humanity\u2019s traitor?"
+    speaker: 3
+  - dialogueString: I told you!
+    speaker: 4
+  - dialogueString: "I-I\u2019m sorry!"
+    speaker: 0
+  - dialogueString: "I don\u2019t understand\u2026 Why did the artifact resurrect
+      her..?"
     speaker: 2
-  - dialogueString: I know! I'll fix this, I promise!
+  - dialogueString: "\u2026"
+    speaker: 4
+  - dialogueString: "Mordred. You were the hero who sealed Pandora away into the
+      artifact a hundred years ago with the help of the other guardians. They all
+      died, and new guardians took our place\u2014except for me."
+    speaker: 4
+  - dialogueString: You returned the gems to their places and fell into a deep sleep
+      in the Earth guardian's woods along with the artifact..
+    speaker: 4
+  - dialogueString: The gems have restored her power.
+    speaker: 4
+  - dialogueString: "O-oh.. How could I have forgotten that\u2026"
     speaker: 0
-  - dialogueString: Let's see you try!
-    speaker: 1
+  - dialogueString: "I\u2019m with you, Sir Mordred."
+    speaker: 2
+  - dialogueString: "I\u2019ll join you. It\u2019s my fault she wasn\u2019t taken
+      care of all those years ago."
+    speaker: 4
+  - dialogueString: Acting tough now, my sweet general, Veronna?
+    speaker: 3
+  - dialogueString: "\u2026"
+    speaker: 4
+  - dialogueString: "Hmph, let\u2019s see you idiots try!"
+    speaker: 3

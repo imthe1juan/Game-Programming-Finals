@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfx: {fileID: 8346672114386963239, guid: 6b059b9521560bb448d214cb467e8aed, type: 3}
   moveName: '''Nature''s Embrace'''
-  moveSprite: {fileID: 0}
+  moveSprite: {fileID: 21300000, guid: 9539c6252715e5141989474adb5863fe, type: 3}
   power: 30
   manaCost: 0
   moveRepeat: 0

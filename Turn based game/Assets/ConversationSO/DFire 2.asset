@@ -15,13 +15,25 @@ MonoBehaviour:
   characterName:
   - Mordred
   - Veronna
+  - Talindra
+  - Veronna
+  - Pixie
   characterSprite:
   - {fileID: 21300000, guid: b59c78e1f7a56c443b9e8142583682d1, type: 3}
   - {fileID: 21300000, guid: c0869cb4eb246f2439fbd669a366a090, type: 3}
+  - {fileID: 21300000, guid: af504dbba79a6024fb49e784d0f81742, type: 3}
+  - {fileID: 21300000, guid: c0869cb4eb246f2439fbd669a366a090, type: 3}
+  - {fileID: 21300000, guid: 6800d6b923efd40439944ce9480b5e5a, type: 3}
   dialogue:
-  - dialogueString: Don't do it!
+  - dialogueString: Argh!
     speaker: 1
-  - dialogueString: You will unleash chaos!
+  - dialogueString: Sir Mordred! Take her gem now!
+    speaker: 2
+  - dialogueString: "No! Don\u2019t do it!"
     speaker: 1
-  - dialogueString: Noooo!!!
+  - dialogueString: Do it now, Mordred!
+    speaker: 4
+  - dialogueString: Stop! You don't understand what you're doing!
+    speaker: 1
+  - dialogueString: NO-!
     speaker: 1

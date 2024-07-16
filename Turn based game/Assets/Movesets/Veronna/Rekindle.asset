@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 100933c7f6f96574d9591b83e7835251, type: 3}
   m_Name: Rekindle
   m_EditorClassIdentifier: 
-  vfx: {fileID: 0}
+  vfx: {fileID: 2386562253318482384, guid: df44ae26a14a3ec4281a45bfbdfe4dc6, type: 3}
   moveName: '''Rekindle'''
   moveSprite: {fileID: 0}
   power: 50

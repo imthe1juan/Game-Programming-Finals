@@ -31,7 +31,6 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip castingClip;
 
     [SerializeField] private AudioClip healClip;
-    [SerializeField] private AudioClip earthSpellClip;
 
     private void Awake()
     {
@@ -102,10 +101,5 @@ public class AudioManager : MonoBehaviour
     public void PlayCastingSFX()
     {
         sfxAudioSource.PlayOneShot(castingClip);
-    }
-
-    public void PlayEarthSpellSFX()
-    {
-        sfxAudioSource.PlayOneShot(earthSpellClip);
     }
 }

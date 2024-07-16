@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7296b2dd10133e940a51f0d90d348c5e, type: 3}
   m_Name: Cascade
   m_EditorClassIdentifier: 
-  vfx: {fileID: 0}
+  vfx: {fileID: 3409109562707445453, guid: 75bcea0341a3a5847b6733b92b0bfd4d, type: 3}
   moveName: '''Cascade'''
   moveSprite: {fileID: 0}
   power: 20
