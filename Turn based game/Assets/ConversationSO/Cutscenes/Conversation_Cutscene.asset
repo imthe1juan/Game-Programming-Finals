@@ -37,7 +37,7 @@ MonoBehaviour:
     speaker: 0
   - dialogueString: Hello there, hero!
     speaker: 1
-  - dialogueString: 'Who are you? '
+  - dialogueString: Who are you?
     speaker: 0
   - dialogueString: I'm Pixie, your guide!
     speaker: 3
@@ -75,7 +75,7 @@ MonoBehaviour:
   - dialogueString: "Well, we\u2019re already in the Forest of the Guardian of the
       Earth Gem, so let\u2019s deal with him first!"
     speaker: 3
-  - dialogueString: "Come on! Let\u2019s go Mordred!\r\n"
+  - dialogueString: "Come on! Let\u2019s go Mordred!\r"
     speaker: 3
   - dialogueString: (?)
     speaker: 0

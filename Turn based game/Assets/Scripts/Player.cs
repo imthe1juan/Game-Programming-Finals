@@ -30,7 +30,7 @@ public class Player : Character
         battleManager.FocusMove(this, target);
 
         CameraManager.Instance.TargetTakingAction(target.transform, isEnemy);
-        transform.position = target.transform.position - new Vector3(1.5f, 0, 0);
+        transform.position = target.transform.position - new Vector3(2f, 0, 0);
 
         battleManager.DisableMoveset();
 

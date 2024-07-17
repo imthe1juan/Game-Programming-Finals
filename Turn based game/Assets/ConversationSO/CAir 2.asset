@@ -19,6 +19,7 @@ MonoBehaviour:
   characterSprite:
   - {fileID: 21300000, guid: b59c78e1f7a56c443b9e8142583682d1, type: 3}
   - {fileID: 21300000, guid: 2b1611250d96bf54cadbad8e5076a123, type: 3}
+  - {fileID: 21300000, guid: af504dbba79a6024fb49e784d0f81742, type: 3}
   dialogue:
   - dialogueString: Excellent!
     speaker: 1

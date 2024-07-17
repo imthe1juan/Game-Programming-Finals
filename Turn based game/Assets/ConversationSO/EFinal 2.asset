@@ -21,6 +21,9 @@ MonoBehaviour:
   characterSprite:
   - {fileID: 21300000, guid: b59c78e1f7a56c443b9e8142583682d1, type: 3}
   - {fileID: 21300000, guid: ed9b2eb165e92b04194065dbe23b2280, type: 3}
+  - {fileID: 21300000, guid: af504dbba79a6024fb49e784d0f81742, type: 3}
+  - {fileID: 21300000, guid: ed9b2eb165e92b04194065dbe23b2280, type: 3}
+  - {fileID: 21300000, guid: 9a9569b031a70ad4cab9113b4ff038f6, type: 3}
   dialogue:
   - dialogueString: Ack!
     speaker: 1
@@ -39,3 +42,21 @@ MonoBehaviour:
     speaker: 0
   - dialogueString: AAAAARGH!!!!!!!!!
     speaker: 1
+  - dialogueString: "\u2026 It\u2019s over."
+    speaker: 4
+  - dialogueString: "Sir Mordred\u2026 You did it!!"
+    speaker: 2
+  - dialogueString: I.. I did it..?
+    speaker: 0
+  - dialogueString: 'You did..! '
+    speaker: 2
+  - dialogueString: "Veronna\u2026 I\u2019m so sorry I forgot."
+    speaker: 0
+  - dialogueString: "It\u2019s fine. You\u2019ve been sleeping for years. Of course
+      you forgot."
+    speaker: 4
+  - dialogueString: Haha.. ha
+    speaker: 0
+  - dialogueString: "Since it\u2019s all over, why don\u2019t we just.. Take a break
+      first?"
+    speaker: 0

@@ -9,10 +9,11 @@ using UnityEngine.UI;
 
 public class CutsceneManager : MonoBehaviour
 {
+    [SerializeField] private FadeController controller;
     [SerializeField] private bool isBossBattle;
 
+    [SerializeField] private GameObject bookObject;
     [SerializeField] private GameObject cutsceneObject;
-    [SerializeField] private Image blackOverlay;
     [SerializeField] private ConversationSO[] conversations;
     [SerializeField] private Image[] characterImage;
 
@@ -23,37 +24,10 @@ public class CutsceneManager : MonoBehaviour
 
     private int currentConversation = 0;
     private int currentDialogue = 0;
-    private float alpha = 255;
-    private bool isFadeOverlay;
-    private bool isEndCutscene;
 
     private void Start()
     {
         InitalizeDialogue();
-    }
-
-    private void Update()
-    {
-        if (!isFadeOverlay)
-        {
-            if (alpha < 255)
-            {
-                alpha += Time.deltaTime * 150;
-                blackOverlay.color = new Color32(0, 0, 0, (byte)alpha);
-            }
-            else if (isEndCutscene && alpha >= 255)
-            {
-                LoadMainScene();
-            }
-        }
-        else
-        {
-            if (alpha > 0)
-            {
-                alpha -= Time.deltaTime * 150;
-                blackOverlay.color = new Color32(0, 0, 0, (byte)alpha);
-            }
-        }
     }
 
     public virtual void InitalizeDialogue()
@@ -71,9 +45,8 @@ public class CutsceneManager : MonoBehaviour
         currentDialogue++;
         if (currentDialogue > conversations[currentConversation].dialogue.Length - 1)
         {
-            isFadeOverlay = false;
             nextButton.gameObject.SetActive(false);
-            isEndCutscene = true;
+            StartCoroutine(LoadMainScene());
         }
         else
         {
@@ -81,8 +54,10 @@ public class CutsceneManager : MonoBehaviour
         }
     }
 
-    private void LoadMainScene()
+    private IEnumerator LoadMainScene()
     {
+        controller.FadeToBlack();
+        yield return new WaitForSeconds(1);
         SceneManager.LoadScene(2);
     }
 
@@ -91,13 +66,22 @@ public class CutsceneManager : MonoBehaviour
         ConversationSO currentDialogueSceneSO = conversations[currentConversation];
         if (currentDialogue >= 5)
         {
-            isFadeOverlay = true;
+            controller.FadeFromBlack();
             dialogueText2.text = currentDialogueSceneSO.dialogue[currentDialogue].dialogueString;
             dialogueText.gameObject.SetActive(false);
         }
         else
         {
             dialogueText.text = currentDialogueSceneSO.dialogue[currentDialogue].dialogueString;
+        }
+
+        if (currentDialogue == 20)
+        {
+            bookObject.gameObject.SetActive(true);
+        }
+        else
+        {
+            bookObject.gameObject.SetActive(false);
         }
         int currentSpeaker = currentDialogueSceneSO.dialogue[currentDialogue].speaker;
         if (currentSpeaker % 2 == 0 || currentSpeaker == 0)
@@ -108,7 +92,7 @@ public class CutsceneManager : MonoBehaviour
             characterImage[0].transform.localScale = Vector3.one;
 
             characterImage[1].color = new Color32(150, 150, 150, 255);
-            characterImage[0].transform.localScale = new Vector3(.8f, .8f, .8f);
+            characterImage[1].transform.localScale = new Vector3(.8f, .8f, .8f);
         }
         else
         {

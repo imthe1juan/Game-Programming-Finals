@@ -26,12 +26,12 @@ public class Enemy : Character
             if (preselectedMove.isTargetAlly) //Ally of the Enemy
             {
                 target = battleManager.PickRandomEnemy(); // It picks an enemy of the player (ally of the enemy)
-                transform.position = target.gameObject.transform.position + new Vector3(1.5f, 0, 0);
+                transform.position = target.gameObject.transform.position + new Vector3(2f, 0, 0);
             }
             else
             {
                 target = battleManager.PickRandomAlly(); // Attacks you/your ally
-                transform.position = target.gameObject.transform.position + new Vector3(1.5f, 0, 0);
+                transform.position = target.gameObject.transform.position + new Vector3(2f, 0, 0);
             }
         }
 

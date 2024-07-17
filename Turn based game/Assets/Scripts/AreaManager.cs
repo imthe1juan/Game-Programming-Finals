@@ -11,6 +11,7 @@ public class AreaManager : MonoBehaviour
     private RoundsManager roundsManager;
     public static AreaManager Instance;
 
+    [SerializeField] private FadeController controller;
     [SerializeField] private Image backgroundImage;
     [SerializeField] private Sprite[] backgrounds;
 
@@ -154,17 +155,14 @@ public class AreaManager : MonoBehaviour
 
     public void NextArea()
     {
-        if (currentArea < 4)
-        {
-            alliesSet = false;
-            currentArea++;
-            GameStateManager.Instance.DisableGameStateObject();
-            dialogueManager.InitializeFirstRound();
-        }
-        else
-        {
-            AudioManager.Instance.PlayEndMusic();
-            SceneManager.LoadScene("EndScene");
-        }
+        alliesSet = false;
+        currentArea++;
+        GameStateManager.Instance.DisableGameStateObject();
+        dialogueManager.InitializeFirstRound();
+    }
+
+    public void PandoraDefeated()
+    {
+        backgroundImage.sprite = backgrounds[currentArea + 1];
     }
 }
