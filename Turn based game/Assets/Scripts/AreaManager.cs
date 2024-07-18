@@ -27,6 +27,7 @@ public class AreaManager : MonoBehaviour
     [SerializeField] private int currentArea;
     public int AccessedMoves { get; private set; }
     private bool alliesSet = false;
+    private bool restarted = false;
 
     public int CurrentArea
     {
@@ -101,6 +102,11 @@ public class AreaManager : MonoBehaviour
                 dialogueManager.CurrentConversation = 0;
                 break;
         }
+
+        if (restarted)
+        {
+            dialogueManager.CurrentConversation++;
+        }
     }
 
     public void SetEnemy()
@@ -148,6 +154,7 @@ public class AreaManager : MonoBehaviour
 
     public void NextArea()
     {
+        restarted = false;
         alliesSet = false;
         currentArea++;
         GameStateManager.Instance.DisableGameStateObject();
@@ -156,6 +163,7 @@ public class AreaManager : MonoBehaviour
 
     public void RestartArea()
     {
+        restarted = true;
         alliesSet = false;
         GameStateManager.Instance.DisableGameStateObject();
         dialogueManager.InitializeFirstRound();

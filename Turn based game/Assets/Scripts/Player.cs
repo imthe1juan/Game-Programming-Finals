@@ -33,12 +33,13 @@ public class Player : Character
         Vector3 offset = Vector3.zero;
         if (preselectedMove.moveName != "'Rest'") //If move is not rest
         {
-            if (preselectedMove.moveName != "'Nature's Embrace'" && target.characterName != "Talindra") // If heal move does not target the caster
+            offset = new Vector3(2f, 0, 0);
+            if (preselectedMove.moveName == "'Nature's Embrace'" && target.characterName == "Talindra")
             {
-                offset = new Vector3(2f, 0, 0);
-                transform.position = target.transform.position - offset;
+                offset = new Vector3(0f, 0, 0);
             }
         }
+        transform.position = target.transform.position - offset;
 
         battleManager.DisableMoveset();
 
