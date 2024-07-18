@@ -15,9 +15,9 @@ MonoBehaviour:
   vfx: {fileID: 2386562253318482384, guid: df44ae26a14a3ec4281a45bfbdfe4dc6, type: 3}
   moveName: '''Pyroclasm'''
   moveSprite: {fileID: 21300000, guid: 3b3f48f9d347de74482497709b5bdf11, type: 3}
-  power: 200
-  manaCost: 0
+  power: 55
+  manaCost: 50
   moveRepeat: 3
   isTargetAlly: 0
   isTargetSelf: 0
-  moveDescription: 
+  moveDescription: Unleash a devasting burst of flames

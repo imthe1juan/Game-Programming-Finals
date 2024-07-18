@@ -15,9 +15,9 @@ MonoBehaviour:
   vfx: {fileID: 2386562253318482384, guid: df44ae26a14a3ec4281a45bfbdfe4dc6, type: 3}
   moveName: '''Firestorm'''
   moveSprite: {fileID: 0}
-  power: 25
+  power: 40
   manaCost: 0
-  moveRepeat: 5
+  moveRepeat: 4
   isTargetAlly: 0
   isTargetSelf: 0
   moveDescription: 

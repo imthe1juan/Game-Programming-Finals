@@ -94,7 +94,7 @@ public class MoveScaling : MonoBehaviour
         }
         else if (multiplier == 2)
         {
-            damage = (int)(power * 1.5f);
+            damage = (int)(power * 1.35f);
             audioManager.PlayHitSFX();
             audioManager.PlayCriticalSFX();
         }
@@ -126,6 +126,8 @@ public class MoveScaling : MonoBehaviour
 
     private IEnumerator ScalingOverDelay()
     {
+        BattleManager.Instance.DefaultCameraView();
+
         yield return new WaitForSeconds(.5f);
 
         ScalingOver();
@@ -155,7 +157,7 @@ public class MoveScaling : MonoBehaviour
             audioManager.PlayBlockSFX();
             audioManager.PlayCriticalSFX();
 
-            damage = (int)(power / 1.5f);
+            damage = (int)(power / 1.2f);
         }
 
         target.DefendSprite();
@@ -178,7 +180,7 @@ public class MoveScaling : MonoBehaviour
     public void Heal(int divider)
     {
         circle.transform.localPosition = initialPos + new Vector3(Random.Range(-.25f, .25f), Random.Range(-.25f, .25f));
-        TMP_Text popupTextClone = Instantiate(popupText, transform.position + new Vector3(-1, 0, 0), Quaternion.identity);
+        TMP_Text popupTextClone = Instantiate(popupText, target.transform.position + new Vector3(1, 0, 0), Quaternion.identity);
         Destroy(popupTextClone.gameObject, 1f);
 
         initialPos = circle.transform.position;
@@ -198,7 +200,7 @@ public class MoveScaling : MonoBehaviour
         }
         else if (divider == 2)
         {
-            totalHeal = power * 2;
+            totalHeal = Mathf.RoundToInt(power * 1.5f);
         }
         target.Heal(totalHeal);
         popupTextClone.color = Color.green;
@@ -221,7 +223,6 @@ public class MoveScaling : MonoBehaviour
         if (multiplier == 0)
         {
             //Missed
-
             totalManaRegen = Mathf.RoundToInt(power / 1.5f);
         }
         else if (multiplier == 1)
@@ -233,12 +234,12 @@ public class MoveScaling : MonoBehaviour
             totalManaRegen = Mathf.RoundToInt(power * 1.5f);
         }
 
-        TMP_Text popupTextMana = Instantiate(popupText, transform.position + new Vector3(-1, 0, 0), Quaternion.identity);
+        TMP_Text popupTextMana = Instantiate(popupText, target.transform.position + new Vector3(1, 0, 0), Quaternion.identity);
         Destroy(popupTextMana.gameObject, 1f);
-        user.Heal(totalManaRegen);
+        user.Heal(Mathf.RoundToInt(totalManaRegen / 1.5f));
         user.RegenMana(totalManaRegen);
-        popupTextMana.color = Color.blue;
-        popupTextMana.text = $"<color=#ff0000ff>+{totalManaRegen}</color>\n+{totalManaRegen}";
+
+        popupTextMana.text = $"<color=#00FF00>+{Mathf.RoundToInt(totalManaRegen / 1.5f)}</color>\n<color=#2323FF>+{totalManaRegen}</color>";
 
         if (repetition < moveRepeat) return;
         circle.gameObject.SetActive(false);

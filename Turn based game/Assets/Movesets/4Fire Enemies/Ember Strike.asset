@@ -15,7 +15,7 @@ MonoBehaviour:
   vfx: {fileID: 4469015190208529576, guid: 9c3107d95a527094aa54d73e432e8f3a, type: 3}
   moveName: '''Ember Strike'''
   moveSprite: {fileID: 0}
-  power: 20
+  power: 25
   manaCost: 0
   moveRepeat: 3
   isTargetAlly: 0

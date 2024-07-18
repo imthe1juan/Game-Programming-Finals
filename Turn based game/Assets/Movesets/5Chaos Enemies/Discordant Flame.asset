@@ -15,9 +15,9 @@ MonoBehaviour:
   vfx: {fileID: 5088822490591744180, guid: 09eb8dd3e8581544caed740350b4f6f7, type: 3}
   moveName: '''Discordant Flame'''
   moveSprite: {fileID: 0}
-  power: 25
+  power: 40
   manaCost: 0
-  moveRepeat: 5
+  moveRepeat: 4
   isTargetAlly: 0
   isTargetSelf: 0
   moveDescription: 

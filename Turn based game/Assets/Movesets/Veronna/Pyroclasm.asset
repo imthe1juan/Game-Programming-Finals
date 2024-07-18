@@ -15,7 +15,7 @@ MonoBehaviour:
   vfx: {fileID: 2386562253318482384, guid: df44ae26a14a3ec4281a45bfbdfe4dc6, type: 3}
   moveName: '''Pyroclasm'''
   moveSprite: {fileID: 0}
-  power: 200
+  power: 65
   manaCost: 0
   moveRepeat: 3
   isTargetAlly: 0

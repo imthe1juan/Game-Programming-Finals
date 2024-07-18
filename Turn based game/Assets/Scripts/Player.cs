@@ -29,8 +29,16 @@ public class Player : Character
         target = battleManager.GetTarget();
         battleManager.FocusMove(this, target);
 
-        CameraManager.Instance.TargetTakingAction(target.transform, isEnemy);
-        transform.position = target.transform.position - new Vector3(2f, 0, 0);
+        CameraManager.Instance.TargetTakingAction(target, preselectedMove, isEnemy);
+        Vector3 offset = Vector3.zero;
+        if (preselectedMove.moveName != "'Rest'") //If move is not rest
+        {
+            if (preselectedMove.moveName != "'Nature's Embrace'" && target.characterName != "Talindra") // If heal move does not target the caster
+            {
+                offset = new Vector3(2f, 0, 0);
+                transform.position = target.transform.position - offset;
+            }
+        }
 
         battleManager.DisableMoveset();
 

@@ -23,7 +23,7 @@ public class SpellHandler : MonoBehaviour
 
     private void OnEnable()
     {
-        totalDamageText.text = $"Total Damage:\n{power}";
+        totalDamageText.text = $"Total Damage:\n0";
         StartCoroutine(EnableSpellCircles());
     }
 

@@ -59,12 +59,12 @@ public class BlockCircle : MonoBehaviour
         {
             circleVFXClone.transform.localScale = new Vector3(2, 2, 2);
             AudioManager.Instance.PlayCriticalSFX();
-            blockHandler.DivideTotalDamage(1.5f);
+            blockHandler.DivideTotalDamage(1.15f);
             gameObject.SetActive(false);
         }
         else
         {
-            blockHandler.DivideTotalDamage(1.25f);
+            blockHandler.DivideTotalDamage(1.1f);
             gameObject.SetActive(false);
         }
     }

@@ -15,9 +15,9 @@ MonoBehaviour:
   vfx: {fileID: 8346672114386963239, guid: 27ccd87151e668d4fb9d06d509d3fa20, type: 3}
   moveName: '''Thorn Barrage'''
   moveSprite: {fileID: 0}
-  power: 25
+  power: 30
   manaCost: 0
-  moveRepeat: 5
+  moveRepeat: 4
   isTargetAlly: 0
   isTargetSelf: 0
   moveDescription: 

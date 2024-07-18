@@ -61,6 +61,7 @@ public class Character : MonoBehaviour
     public void SetCharacter()
     {
         gameObject.SetActive(true);
+        tookAction = false;
         dead = false;
         originalPos = transform.position;
         maxMana = characterSO.maxMana;

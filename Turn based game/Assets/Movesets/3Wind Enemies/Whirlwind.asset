@@ -15,9 +15,9 @@ MonoBehaviour:
   vfx: {fileID: 4774565227906838494, guid: 7f36b347ab2888d4f8680fb4ba4e1c4c, type: 3}
   moveName: '''Whirlwind'''
   moveSprite: {fileID: 0}
-  power: 25
+  power: 30
   manaCost: 0
-  moveRepeat: 5
+  moveRepeat: 6
   isTargetAlly: 0
   isTargetSelf: 0
   moveDescription: 

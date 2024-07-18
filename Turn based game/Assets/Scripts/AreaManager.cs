@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class AreaManager : MonoBehaviour
 {
@@ -18,7 +16,7 @@ public class AreaManager : MonoBehaviour
     public List<CharacterSO> availableEnemies = new List<CharacterSO>();
     public List<CharacterSO> availableEnemiesClone = new List<CharacterSO>();
 
-    [SerializeField] private Character[] finalAllies;
+    [SerializeField] private Character[] allies;
     [SerializeField] private CharacterSO[] bossEnemies;
     [SerializeField] private CharacterSO[] forestEnemies;
     [SerializeField] private CharacterSO[] waterEnemies;
@@ -63,7 +61,7 @@ public class AreaManager : MonoBehaviour
         switch (currentArea)
         {
             case 0:
-                AccessedMoves = 2;
+                AccessedMoves = 3;
                 availableEnemies = new List<CharacterSO>(forestEnemies);
 
                 dialogueManager.CurrentConversation = 0;
@@ -119,21 +117,16 @@ public class AreaManager : MonoBehaviour
 
         alliesSet = true;
 
+        allies[0].SetCharacter();
         if (currentArea >= 1)
         {
-            if (!finalAllies[0].isActiveAndEnabled)
-            {
-                finalAllies[0].gameObject.SetActive(true);
-                finalAllies[0].SetCharacter();
-            }
+            allies[1].gameObject.SetActive(true);
+            allies[1].SetCharacter();
         }
         if (currentArea >= 4)
         {
-            if (!finalAllies[1].isActiveAndEnabled)
-            {
-                finalAllies[1].gameObject.SetActive(true);
-                finalAllies[1].SetCharacter();
-            }
+            allies[2].gameObject.SetActive(true);
+            allies[2].SetCharacter();
         }
 
         foreach (var item in availableEnemies)
@@ -161,8 +154,23 @@ public class AreaManager : MonoBehaviour
         dialogueManager.InitializeFirstRound();
     }
 
+    public void RestartArea()
+    {
+        alliesSet = false;
+        GameStateManager.Instance.DisableGameStateObject();
+        dialogueManager.InitializeFirstRound();
+    }
+
     public void PandoraDefeated()
     {
         backgroundImage.sprite = backgrounds[currentArea + 1];
+    }
+
+    public void SetAllies()
+    {
+        foreach (var item in allies)
+        {
+            item.SetCharacter();
+        }
     }
 }

@@ -15,9 +15,9 @@ MonoBehaviour:
   vfx: {fileID: 3409109562707445453, guid: 75bcea0341a3a5847b6733b92b0bfd4d, type: 3}
   moveName: '''Hydro Surge'''
   moveSprite: {fileID: 0}
-  power: 20
+  power: 25
   manaCost: 0
-  moveRepeat: 3
+  moveRepeat: 4
   isTargetAlly: 0
   isTargetSelf: 0
   moveDescription: 

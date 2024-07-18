@@ -213,8 +213,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.3}
-  m_Size: {x: 2, y: 2}
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 2, y: 2.5}
   m_Direction: 0
 --- !u!1 &4275931416374237521
 GameObject:
@@ -310,7 +310,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 625188022954080610, guid: 4408fb473763d01499bfccda9390722c, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2686419422311278984, guid: 4408fb473763d01499bfccda9390722c, type: 3}
       propertyPath: m_Pivot.x
@@ -411,6 +411,14 @@ PrefabInstance:
     - target: {fileID: 3635437375225096624, guid: 4408fb473763d01499bfccda9390722c, type: 3}
       propertyPath: m_Name
       value: Character Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 4685123023061249654, guid: 4408fb473763d01499bfccda9390722c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5693014643151894532, guid: 4408fb473763d01499bfccda9390722c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7254498910505311306, guid: 4408fb473763d01499bfccda9390722c, type: 3}
       propertyPath: m_AnchoredPosition.y

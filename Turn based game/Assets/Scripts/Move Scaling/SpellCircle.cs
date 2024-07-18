@@ -59,7 +59,7 @@ public class SpellCircle : MonoBehaviour
         {
             circleVFXClone.transform.localScale = new Vector3(2, 2, 2);
             AudioManager.Instance.PlayCriticalSFX();
-            spellHandler.AddMultiplier(1.5f);
+            spellHandler.AddMultiplier(1.35f);
             gameObject.SetActive(false);
         }
         else

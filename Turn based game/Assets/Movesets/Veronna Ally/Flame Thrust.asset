@@ -16,8 +16,8 @@ MonoBehaviour:
   moveName: '''Flame Thrust'''
   moveSprite: {fileID: 21300000, guid: 0446621fe8ce48846a2aafd94a7911f7, type: 3}
   power: 30
-  manaCost: 0
+  manaCost: 30
   moveRepeat: 3
   isTargetAlly: 0
   isTargetSelf: 0
-  moveDescription: 
+  moveDescription: 3-hit damage to a foe

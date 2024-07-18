@@ -29,17 +29,24 @@ public class CameraManager : MonoBehaviour
         defaultCamera.gameObject.SetActive(true);
     }
 
-    public void TargetTakingAction(Transform target, bool isEnemy)
+    public void TargetTakingAction(Character target, Move preselectedMove, bool isEnemy)
     {
         defaultCamera.gameObject.SetActive(false);
-        targetCamera.m_Follow = target;
+        targetCamera.m_Follow = target.transform;
         if (isEnemy)
         {
-            targetCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = new Vector3(1, .5f, -10);
+            targetCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = new Vector3(1, 0, -10);
         }
         else
         {
-            targetCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = new Vector3(-1, .5f, -10);
+            if (preselectedMove.moveName == "'Rest'" || preselectedMove.moveName == "'Nature's Embrace'") //If move is not rest
+            {
+                targetCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = new Vector3(0, 0, -10);
+            }
+            else
+            {
+                targetCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = new Vector3(-1, 0, -10);
+            }
         }
     }
 }

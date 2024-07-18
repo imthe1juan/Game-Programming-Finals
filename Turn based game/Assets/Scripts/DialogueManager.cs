@@ -36,7 +36,14 @@ public class DialogueManager : MonoBehaviour
         roundsManager.ResetRound();
         AreaManager.Instance.SetArea();
         AreaManager.Instance.SetEnemy();
-        InitalizeDialogue(true);
+        if (testing == 1)
+        {
+            roundsManager.FirstRound();
+        }
+        else
+        {
+            InitalizeDialogue(true);
+        }
     }
 
     public virtual void InitalizeDialogue(bool hasDialogue)
@@ -126,11 +133,15 @@ public class DialogueManager : MonoBehaviour
             controller.Blink();
             StartCoroutine(NextDialogueCoroutine());
         }
-        if (currentConversation == 9 && currentDialogue == 7) //Fading after defeating Pandora
+        if (currentConversation == 9) //Fading after defeating Pandora
         {
-            nextButton.SetActive(false);
-            controller.Blink();
-            StartCoroutine(NextDialogueCoroutine());
+            AreaManager.Instance.SetAllies();
+            if (currentDialogue == 7)
+            {
+                nextButton.SetActive(false);
+                controller.Blink();
+                StartCoroutine(NextDialogueCoroutine());
+            }
         }
 
         if (currentSpeaker % 2 == 0 || currentSpeaker == 0)

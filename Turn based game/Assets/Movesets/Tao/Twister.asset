@@ -15,7 +15,7 @@ MonoBehaviour:
   vfx: {fileID: 2225225185575012898, guid: a26c40f06d605e5489c7f70985b55d1e, type: 3}
   moveName: '''Twister'''
   moveSprite: {fileID: 0}
-  power: 10
+  power: 20
   manaCost: 0
   moveRepeat: 6
   isTargetAlly: 0

@@ -15,7 +15,7 @@ MonoBehaviour:
   vfx: {fileID: 271411036038305797, guid: d75b5c3bd921c9b4390d7df94708774a, type: 3}
   moveName: '''Chaos Bolt'''
   moveSprite: {fileID: 0}
-  power: 20
+  power: 35
   manaCost: 0
   moveRepeat: 3
   isTargetAlly: 0

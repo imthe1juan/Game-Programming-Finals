@@ -9,6 +9,8 @@ public class GameStateManager : MonoBehaviour
     public static GameStateManager Instance;
     [SerializeField] private FadeController controller;
     [SerializeField] private Animator gemBookAnim;
+
+    [SerializeField] private GameObject restartButton;
     [SerializeField] private GameObject nextButton;
 
     [SerializeField] private GameObject gemBookObject;
@@ -44,6 +46,8 @@ public class GameStateManager : MonoBehaviour
         {
             gameStateObject.SetActive(true);
             stateText.text = "You Lose!";
+            nextButton.SetActive(true);
+            restartButton.SetActive(true);
         }
     }
 
@@ -96,6 +100,7 @@ public class GameStateManager : MonoBehaviour
     public void NextButton()
     {
         nextButton.SetActive(false);
+
         if (won)
         {
             StartCoroutine(TransitionToNextArea());
@@ -104,6 +109,14 @@ public class GameStateManager : MonoBehaviour
         {
             SceneManager.LoadScene(0);
         }
+    }
+
+    public void RestartGame()
+    {
+        DisableGameStateObject();
+        nextButton.SetActive(false);
+        restartButton.SetActive(false);
+        AreaManager.Instance.RestartArea();
     }
 
     private IEnumerator TransitionToNextArea()

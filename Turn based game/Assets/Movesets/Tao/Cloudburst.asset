@@ -15,7 +15,7 @@ MonoBehaviour:
   vfx: {fileID: 4774565227906838494, guid: 7f36b347ab2888d4f8680fb4ba4e1c4c, type: 3}
   moveName: '''Cloudburst'''
   moveSprite: {fileID: 0}
-  power: 100
+  power: 50
   manaCost: 0
   moveRepeat: 5
   isTargetAlly: 0

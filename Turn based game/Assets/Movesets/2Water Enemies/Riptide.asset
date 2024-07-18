@@ -15,7 +15,7 @@ MonoBehaviour:
   vfx: {fileID: 3972741881261689135, guid: 8b69ef38774447f41879f20f72be88c8, type: 3}
   moveName: '''Riptide'''
   moveSprite: {fileID: 0}
-  power: 25
+  power: 35
   manaCost: 0
   moveRepeat: 5
   isTargetAlly: 0

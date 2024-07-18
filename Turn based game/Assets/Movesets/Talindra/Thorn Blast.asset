@@ -15,7 +15,7 @@ MonoBehaviour:
   vfx: {fileID: 8346672114386963239, guid: de2c81693b2cd4b4b9bf28e6c24f5203, type: 3}
   moveName: '''Thorn Blast'''
   moveSprite: {fileID: 0}
-  power: 20
+  power: 30
   manaCost: 0
   moveRepeat: 3
   isTargetAlly: 0

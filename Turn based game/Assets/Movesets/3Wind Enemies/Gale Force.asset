@@ -15,9 +15,9 @@ MonoBehaviour:
   vfx: {fileID: 2225225185575012898, guid: a26c40f06d605e5489c7f70985b55d1e, type: 3}
   moveName: '''Gale Force'''
   moveSprite: {fileID: 0}
-  power: 20
+  power: 25
   manaCost: 0
-  moveRepeat: 3
+  moveRepeat: 5
   isTargetAlly: 0
   isTargetSelf: 0
   moveDescription: 

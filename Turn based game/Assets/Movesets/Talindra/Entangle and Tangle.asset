@@ -15,7 +15,7 @@ MonoBehaviour:
   vfx: {fileID: 8346672114386963239, guid: 31d5f3b17c3788d46a42324e54b5d19c, type: 3}
   moveName: '''Entangle and Tangle'''
   moveSprite: {fileID: 0}
-  power: 30
+  power: 35
   manaCost: 0
   moveRepeat: 5
   isTargetAlly: 0

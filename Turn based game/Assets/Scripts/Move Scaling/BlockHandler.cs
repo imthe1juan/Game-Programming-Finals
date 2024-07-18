@@ -49,14 +49,11 @@ public class BlockHandler : MonoBehaviour
     {
         divisionAdded++;
         division = value;
-        if (division == 0)
+        if (division != 0)
         {
-            totalDamage -= 0;
+            totalDamage = Mathf.RoundToInt(totalDamage / division);
         }
-        else
-        {
-            totalDamage -= Mathf.RoundToInt(power / division);
-        }
+
         totalDamageText.text = $"Total Damage:\n{totalDamage}";
         AudioManager.Instance.PlayCastingSFX();
         if (divisionAdded >= moveRepeat)

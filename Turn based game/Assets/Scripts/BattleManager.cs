@@ -100,8 +100,6 @@ public class BattleManager : MonoBehaviour
 
     public void NextTurn()
     {
-        RevertFocus();
-        CameraManager.Instance.DefaultCameraPos();
         if (roundOver) { return; }
         int aliveCharacters = 0;
 
@@ -344,6 +342,11 @@ public class BattleManager : MonoBehaviour
         {
             if (item.dead)
             {
+                if (item.characterName == "Mordred")
+                {
+                    roundOver = true;
+                    GameStateManager.Instance.IsPlayerWon(false);
+                }
                 alliesDead++;
             }
         }
@@ -353,5 +356,11 @@ public class BattleManager : MonoBehaviour
             roundOver = true;
             GameStateManager.Instance.IsPlayerWon(false);
         }
+    }
+
+    public void DefaultCameraView()
+    {
+        RevertFocus();
+        CameraManager.Instance.DefaultCameraPos();
     }
 }

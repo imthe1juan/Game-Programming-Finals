@@ -15,8 +15,8 @@ MonoBehaviour:
   vfx: {fileID: 8346672114386963239, guid: 077cdb024f8a2614d997b5c93bcd4344, type: 3}
   moveName: '''Strike'''
   moveSprite: {fileID: 21300000, guid: 822be405f487b214e8f32311fb3e0e8d, type: 3}
-  power: 20
-  manaCost: 20
+  power: 40
+  manaCost: 25
   moveRepeat: 2
   isTargetAlly: 0
   isTargetSelf: 0

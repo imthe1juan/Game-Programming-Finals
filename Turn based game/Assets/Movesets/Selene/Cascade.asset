@@ -15,7 +15,7 @@ MonoBehaviour:
   vfx: {fileID: 3409109562707445453, guid: 75bcea0341a3a5847b6733b92b0bfd4d, type: 3}
   moveName: '''Cascade'''
   moveSprite: {fileID: 0}
-  power: 20
+  power: 35
   manaCost: 0
   moveRepeat: 5
   isTargetAlly: 0

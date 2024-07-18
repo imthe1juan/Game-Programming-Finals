@@ -40,7 +40,7 @@ public class Enemy : Character
 
         battleManager.FocusMove(this, target);
         ExecuteMove(preselectedMove);
-        CameraManager.Instance.TargetTakingAction(target.transform, isEnemy);
+        CameraManager.Instance.TargetTakingAction(target, preselectedMove, isEnemy);
     }
 
     public override void ExecuteMove(Move move)
@@ -56,6 +56,8 @@ public class Enemy : Character
         {
             GameObject vfxClone = Instantiate(move.vfx, transform.position, Quaternion.identity);
             Destroy(vfxClone, .25f);
+            battleManager.DefaultCameraView();
+
             Invoke(nameof(NextTurn), .5f);
         }
     }

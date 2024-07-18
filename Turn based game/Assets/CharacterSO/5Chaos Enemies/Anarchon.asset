@@ -17,7 +17,7 @@ MonoBehaviour:
   characterDefaultSprite: {fileID: 21300000, guid: 36285cf7e29c4c342b1e22eef17a9b38, type: 3}
   characterAttackSprite: {fileID: 21300000, guid: 36285cf7e29c4c342b1e22eef17a9b38, type: 3}
   characterDefendSprite: {fileID: 21300000, guid: 36285cf7e29c4c342b1e22eef17a9b38, type: 3}
-  maxHealth: 50
+  maxHealth: 400
   maxMana: 100
   moves:
   - {fileID: 11400000, guid: c92b246032e35b0459285522ed1f07b6, type: 2}

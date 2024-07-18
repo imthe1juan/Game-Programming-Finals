@@ -16,8 +16,8 @@ MonoBehaviour:
   moveName: '''Entangle and Tangle'''
   moveSprite: {fileID: 21300000, guid: 1572e71479fd8834faf09865265d1e9f, type: 3}
   power: 30
-  manaCost: 0
+  manaCost: 50
   moveRepeat: 5
   isTargetAlly: 0
   isTargetSelf: 0
-  moveDescription: 
+  moveDescription: Damage enemies with constricting vines.
