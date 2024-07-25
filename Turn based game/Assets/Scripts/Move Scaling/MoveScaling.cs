@@ -9,13 +9,11 @@ public class MoveScaling : MonoBehaviour
     [SerializeField] private TMP_Text totalDamageText;
     [SerializeField] private SpellHandler spellHandler;
     [SerializeField] private BlockHandler blockHandler;
-
     [SerializeField] private TMP_Text popupText;
     [SerializeField] private Circle circle;
 
     private int totalDamage;
     private int repetition;
-    private int moveRepeat;
     private Character target;
     private Character user;
     private int power;
@@ -32,243 +30,64 @@ public class MoveScaling : MonoBehaviour
 
     public void ScaleSpellMove(Move move, Character user, Character target, int power)
     {
-        this.move = move;
-        this.user = user;
-        this.target = target;
-        this.power = power;
-        moveRepeat = move.moveRepeat;
-        vfx = move.vfx;
-        initialPos = target.transform.position;
-        isEnemy = user.isEnemy;
-        circle.isEnemy = isEnemy;
-        if (user.isEnemy)
+        InitializeMove(move, user, target, power);
+        if (isEnemy)
         {
-            blockHandler.SetPower(power);
-            blockHandler.moveRepeat = move.moveRepeat;
-            blockHandler.SetTotalDamage(power * moveRepeat);
-            blockHandler.gameObject.SetActive(true);
+            ConfigureBlockHandler();
         }
         else
         {
-            spellHandler.moveRepeat = moveRepeat;
-            spellHandler.gameObject.SetActive(true);
-            spellHandler.SetPower(power);
+            ConfigureSpellHandler();
         }
     }
 
     public void ScaleMove(Move move, Character user, Character target, int power)
     {
+        InitializeMove(move, user, target, power);
+        circle.gameObject.SetActive(true);
+        MoveCircle();
+    }
+
+    private void InitializeMove(Move move, Character user, Character target, int power)
+    {
+        move.moveOwner = user;
         this.move = move;
         this.user = user;
         this.target = target;
         this.power = power;
-        moveRepeat = move.moveRepeat;
-        vfx = move.vfx;
+        vfx = move.vfx.gameObject;
+        repetition = 0;
         initialPos = target.transform.position;
         isEnemy = user.isEnemy;
-
         circle.isEnemy = isEnemy;
-        circle.gameObject.SetActive(true);
+    }
+
+    private void ConfigureBlockHandler()
+    {
+        blockHandler.SetPower(power);
+        blockHandler.moveRepeat = move.moveRepeat;
+        blockHandler.SetTotalDamage(power * move.moveRepeat);
+        blockHandler.gameObject.SetActive(true);
+    }
+
+    private void ConfigureSpellHandler()
+    {
+        spellHandler.moveRepeat = move.moveRepeat;
+        spellHandler.SetPower(power);
+        spellHandler.gameObject.SetActive(true);
+    }
+
+    private void MoveCircle()
+    {
         circle.transform.localPosition = initialPos + new Vector3(Random.Range(-.25f, .25f), Random.Range(-.25f, .25f));
     }
 
-    public void Attack(int multiplier)
+    private void ShowPopupText(int value, Color color, Vector3 offset)
     {
-        circle.transform.localPosition = initialPos + new Vector3(Random.Range(-.25f, .25f), Random.Range(-.25f, .25f));
-        initialPos = circle.transform.position;
-
-        repetition++;
-
-        int damage = 0;
-
-        if (multiplier == 0)
-        {
-            //Missed
-            audioManager.PlayMissSFX();
-            damage = 0;
-        }
-        else if (multiplier == 1)
-        {
-            damage = power;
-            audioManager.PlayHitSFX();
-        }
-        else if (multiplier == 2)
-        {
-            damage = (int)(power * 1.35f);
-            audioManager.PlayHitSFX();
-            audioManager.PlayCriticalSFX();
-        }
-        TMP_Text popupTextClone = Instantiate(popupText, target.transform.position + new Vector3(0, 1.3f, 0), Quaternion.identity);
-        Destroy(popupTextClone.gameObject, .5f);
-
-        if (multiplier > 0)
-        {
-            popupTextClone.text = $"-{damage}";
-        }
-        else
-        {
-            popupTextClone.text = $"Miss!";
-        }
-        user.AttackSprite();
-
-        SetTotalDamage(damage);
-
-        target.Damage(damage);
-
-        Debug.Log(moveRepeat);
-        if (repetition < moveRepeat) return;
-        target.CheckIfDead();
-
-        circle.gameObject.SetActive(false);
-
-        StartCoroutine(ScalingOverDelay());
-    }
-
-    private IEnumerator ScalingOverDelay()
-    {
-        BattleManager.Instance.DefaultCameraView();
-
-        yield return new WaitForSeconds(.5f);
-
-        ScalingOver();
-    }
-
-    public void Defend(int divider)
-    {
-        circle.transform.localPosition = initialPos + new Vector3(Random.Range(-.25f, .25f), Random.Range(-.25f, .25f));
-        initialPos = circle.transform.position;
-
-        repetition++;
-
-        int damage = 0;
-        if (divider == 0)
-        {
-            //Block Failed
-            audioManager.PlayHitSFX();
-            damage = power * 2;
-        }
-        else if (divider == 1)
-        {
-            audioManager.PlayHitSFX();
-            damage = power;
-        }
-        else if (divider == 2)
-        {
-            audioManager.PlayBlockSFX();
-            audioManager.PlayCriticalSFX();
-
-            damage = (int)(power / 1.2f);
-        }
-
-        target.DefendSprite();
-
-        TMP_Text popupTextClone = Instantiate(popupText, target.transform.position + new Vector3(0, 1.3f, 0), Quaternion.identity);
-        popupTextClone.text = $"-{damage}";
-        Destroy(popupTextClone.gameObject, .5f);
-
-        SetTotalDamage(damage);
-        target.Damage(damage);
-
-        if (repetition < moveRepeat) return;
-        target.CheckIfDead();
-
-        circle.gameObject.SetActive(false);
-
-        StartCoroutine(ScalingOverDelay());
-    }
-
-    public void Heal(int divider)
-    {
-        circle.transform.localPosition = initialPos + new Vector3(Random.Range(-.25f, .25f), Random.Range(-.25f, .25f));
-        TMP_Text popupTextClone = Instantiate(popupText, target.transform.position + new Vector3(1, 0, 0), Quaternion.identity);
+        TMP_Text popupTextClone = Instantiate(popupText, target.transform.position + offset, Quaternion.identity);
+        popupTextClone.text = value >= 0 ? $"+{value}" : $"{value}";
+        popupTextClone.color = color;
         Destroy(popupTextClone.gameObject, 1f);
-
-        initialPos = circle.transform.position;
-
-        repetition++;
-        int totalHeal = 0;
-
-        if (divider == 0)
-        {
-            //Missed
-
-            totalHeal = power / 2;
-        }
-        else if (divider == 1)
-        {
-            totalHeal = power;
-        }
-        else if (divider == 2)
-        {
-            totalHeal = Mathf.RoundToInt(power * 1.5f);
-        }
-        target.Heal(totalHeal);
-        popupTextClone.color = Color.green;
-        popupTextClone.text = $"+{totalHeal}";
-
-        if (repetition < moveRepeat) return;
-        circle.gameObject.SetActive(false);
-        StartCoroutine(ScalingOverDelay());
-    }
-
-    public void Rest(int multiplier)
-    {
-        circle.transform.localPosition = initialPos + new Vector3(Random.Range(-.25f, .25f), Random.Range(-.25f, .25f));
-
-        initialPos = circle.transform.position;
-
-        repetition++;
-        int totalManaRegen = 0;
-
-        if (multiplier == 0)
-        {
-            //Missed
-            totalManaRegen = Mathf.RoundToInt(power / 1.5f);
-        }
-        else if (multiplier == 1)
-        {
-            totalManaRegen = power;
-        }
-        else if (multiplier == 2)
-        {
-            totalManaRegen = Mathf.RoundToInt(power * 1.5f);
-        }
-
-        TMP_Text popupTextMana = Instantiate(popupText, target.transform.position + new Vector3(1, 0, 0), Quaternion.identity);
-        Destroy(popupTextMana.gameObject, 1f);
-        user.Heal(Mathf.RoundToInt(totalManaRegen / 1.5f));
-        user.RegenMana(totalManaRegen);
-
-        popupTextMana.text = $"<color=#00FF00>+{Mathf.RoundToInt(totalManaRegen / 1.5f)}</color>\n<color=#2323FF>+{totalManaRegen}</color>";
-
-        if (repetition < moveRepeat) return;
-        circle.gameObject.SetActive(false);
-        StartCoroutine(ScalingOverDelay());
-    }
-
-    public void Spell(int totalDamage)
-    {
-        this.totalDamage = totalDamage;
-
-        StartCoroutine(SpellDelay());
-    }
-
-    private IEnumerator SpellDelay()
-    {
-        yield return new WaitForSeconds(1f);
-        TMP_Text popupTextClone = Instantiate(popupText, target.transform.position + new Vector3(0, 1.3f, 0), Quaternion.identity);
-        Destroy(popupTextClone.gameObject, 1);
-
-        popupTextClone.text = $"-{totalDamage}";
-
-        user.AttackSprite();
-        GameObject vfxClone = Instantiate(vfx, target.transform.position, Quaternion.identity);
-        Destroy(vfxClone.gameObject, 1f);
-
-        target.Damage(totalDamage);
-        target.CheckIfDead();
-
-        StartCoroutine(ScalingOverDelay());
     }
 
     public void ScaleMove(int scaler)
@@ -276,30 +95,136 @@ public class MoveScaling : MonoBehaviour
         switch (move)
         {
             case AttackMove:
-                {
-                    if (isEnemy)
-                    {
-                        Defend(scaler);
-                    }
-                    else
-                    {
-                        Attack(scaler);
-                    }
-                    return;
-                }
+                if (isEnemy) Defend(scaler); else Attack(scaler);
+                break;
+
             case HealMove:
-                {
-                    Heal(scaler);
+                Heal(scaler);
+                break;
 
-                    return;
-                }
             case RestMove:
-                {
-                    Rest(scaler);
-
-                    return;
-                }
+                Rest(scaler);
+                break;
         }
+    }
+
+    public void Attack(int multiplier)
+    {
+        int damage = CalculateDamage(multiplier);
+        MoveCircle();
+        repetition++;
+        if (multiplier > 0) ShowPopupText(-damage, Color.red, new Vector3(0, 1.3f, 0));
+        user.AttackSprite();
+        SetTotalDamage(damage);
+        target.Damage(damage);
+        if (repetition < move.moveRepeat) return;
+        FinalizeMove();
+    }
+
+    public void Defend(int divider)
+    {
+        int damage = CalculateDefenseDamage(divider);
+        MoveCircle();
+        repetition++;
+        ShowPopupText(-damage, Color.red, new Vector3(0, 1.3f, 0));
+        target.DefendSprite();
+        SetTotalDamage(damage);
+        target.Damage(damage);
+        if (repetition < move.moveRepeat) return;
+        FinalizeMove();
+    }
+
+    public void Heal(int divider)
+    {
+        int heal = CalculateHeal(divider);
+        MoveCircle();
+        repetition++;
+        ShowPopupText(heal, Color.green, new Vector3(1, 0, 0));
+        target.Heal(heal);
+        if (repetition < move.moveRepeat) return;
+        FinalizeMove();
+    }
+
+    public void Rest(int multiplier)
+    {
+        int manaRegen = CalculateManaRegen(multiplier);
+        MoveCircle();
+        repetition++;
+        ShowPopupText(manaRegen, Color.blue, new Vector3(1, 0, 0));
+        user.RegenMana(manaRegen);
+        if (repetition < move.moveRepeat) return;
+        FinalizeMove();
+    }
+
+    private int CalculateDamage(int multiplier)
+    {
+        if (multiplier == 0) { audioManager.PlayMissSFX(); return 0; }
+        int damage = (multiplier == 2) ? (int)(power * 1.35f) : power;
+        if (multiplier == 2) audioManager.PlayCriticalSFX();
+        audioManager.PlayHitSFX();
+        return damage;
+    }
+
+    private int CalculateDefenseDamage(int divider)
+    {
+        if (divider == 0) { audioManager.PlayHitSFX(); return power * 2; }
+        int damage = (divider == 2) ? (int)(power / 1.2f) : power;
+        if (divider == 2) audioManager.PlayCriticalSFX();
+        audioManager.PlayHitSFX();
+        return damage;
+    }
+
+    private int CalculateHeal(int divider)
+    {
+        return divider switch
+        {
+            0 => power / 2,
+            1 => power,
+            2 => Mathf.RoundToInt(power * 1.5f),
+            _ => power
+        };
+    }
+
+    private int CalculateManaRegen(int multiplier)
+    {
+        return multiplier switch
+        {
+            0 => Mathf.RoundToInt(power / 1.5f),
+            1 => power,
+            2 => Mathf.RoundToInt(power * 1.5f),
+            _ => power
+        };
+    }
+
+    private void FinalizeMove()
+    {
+        target.CheckIfDead();
+        circle.gameObject.SetActive(false);
+        StartCoroutine(ScalingOverDelay());
+    }
+
+    private IEnumerator ScalingOverDelay()
+    {
+        BattleManager.Instance.DefaultCameraView();
+        yield return new WaitForSeconds(.5f);
+        ScalingOver();
+    }
+
+    public void Spell(int totalDamage)
+    {
+        this.totalDamage = totalDamage;
+        StartCoroutine(SpellDelay());
+    }
+
+    private IEnumerator SpellDelay()
+    {
+        yield return new WaitForSeconds(1f);
+        ShowPopupText(-totalDamage, Color.red, new Vector3(0, 1.3f, 0));
+        user.AttackSprite();
+        Instantiate(vfx, target.transform.position, Quaternion.identity);
+        target.Damage(totalDamage);
+        target.CheckIfDead();
+        StartCoroutine(ScalingOverDelay());
     }
 
     public void ScalingOver()
@@ -308,7 +233,6 @@ public class MoveScaling : MonoBehaviour
         circle.gameObject.SetActive(false);
         user.RevertPosition();
         user.NextTurn();
-
         Invoke(nameof(ResetTotalDamage), .5f);
     }
 
@@ -316,7 +240,7 @@ public class MoveScaling : MonoBehaviour
     {
         totalDamage += addedDamage;
         totalDamageText.gameObject.SetActive(true);
-        totalDamageText.text = $"Total Damage:\n{(int)(totalDamage)}";
+        totalDamageText.text = $"Total Damage:\n{totalDamage}";
     }
 
     public void ResetTotalDamage()

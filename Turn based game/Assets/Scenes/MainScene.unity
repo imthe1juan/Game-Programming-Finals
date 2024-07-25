@@ -2392,7 +2392,7 @@ MonoBehaviour:
   m_text: Pick Target
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 00747261a22cd6e4b8b61a0f5fe8535a, type: 2}
-  m_sharedMaterial: {fileID: -6352801031026235801, guid: f5b5556d41e333c499930716bf726dec, type: 2}
+  m_sharedMaterial: {fileID: 684845380898822598, guid: 00747261a22cd6e4b8b61a0f5fe8535a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2455,7 +2455,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &485171840
@@ -2543,18 +2543,9 @@ MonoBehaviour:
   - {fileID: 4417900992976700290}
   - {fileID: 136020650}
   - {fileID: 1916571445}
-  movesetButtonList:
-  - {fileID: 1852876885}
-  - {fileID: 531992395}
-  - {fileID: 2092828396}
-  - {fileID: 615530101}
   characterPortrait: {fileID: 1771186583}
   playerName: {fileID: 521991760}
-  chosenActionText: {fileID: 2115452727}
   background: {fileID: 1832347719}
-  pickTarget: {fileID: 485171838}
-  characterAction: {fileID: 1172924265}
-  movesetParent: {fileID: 1821093430}
   characterTurn: {fileID: 0}
   targetCharacter: {fileID: 0}
   isActionActive: 0
@@ -4771,6 +4762,59 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1069165565
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1069165567}
+  - component: {fileID: 1069165566}
+  m_Layer: 0
+  m_Name: MovesetManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1069165566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1069165565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 435bf64a0b6c6844d9a2b72a69f1feeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movesetButtonList:
+  - {fileID: 1852876885}
+  - {fileID: 531992395}
+  - {fileID: 2092828396}
+  - {fileID: 615530101}
+  chosenActionText: {fileID: 2115452727}
+  movesetParent: {fileID: 1821093430}
+  pickTarget: {fileID: 485171838}
+  characterAction: {fileID: 1172924265}
+--- !u!4 &1069165567
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1069165565}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1084065527
 GameObject:
   m_ObjectHideFlags: 0
@@ -10903,6 +10947,7 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 1923528950}
   - {fileID: 501430315}
+  - {fileID: 1069165567}
   - {fileID: 1886636417}
   - {fileID: 223243265}
   - {fileID: 1172023241}

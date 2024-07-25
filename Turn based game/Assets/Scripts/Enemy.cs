@@ -7,7 +7,8 @@ public class Enemy : Character
     public override void ThisTurn()
     {
         base.ThisTurn();
-        battleManager.AITurn(characterName + "'s Turn");
+        BattleManager.Instance.AITurn();
+        MovesetManager.Instance.SetCharacterAction(characterName + "'s Turn");
         Invoke(nameof(MoveInvoked), 1f);
     }
 
@@ -17,6 +18,7 @@ public class Enemy : Character
         preselectedMove = moves[randomMove];
 
         Character target;
+        BattleManager battleManager = BattleManager.Instance;
         if (preselectedMove.isTargetSelf)
         {
             target = this;
@@ -36,7 +38,8 @@ public class Enemy : Character
         }
 
         this.target = target;
-        battleManager.AITurn(characterName + " uses " + preselectedMove.moveName + " to " + target.characterName);
+        battleManager.AITurn();
+        MovesetManager.Instance.SetCharacterAction(characterName + " uses " + preselectedMove.moveName + " to " + target.characterName);
 
         battleManager.FocusMove(this, target);
         ExecuteMove(preselectedMove);
@@ -56,14 +59,9 @@ public class Enemy : Character
         {
             GameObject vfxClone = Instantiate(move.vfx, transform.position, Quaternion.identity);
             Destroy(vfxClone, .25f);
-            battleManager.DefaultCameraView();
+            BattleManager.Instance.DefaultCameraView();
 
             Invoke(nameof(NextTurn), .5f);
         }
-    }
-
-    public override void OnMouseDown()
-    {
-        battleManager.PickTarget(this);
     }
 }

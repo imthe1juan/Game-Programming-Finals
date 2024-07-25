@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using UnityEngine.TextCore.Text;
+using System.Linq.Expressions;
 
 public class BattleManager : MonoBehaviour
 {
@@ -18,16 +18,11 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private List<Character> currentEnemies;
     private int currentEnemiesCount;
     [SerializeField] private List<Character> enemies;
-    public List<Button> movesetButtonList;
 
     [SerializeField] private Image characterPortrait;
     [SerializeField] private TMP_Text playerName;
-    [SerializeField] private TMP_Text chosenActionText;
 
     [SerializeField] private Image background;
-    [SerializeField] private Transform pickTarget;
-    [SerializeField] private GameObject characterAction;
-    [SerializeField] private Transform movesetParent;
 
     public Character characterTurn;
     [SerializeField] private Character targetCharacter;
@@ -55,12 +50,11 @@ public class BattleManager : MonoBehaviour
         NextTurn();
     }
 
-    public void AITurn(string name)
+    public void AITurn()
     {
         if (roundOver) { return; }
-        DisableMoveset();
+        MovesetManager.Instance.DisableMoveset();
 
-        characterAction.GetComponentInChildren<TMP_Text>().text = name;
         playerName.gameObject.SetActive(false);
     }
 
@@ -70,9 +64,8 @@ public class BattleManager : MonoBehaviour
         preselectedMove = false;
         targetCharacter = currentEnemies[0];
 
-        characterAction.gameObject.SetActive(false);
+        MovesetManager.Instance.EnableMoveset();
 
-        movesetParent.gameObject.SetActive(true);
         playerName.gameObject.SetActive(true);
         playerName.text = name;
 
@@ -80,26 +73,9 @@ public class BattleManager : MonoBehaviour
         characterPortrait.SetNativeSize();
     }
 
-    public void AnnounceAction(string action)
-    {
-        characterAction.GetComponentInChildren<TMP_Text>().text = action;
-    }
-
-    public void DisableMoveset()
-    {
-        for (int i = 0; i < movesetButtonList.Count; i++)
-        {
-            movesetButtonList[i].onClick.RemoveAllListeners();
-        }
-
-        movesetParent.gameObject.SetActive(false);
-        characterAction.gameObject.SetActive(true);
-        pickTarget.gameObject.SetActive(false);
-        chosenActionText.gameObject.SetActive(false);
-    }
-
     public void NextTurn()
     {
+        isActionActive = false;
         if (roundOver) { return; }
         int aliveCharacters = 0;
 
@@ -126,6 +102,8 @@ public class BattleManager : MonoBehaviour
             {
                 characters[i].tookAction = true;
                 characters[i].ThisTurn();
+                characterTurn = characters[i];
+                isActionActive = true;
                 tookAction++;
                 break;
             }
@@ -216,13 +194,11 @@ public class BattleManager : MonoBehaviour
     public void PreselectedMove(Move move)
     {
         preselectedMove = true;
-        pickTarget.gameObject.SetActive(true);
-        chosenActionText.gameObject.SetActive(true);
-        chosenActionText.text = $"Chosen Action: {move.moveName}";
+        MovesetManager.Instance.MoveSelected($"Chosen Action: {move.moveName}");
     }
 
     //If player selects a skill, it determines the selectable targets
-    public void SetTargets(int number)
+    public void SetTargetable(int number)
     {
         //Makes everyone tagetable first (reset)
         foreach (var item in allies)
@@ -322,7 +298,7 @@ public class BattleManager : MonoBehaviour
             //All enemies are dead
             tookAction = 0;
             roundOver = true;
-            characterAction.SetActive(false);
+            MovesetManager.Instance.DisableMoveset();
             foreach (var item in characters)
             {
                 item.tookAction = false;

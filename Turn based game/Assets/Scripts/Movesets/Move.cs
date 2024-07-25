@@ -3,6 +3,7 @@ using UnityEngine;
 
 public abstract class Move : ScriptableObject
 {
+    public Character moveOwner;
     public GameObject vfx;
     public string moveName;
     public Sprite moveSprite;

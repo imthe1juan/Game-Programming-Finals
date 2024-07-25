@@ -8,7 +8,6 @@ using UnityEngine.UI;
 public class Character : MonoBehaviour
 {
     public CharacterSO characterSO;
-    protected BattleManager battleManager;
     private HealthbarManager healthbarManager;
     private ManabarManager manabarManager;
 
@@ -40,7 +39,6 @@ public class Character : MonoBehaviour
 
     public virtual void Awake()
     {
-        battleManager = FindObjectOfType<BattleManager>();
         healthbarManager = GetComponent<HealthbarManager>();
         manabarManager = GetComponent<ManabarManager>();
     }
@@ -83,16 +81,16 @@ public class Character : MonoBehaviour
     public virtual void ThisTurn()
     {
         RegenMana(10); // Base mana
-        battleManager.characterTurn = this;
-        battleManager.isActionActive = true;
         tookAction = true;
         thisTurn = true;
     }
 
     private void PreselectMove(Move move)
     {
+        BattleManager battleManager = BattleManager.Instance;
         battleManager.PreselectedMove(move);
         preselectedMove = move;
+
         if (move.isTargetSelf)
         {
             battleManager.PickTarget(this);
@@ -100,11 +98,11 @@ public class Character : MonoBehaviour
         }
         if (move.isTargetAlly)
         {
-            battleManager.SetTargets(1);
+            battleManager.SetTargetable(1);
         }
         else
         {
-            battleManager.SetTargets(0);
+            battleManager.SetTargetable(0);
         }
     }
 
@@ -140,7 +138,7 @@ public class Character : MonoBehaviour
         if (currentHealth <= 0)
         {
             dead = true;
-            battleManager.CheckGameState();
+            BattleManager.Instance.CheckGameState();
         }
     }
 
@@ -179,17 +177,18 @@ public class Character : MonoBehaviour
     {
         RevertPosition();
         thisTurn = false;
-        battleManager.isActionActive = false;
-        battleManager.NextTurn();
+        BattleManager.Instance.NextTurn();
     }
 
     public virtual void OnMouseDown()
     {
+        BattleManager.Instance.PickTarget(this);
     }
 
     public void SetMoveset()
     {
         int accessedMoves = moves.Count;
+        MovesetManager movesetManager = MovesetManager.Instance;
         if (isMC)
         {
             accessedMoves = AreaManager.Instance.AccessedMoves;
@@ -199,36 +198,36 @@ public class Character : MonoBehaviour
         {
             int index = i;
 
-            battleManager.movesetButtonList[index].onClick.AddListener(() => PreselectMove(moves[index]));
-            battleManager.movesetButtonList[index].transform.GetChild(0).GetComponent<Image>().sprite = moves[index].moveSprite; //Gets the move name TMP_Text
+            movesetManager.movesetButtonList[index].onClick.AddListener(() => PreselectMove(moves[index]));
+            movesetManager.movesetButtonList[index].transform.GetChild(0).GetComponent<Image>().sprite = moves[index].moveSprite; //Gets the move name TMP_Text
             if (moves[index].isTargetAlly)
             {
-                battleManager.movesetButtonList[index].transform.GetChild(1).GetComponentInChildren<TMP_Text>().text = $"{moves[index].moveName}\n{moves[index].moveDescription}" +
+                movesetManager.movesetButtonList[index].transform.GetChild(1).GetComponentInChildren<TMP_Text>().text = $"{moves[index].moveName}\n{moves[index].moveDescription}" +
               $"\nMana Cost: {moves[index].manaCost}\nBase Recovery: {moves[index].power * moves[index].moveRepeat}"; //Gets the description TMP_Text
             }
             else
             {
-                battleManager.movesetButtonList[index].transform.GetChild(1).GetComponentInChildren<TMP_Text>().text = $"{moves[index].moveName}\n{moves[index].moveDescription}" +
+                movesetManager.movesetButtonList[index].transform.GetChild(1).GetComponentInChildren<TMP_Text>().text = $"{moves[index].moveName}\n{moves[index].moveDescription}" +
               $"\nMana Cost: {moves[index].manaCost}\nBase Damage: {moves[index].power * moves[index].moveRepeat}"; //Gets the description TMP_Text
             }
 
             if (moves[index].manaCost > currentMana)
             {
-                battleManager.movesetButtonList[index].interactable = false;
+                movesetManager.movesetButtonList[index].interactable = false;
             }
             else
             {
-                battleManager.movesetButtonList[index].interactable = true;
+                movesetManager.movesetButtonList[index].interactable = true;
             }
         }
 
-        for (int i = 0; i < battleManager.movesetButtonList.Count; i++)
+        for (int i = 0; i < movesetManager.movesetButtonList.Count; i++)
         {
-            battleManager.movesetButtonList[i].gameObject.SetActive(true);
+            movesetManager.movesetButtonList[i].gameObject.SetActive(true);
         }
-        for (int i = battleManager.movesetButtonList.Count - 1; i > accessedMoves - 1; i--)
+        for (int i = movesetManager.movesetButtonList.Count - 1; i > accessedMoves - 1; i--)
         {
-            battleManager.movesetButtonList[i].gameObject.SetActive(false);
+            movesetManager.movesetButtonList[i].gameObject.SetActive(false);
         }
     }
 

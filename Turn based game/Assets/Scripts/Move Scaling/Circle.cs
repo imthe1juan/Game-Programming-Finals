@@ -46,7 +46,6 @@ public class Circle : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Debug.Log("Clicked");
         if (newScale.x <= .95f)
         {
             ScaleMove(2);

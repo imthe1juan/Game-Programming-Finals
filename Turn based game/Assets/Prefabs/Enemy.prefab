@@ -25,9 +25,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3606067156659856623}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.25, y: 0, z: 0}
-  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.25, y: -1.5, z: 0}
+  m_LocalScale: {x: 1.2, y: 1.1999999, z: 1.2}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8423857782141782745}
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: -1727978481
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8f55f09a977964348a635bb215d1ac8b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3afe4a3fadca5d84a8031af3ece5abf7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 7708020990688959995}
   - component: {fileID: 3533638364261518461}
   - component: {fileID: 4769013320692040638}
+  - component: {fileID: 4883299217113724529}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -216,6 +217,27 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 2, y: 2.5}
   m_Direction: 0
+--- !u!95 &4883299217113724529
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3677306739273255099}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dbde67eba22dd2e4ea5ad0bc388ac8aa, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4275931416374237521
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,8 +264,8 @@ Transform:
   m_GameObject: {fileID: 4275931416374237521}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.12, z: 0}
-  m_LocalScale: {x: 1.0869714, y: 0.3504396, z: 1.0869714}
+  m_LocalPosition: {x: 0, y: 0.12999992, z: 0}
+  m_LocalScale: {x: 1.0869714, y: 0.35043964, z: 1.0869714}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2386185475700838478}
@@ -350,7 +372,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2686419422311278984, guid: 4408fb473763d01499bfccda9390722c, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.013888885
+      value: 0.013888887
       objectReference: {fileID: 0}
     - target: {fileID: 2686419422311278984, guid: 4408fb473763d01499bfccda9390722c, type: 3}
       propertyPath: m_LocalScale.z
@@ -390,7 +412,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2686419422311278984, guid: 4408fb473763d01499bfccda9390722c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 2686419422311278984, guid: 4408fb473763d01499bfccda9390722c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

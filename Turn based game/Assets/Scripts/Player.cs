@@ -15,35 +15,26 @@ public class Player : Character
     {
         base.ThisTurn();
         SetMoveset();
-        battleManager.PlayerTurn(characterName, characterSO.characterPortraitSprite);
-    }
-
-    public override void OnMouseDown()
-    {
-        battleManager.PickTarget(this);
+        BattleManager.Instance.PlayerTurn(characterName, characterSO.characterPortraitSprite);
     }
 
     public override void ExecuteMove()
     {
         UpdateMana(-preselectedMove.manaCost);
+        BattleManager battleManager = BattleManager.Instance;
         target = battleManager.GetTarget();
         battleManager.FocusMove(this, target);
 
         CameraManager.Instance.TargetTakingAction(target, preselectedMove, isEnemy);
         Vector3 offset = Vector3.zero;
-        if (preselectedMove.moveName != "'Rest'") //If move is not rest
+        if (target != preselectedMove.moveOwner) //If move does not targets the self
         {
             offset = new Vector3(2f, 0, 0);
-            if (preselectedMove.moveName == "'Nature's Embrace'" && target.characterName == "Talindra")
-            {
-                offset = new Vector3(0f, 0, 0);
-            }
         }
         transform.position = target.transform.position - offset;
 
-        battleManager.DisableMoveset();
-
-        battleManager.AnnounceAction(characterName + " uses " + preselectedMove.moveName + " to " + battleManager.GetTarget().characterName);
+        MovesetManager.Instance.DisableMoveset();
+        MovesetManager.Instance.SetCharacterAction(characterName + " uses " + preselectedMove.moveName + " to " + target.characterName);
         Invoke(nameof(ExecuteMoveDelay), 1f);
     }
 
